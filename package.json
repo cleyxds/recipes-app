@@ -1,5 +1,5 @@
 {
-  "name": "cleyxds-blog",
+  "name": "blog-service",
   "version": "v0.0.1",
   "main": "index.js",
   "license": "Apache-2.0",
