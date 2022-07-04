@@ -24,7 +24,7 @@ export default {
 
       res.json({ id, ...data, _ts: Date.now() })
     } catch (error) {
-      res.json({ error, errors: [] })
+      res.json({ error, errors: ["create()"] })
     }
   },
   fetch: async (req: Request, res: Response, next: NextFunction) => {
@@ -37,7 +37,7 @@ export default {
 
       res.json({ ...post.toJSON(), _ts: Date.now() })
     } catch (error) {
-      res.json({ error, errors: [] })
+      res.json({ error, errors: ["fetch()"] })
     }
   },
   findAll: async (req: Request, res: Response, next: NextFunction) => {
@@ -53,7 +53,29 @@ export default {
 
       res.json({ posts, _ts: Date.now() })
     } catch (error) {
-      res.json({ error, errors: [] })
+      res.json({ error, errors: ["findAll()"] })
+    }
+  },
+  search: async (req: Request, res: Response, next: NextFunction) => {
+    const q = req.query.q
+
+    const repo = req.client.fetchRepository(PostSchema)
+
+    try {
+      const queryResult = await repo
+        .search()
+        .where("title")
+        .eq(q)
+        .or("slug")
+        .eq(q)
+        .or("description")
+        .matches(q)
+        .return.all()
+
+      res.json(queryResult)
+    } catch (error) {
+      console.log("error", error)
+      res.json({ error, errors: ["search()"] })
     }
   }
 }

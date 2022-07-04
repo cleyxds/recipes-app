@@ -5,12 +5,12 @@ class Post extends Entity {}
 export let PostSchema = new Schema(
   Post,
   {
-    title: { type: "string" },
-    description: { type: "string" },
-    publish_date: { type: "string" },
-    categories: { type: "string[]" },
-    thumbnail: { type: "string" },
-    slug: { type: "string" }
+    title: { type: "string", indexed: true },
+    description: { type: "text", indexed: true },
+    publish_date: { type: "string", indexed: false },
+    categories: { type: "string[]", indexed: false },
+    thumbnail: { type: "string", indexed: false },
+    slug: { type: "string", indexed: true }
   },
   {
     dataStructure: "JSON"

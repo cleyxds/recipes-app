@@ -16,6 +16,7 @@ export async function checkRedisConnection(
     next()
     return
   }
+
   await client.open(REDIS_URL)
 
   req.client = client
