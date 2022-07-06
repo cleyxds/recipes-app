@@ -4,7 +4,8 @@ import { PostSchema } from "../models"
 
 export default {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const { title, description, categories, thumbnail, slug } = req.body
+    const { title, description, categories, content, thumbnail, slug } =
+      req.body
 
     const data = {
       title,
@@ -12,6 +13,7 @@ export default {
       publish_date: new Date(Date.now()).toUTCString(),
       categories,
       thumbnail,
+      content,
       slug
     }
 
@@ -44,12 +46,7 @@ export default {
     const repo = req.client.fetchRepository(PostSchema)
 
     try {
-      const postIds = await req.client.execute(["KEYS", "Post:*"])
-      const parsedPostIds = postIds?.map(item => item?.replace("Post:", ""))
-      const postsRequestPromises = parsedPostIds?.map(
-        async item => await repo.fetch(item)
-      )
-      const posts = await Promise.all(postsRequestPromises)
+      const posts = await repo.search().return.all()
 
       res.json({ posts, _ts: Date.now() })
     } catch (error) {
@@ -69,12 +66,13 @@ export default {
         .or("slug")
         .eq(q)
         .or("description")
-        .matches(q)
+        .match(q)
+        .or("content")
+        .match(q)
         .return.all()
 
       res.json(queryResult)
     } catch (error) {
-      console.log("error", error)
       res.json({ error, errors: ["search()"] })
     }
   }

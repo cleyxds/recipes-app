@@ -13,11 +13,13 @@ export async function checkRedisConnection(
 ) {
   if (client.isOpen()) {
     req.client = client
+    req.shouldCreateIndex = false
     next()
     return
   }
 
   await client.open(REDIS_URL)
+  req.shouldCreateIndex = true
 
   req.client = client
   next()
