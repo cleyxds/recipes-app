@@ -1,4 +1,4 @@
-# Reanimated example
+# Energy app project
 
 <p>
   <!-- iOS -->
@@ -8,13 +8,6 @@
   <!-- Web -->
 </p>
 
-## 🚀 How to use
+## 📝 App design
 
-> `npx create-react-native-app my-app -t with-reanimated`
-
-- Run `yarn` or `npm install`
-- Run [`expo start`](https://docs.expo.dev/versions/latest/workflow/expo-cli/), try it out.
-
-## 📝 Notes
-
-- [`react-native-reanimated` docs](https://docs.swmansion.com/react-native-reanimated/)
+[_design_](<https://www.figma.com/file/ksD52pbAsgvxqDIp7kJpjI/Duke-Energy-(Community)?node-id=1%3A2>)
