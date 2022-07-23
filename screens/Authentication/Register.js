@@ -15,6 +15,11 @@ import {
   ScrollView
 } from "react-native"
 
+import { useNavigation } from "@react-navigation/native"
+
+import { useUserStore } from "../../stores/User"
+import { useAuthStore } from "../../stores/Auth"
+
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import RegisterBackground from "../../assets/images/Authentication/register.png"
@@ -31,6 +36,10 @@ const DEFAULT_STATES = {
 
 export function Register() {
   const { height } = useWindowDimensions()
+  const { navigate } = useNavigation()
+
+  const { setUser } = useUserStore()
+  const { logUserIn } = useAuthStore()
 
   const [isLoading, setIsLoading] = useState(DEFAULT_STATES["IS_LOADING"])
   const [accountNumber, setAccountNumber] = useState(
@@ -42,8 +51,20 @@ export function Register() {
 
     setIsLoading(true)
 
+    setUser({
+      id: accountNumber.trim(),
+      accountNumber: accountNumber.trim(),
+      username: "Cleyson B",
+      email: "cleyxds.dev@gmail.com"
+    })
+
+    logUserIn(accountNumber.trim())
+
     await wait(3000)
 
+    navigate("SMain")
+
+    await wait(300)
     setIsLoading(false)
   }
 
@@ -366,6 +387,7 @@ export function Register() {
             <TouchableOpacity
               touchSoundDisabled
               activeOpacity={DEFAULT_OPACITY}
+              onPress={() => navigate("PrivPol")}
             >
               <Text
                 style={{
@@ -392,6 +414,7 @@ export function Register() {
             <TouchableOpacity
               touchSoundDisabled
               activeOpacity={DEFAULT_OPACITY}
+              onPress={() => navigate("TermAndCond")}
             >
               <Text
                 style={{

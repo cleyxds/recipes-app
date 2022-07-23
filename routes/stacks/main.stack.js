@@ -2,18 +2,16 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 const { Navigator, Screen } = createStackNavigator()
 
-import { AuthStack } from "./stacks/auth.stack"
-import { MainStack } from "./stacks/main.stack"
+import { Welcome } from "../../screens/Welcome"
 
-export function Routes() {
+export function MainStack() {
   return (
     <Navigator
       screenOptions={{
         headerShown: false
       }}
     >
-      <Screen name="SAuth" component={AuthStack} />
-      <Screen name="SMain" component={MainStack} />
+      <Screen name="MainWelcome" component={Welcome} />
     </Navigator>
   )
 }
