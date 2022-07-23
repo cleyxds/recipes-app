@@ -1,0 +1,5 @@
+export default {
+  WHITE: "#FFFFFF",
+  WALKTHROUGH_BLUE: "#00335C",
+  WALKTHROUGH_GREEN: "#36A629"
+}

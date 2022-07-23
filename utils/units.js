@@ -1,0 +1,3 @@
+const DEFAULT_OPACITY = 0.65
+
+export { DEFAULT_OPACITY }
