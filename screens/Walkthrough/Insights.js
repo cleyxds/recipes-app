@@ -11,7 +11,7 @@ import { Stepper } from "./components"
 
 import { useNavigation } from "@react-navigation/native"
 
-import useHandleSkip from "../hooks/useHandleSkip"
+import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 

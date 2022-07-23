@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native"
 
-import wait from "../../utils/wait"
+import wait from "../../../utils/wait"
 
 export default () => {
   const { navigate } = useNavigation()
