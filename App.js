@@ -1,5 +1,13 @@
-import { Welcome } from "./screens/Walkthrough/components"
+import "react-native-gesture-handler"
 
-export default function App(props) {
-  return <Welcome />
+import { NavigationContainer } from "@react-navigation/native"
+
+import { Routes } from "./routes"
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
+  )
 }

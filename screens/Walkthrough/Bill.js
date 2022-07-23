@@ -7,18 +7,19 @@ import {
   TouchableOpacity
 } from "react-native"
 
-import { Stepper } from "./Stepper"
+import { Stepper } from "./components"
 
-import handleSkip from "../utils/handleSkip"
+import useHandleSkip from "../hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
-import WelcomeImage from "../../../assets/images/Walkthrough/welcome.png"
-import { DEFAULT_OPACITY } from "../../../utils/units"
-import colors from "../../../utils/colors"
+import WelcomeImage from "../../assets/images/Walkthrough/welcome.png"
+import { DEFAULT_OPACITY } from "../../utils/units"
+import colors from "../../utils/colors"
 
-export function Welcome() {
+export function Bill() {
   const { height } = useWindowDimensions()
+  const { handleSkip } = useHandleSkip()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -30,7 +31,7 @@ export function Welcome() {
         style={styles.skipButtonStyle}
         onPress={handleSkip}
       >
-        <Text style={styles.skipButtonTextStyle}>Skip</Text>
+        <Text style={styles.skipButtonTextStyle}>Bill bro</Text>
       </TouchableOpacity>
 
       <View style={styles.contentContainer}>
