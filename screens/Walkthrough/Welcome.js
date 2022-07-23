@@ -9,6 +9,8 @@ import {
 
 import { Stepper } from "./components"
 
+import { useNavigation } from "@react-navigation/native"
+
 import useHandleSkip from "../hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
@@ -20,6 +22,7 @@ import colors from "../../utils/colors"
 export function Welcome() {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
+  const { navigate } = useNavigation()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -39,7 +42,7 @@ export function Welcome() {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
-            onPress={() => console.log("pressed on Stepper")}
+            onPress={() => navigate("Bill")}
             style={styles.stepperStyle}
           />
 

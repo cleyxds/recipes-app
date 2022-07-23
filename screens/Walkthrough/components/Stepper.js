@@ -2,6 +2,7 @@ import { View, TouchableOpacity, StyleSheet } from "react-native"
 
 import Arrow from "../../../assets/icons/Arrow"
 
+import { DEFAULT_OPACITY } from "../../../utils/units"
 import colors from "../../../utils/colors"
 
 export function Stepper({ style, onPress }) {
@@ -12,11 +13,12 @@ export function Stepper({ style, onPress }) {
   return (
     <TouchableOpacity
       touchSoundDisabled
-      activeOpacity={0.65}
+      activeOpacity={DEFAULT_OPACITY}
+      disabled={!onPress}
       onPress={handlePress}
       style={style}
     >
-      <View style={styles.container}>
+      <View style={styles.container(!onPress)}>
         <Arrow />
       </View>
     </TouchableOpacity>
@@ -24,12 +26,12 @@ export function Stepper({ style, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.WHITE,
+  container: isDisabled => ({
+    backgroundColor: isDisabled ? colors.GREY : colors.WHITE,
     borderRadius: 50,
     width: 40,
     height: 40,
     justifyContent: "center",
     alignItems: "center"
-  }
+  })
 })

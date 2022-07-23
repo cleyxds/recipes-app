@@ -1,6 +1,7 @@
 import {
   View,
   Text,
+  Button,
   ImageBackground,
   useWindowDimensions,
   StyleSheet,
@@ -8,6 +9,8 @@ import {
 } from "react-native"
 
 import { Stepper } from "./components"
+
+import { useNavigation } from "@react-navigation/native"
 
 import useHandleSkip from "../hooks/useHandleSkip"
 
@@ -20,6 +23,7 @@ import colors from "../../utils/colors"
 export function Communications() {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
+  const { navigate } = useNavigation()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -38,19 +42,36 @@ export function Communications() {
         <View style={styles.contentContainerWrapper(CONTENT_HEIGHT)}>
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
-          <Stepper
-            onPress={() => console.log("pressed on Stepper")}
-            style={styles.stepperStyle}
-          />
+          <Stepper style={styles.stepperStyle} />
 
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentTitle}>Welcome to Duke Energy</Text>
+            <Text style={styles.contentTitle}>Manage Communications</Text>
 
             <View style={{ marginTop: 10 }}>
               <Text style={styles.contentDescription}>
-                Take a quick tour of some of the features you will find in the
-                "Gexa Energy" App
+                Update and manage account communications in one spot. Click to
+                review your current settings and get started.
               </Text>
+            </View>
+
+            <View style={{ marginTop: 33, flexDirection: "row" }}>
+              <TouchableOpacity
+                touchSoundDisabled
+                activeOpacity={DEFAULT_OPACITY}
+                onPress={handleSkip}
+                style={styles.getStartedButtonStyle}
+              >
+                <Text
+                  style={{
+                    color: colors.WALKTHROUGH_BLUE,
+                    fontWeight: "600",
+                    lineHeight: 22,
+                    fontSize: 18
+                  }}
+                >
+                  Let’s Get Started
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -77,7 +98,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     flex: 1,
-    opacity: 0.7,
+    opacity: 0.95,
     backgroundColor: colors.WALKTHROUGH_BLUE,
     width: "100%",
     height
@@ -117,5 +138,13 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 19.5,
     textAlign: "center"
+  },
+  getStartedButtonStyle: {
+    width: "100%",
+    backgroundColor: colors.WHITE,
+    paddingHorizontal: 72,
+    paddingVertical: 12,
+    borderRadius: 40,
+    alignItems: "center"
   }
 })

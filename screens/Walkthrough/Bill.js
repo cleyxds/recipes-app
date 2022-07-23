@@ -9,6 +9,8 @@ import {
 
 import { Stepper } from "./components"
 
+import { useNavigation } from "@react-navigation/native"
+
 import useHandleSkip from "../hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
@@ -20,6 +22,7 @@ import colors from "../../utils/colors"
 export function Bill() {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
+  const { navigate } = useNavigation()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -31,7 +34,7 @@ export function Bill() {
         style={styles.skipButtonStyle}
         onPress={handleSkip}
       >
-        <Text style={styles.skipButtonTextStyle}>Bill bro</Text>
+        <Text style={styles.skipButtonTextStyle}>Skip</Text>
       </TouchableOpacity>
 
       <View style={styles.contentContainer}>
@@ -39,17 +42,17 @@ export function Bill() {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
-            onPress={() => console.log("pressed on Stepper")}
+            onPress={() => navigate("Payments")}
             style={styles.stepperStyle}
           />
 
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentTitle}>Welcome to Duke Energy</Text>
+            <Text style={styles.contentTitle}>View My Bill</Text>
 
             <View style={{ marginTop: 10 }}>
               <Text style={styles.contentDescription}>
                 Take a quick tour of some of the features you will find in the
-                "Gexa Energy" App
+                "Duke Energy" App
               </Text>
             </View>
           </View>
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     flex: 1,
-    opacity: 0.7,
+    opacity: 0.95,
     backgroundColor: colors.WALKTHROUGH_BLUE,
     width: "100%",
     height
