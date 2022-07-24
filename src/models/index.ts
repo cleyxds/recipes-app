@@ -1,3 +1,3 @@
-import { PostSchema } from "./Post"
+import { UserSchema } from "./User"
 
-export { PostSchema }
+export { UserSchema }

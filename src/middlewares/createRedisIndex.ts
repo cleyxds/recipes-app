@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 
-import { PostSchema } from "../models"
+import { UserSchema } from "../models"
 
 export async function createRedisIndex(
   req: Request,
@@ -12,7 +12,7 @@ export async function createRedisIndex(
     return
   }
 
-  const repo = req.client.fetchRepository(PostSchema)
+  const repo = req.client.fetchRepository(UserSchema)
 
   try {
     await repo.createIndex()
