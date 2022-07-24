@@ -14,7 +14,8 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "redis-om": "^0.3.5",
-    "sucrase": "^3.23.0"
+    "sucrase": "^3.23.0",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
