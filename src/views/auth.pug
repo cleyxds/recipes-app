@@ -1,0 +1,20 @@
+html
+  head
+    link(rel='stylesheet', href='styles/styles.css', type='text/css' )
+    title= title
+  body
+    img(class="fixed w-screen min-h-screen bg-white", src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", alt="Logo")
+    
+    div(class="flex justify-center items-center absolute left-0 right-0 top-16")
+      
+      div(class="flex flex-col bg-white rounded-lg p-6 space-y-10 justify-center items-center")
+
+        img(class="rounded-lg",src="/images/logo.png", alt="Logo")
+
+        form(class="flex flex-col space-y-8 border-[#00456B] border-[2px] rounded-lg p-6 h-[200px]" action="/auth/login" method="GET") 
+
+          div(class="space-y-3")
+            p Account Number
+            input(name="account_number" type="text", required, placeholder="9J91J2J")
+
+          button(type="submit" class="p-4 bg-green-400 rounded-lg") Submit

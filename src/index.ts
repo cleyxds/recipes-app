@@ -3,6 +3,8 @@ import cors from "cors"
 
 import { config } from "dotenv"
 
+import { join } from "path"
+
 config({ path: ".env" })
 
 import {
@@ -17,6 +19,9 @@ const SERVER_PORT = process.env.SERVER_PORT
 
 const app = express()
 
+app.set("views", join(__dirname, "views"))
+app.set("view engine", "pug")
+app.use(express.static(join(__dirname, "..", "public")))
 app.use(cors())
 app.use(express.json())
 app.use(checkRedisConnection)
