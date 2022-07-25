@@ -36,7 +36,7 @@ const DEFAULT_STATES = {
 
 export function Register() {
   const { height } = useWindowDimensions()
-  const { navigate } = useNavigation()
+  const { reset } = useNavigation()
 
   const { setUser } = useUserStore()
   const { logUserIn } = useAuthStore()
@@ -62,7 +62,7 @@ export function Register() {
 
     await wait(3000)
 
-    navigate("SMain")
+    reset({ index: 0, routes: [{ name: "SMain" }] })
 
     await wait(300)
     setIsLoading(false)
