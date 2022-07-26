@@ -1,20 +1,12 @@
 import express from "express"
 
-import wait from "../utils/wait"
+import { AuthController } from "../controllers"
+
+import { notImplemented } from "../middlewares"
 
 const router = express.Router()
 
-router.get("/auth", (req, res) => {
-  res.render("auth", { title: "Duke Energy | Authenticate" })
-})
-
-router.get("/auth/login", async (req, res) => {
-  const { account_number } = req.query
-
-  console.log({ account_number })
-
-  await wait()
-  res.redirect("/")
-})
+router.get("/auth", notImplemented, AuthController["webview"])
+router.post("/auth/login", AuthController["login"])
 
 export { router }
