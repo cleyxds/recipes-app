@@ -36,7 +36,7 @@ const DEFAULT_STATES = {
 
 export function Register() {
   const { height } = useWindowDimensions()
-  const { reset } = useNavigation()
+  const { navigate, reset } = useNavigation()
 
   const { setUser } = useUserStore()
   const { logUserIn } = useAuthStore()
@@ -54,7 +54,7 @@ export function Register() {
     setUser({
       id: accountNumber.trim(),
       accountNumber: accountNumber.trim(),
-      username: "Cleyson B",
+      username: accountNumber.trim(),
       email: "cleyxds.dev@gmail.com"
     })
 

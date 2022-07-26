@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native"
 
-import Arrow from "../../../assets/icons/Arrow"
+import { ArrowIcon } from "../../../assets/icons"
 
 import { DEFAULT_OPACITY } from "../../../utils/units"
 import colors from "../../../utils/colors"
@@ -19,7 +19,7 @@ export function Stepper({ style, onPress }) {
       style={style}
     >
       <View style={styles.container(!onPress)}>
-        <Arrow />
+        <ArrowIcon />
       </View>
     </TouchableOpacity>
   )

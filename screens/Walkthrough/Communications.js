@@ -45,13 +45,15 @@ export function Communications() {
           <Stepper style={styles.stepperStyle} />
 
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentTitle}>Manage Communications</Text>
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.contentTitle}>Manage Communications</Text>
 
-            <View style={{ marginTop: 10 }}>
-              <Text style={styles.contentDescription}>
-                Update and manage account communications in one spot. Click to
-                review your current settings and get started.
-              </Text>
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.contentDescription}>
+                  Update and manage account communications in one spot. Click to
+                  review your current settings and get started.
+                </Text>
+              </View>
             </View>
 
             <View style={{ marginTop: 33, flexDirection: "row" }}>
@@ -123,7 +125,10 @@ const styles = StyleSheet.create({
   contentTextContainer: {
     marginTop: 60,
     marginHorizontal: 34,
-    alignItems: "center"
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 23
   },
   contentTitle: {
     fontSize: 24,
