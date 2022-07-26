@@ -29,7 +29,7 @@ app.use(createRedisIndex)
 
 app.use(AuthRouter)
 
-app.use(checkApiKeys, UserRouter)
+app.use(UserRouter)
 
 app.listen(SERVER_PORT, () =>
   console.log(`Server is running on http://localhost:${SERVER_PORT}`)
