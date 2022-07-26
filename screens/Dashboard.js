@@ -9,6 +9,8 @@ import {
   ActivityIndicator
 } from "react-native"
 
+import useSWR from "swr"
+
 import { useUserStore } from "../stores/User"
 import { useAuthStore } from "../stores/Auth"
 
@@ -25,7 +27,9 @@ export function Dashboard() {
   const { user } = useUserStore()
   const { auth } = useAuthStore()
 
-  const [firstName] = user?.username?.split(" ")
+  const { data, isValidating } = useSWR(`users/01G8RTXS90Z3W2PVY190WYX6Q7`)
+
+  const firstName = data?.profile?.firstName
 
   async function toggleNotifications() {}
   function handleBillDetails() {}
