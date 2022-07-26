@@ -28,7 +28,6 @@ app.use(checkRedisConnection)
 app.use(createRedisIndex)
 
 app.use(AuthRouter)
-
 app.use(UserRouter)
 
 app.listen(SERVER_PORT, () =>

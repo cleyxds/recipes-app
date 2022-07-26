@@ -5,7 +5,7 @@ import { genSalt, hash } from "bcrypt"
 import { UserSchema } from "../models"
 
 function parseUserResponse(user) {
-  const { entityId, credentials, profile, status, locale } = user
+  const { entityId, profile, status, locale } = user
   return {
     id: entityId,
     status: status,
@@ -59,7 +59,6 @@ export default {
       await repo.save(user)
 
       res.json({ ...parseUserResponse(user), _ts: now })
-      // res.json({ id, ...data, _ts: now })
     } catch (error) {
       res.status(500).json({ error, errors: ["create()"] })
     }
@@ -109,7 +108,42 @@ export default {
 
       const users = await Promise.all(usersRequestPromises)
 
-      res.json({ users, _ts: Date.now() })
+      const parsedUsers = users?.map(
+        ({
+          entityId,
+          profile,
+          locale,
+          status,
+          createdAt,
+          activatedAt,
+          statusChanged,
+          lastLogin,
+          lastUpdated,
+          passwordChangedAt
+        }) => ({
+          id: entityId,
+          status: status,
+          createdAt,
+          activatedAt,
+          statusChanged,
+          lastLogin,
+          lastUpdated,
+          passwordChangedAt,
+          profile: {
+            firstName: profile[0],
+            lastName: profile[1],
+            email: profile[2],
+            login: profile[3],
+            phone: profile[4]
+          },
+          credentials: {
+            provider: "Express-Server"
+          },
+          locale
+        })
+      )
+
+      res.json({ users: parsedUsers, _ts: Date.now() })
     } catch (error) {
       res.status(500).json({ error, errors: ["findAll()"] })
     }
@@ -126,6 +160,7 @@ export default {
 
       user.locale = locale
       user.profile = [firstName, lastName, email, email, phone]
+      user.lastUpdated = Date.now()
 
       await repo.save(user)
 

@@ -7,7 +7,7 @@ import { notImplemented } from "../middlewares"
 const router = express.Router()
 
 router.post("/users", UserController["create"])
-router.get("/users", notImplemented, UserController["findAll"])
+router.get("/users", UserController["findAll"])
 router.get("/users/:id", UserController["fetch"])
 router.put("/users/:id", UserController["update"])
 router.delete("/users/:id", UserController["delete"])
