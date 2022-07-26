@@ -1,31 +1,46 @@
+import { useState } from "react"
+
 import {
   View,
   Text,
-  Button,
   ImageBackground,
   useWindowDimensions,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native"
 
 import { Stepper } from "./components"
-
-import { useNavigation } from "@react-navigation/native"
 
 import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import WelcomeImage from "../../assets/images/Walkthrough/welcome.png"
+
 import { DEFAULT_OPACITY } from "../../utils/units"
 import colors from "../../utils/colors"
+
+const DEFAULT_STATE = {
+  LOADING: false
+}
 
 export function Communications() {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
-  const { navigate } = useNavigation()
+  const [isLoading, setIsLoading] = useState(DEFAULT_STATE["LOADING"])
 
   const CONTENT_HEIGHT = height * 0.45
+
+  async function handleGetStarted() {
+    if (isLoading) return
+
+    setIsLoading(true)
+
+    await handleSkip()
+
+    setIsLoading(false)
+  }
 
   return (
     <ImageBackground source={WelcomeImage} style={styles.container}>
@@ -58,21 +73,29 @@ export function Communications() {
 
             <View style={{ marginTop: 33, flexDirection: "row" }}>
               <TouchableOpacity
+                disabled={isLoading}
                 touchSoundDisabled
                 activeOpacity={DEFAULT_OPACITY}
-                onPress={handleSkip}
+                onPress={handleGetStarted}
                 style={styles.getStartedButtonStyle}
               >
-                <Text
-                  style={{
-                    color: colors.WALKTHROUGH_BLUE,
-                    fontWeight: "600",
-                    lineHeight: 22,
-                    fontSize: 18
-                  }}
-                >
-                  Let’s Get Started
-                </Text>
+                {isLoading ? (
+                  <ActivityIndicator
+                    color={colors.WALKTHROUGH_BLUE}
+                    style={{ height: 22 }}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      color: colors.WALKTHROUGH_BLUE,
+                      fontWeight: "600",
+                      lineHeight: 22,
+                      fontSize: 18
+                    }}
+                  >
+                    Let’s Get Started
+                  </Text>
+                )}
               </TouchableOpacity>
             </View>
           </View>
@@ -108,7 +131,7 @@ const styles = StyleSheet.create({
   skipButtonStyle: {
     position: "absolute",
     right: 20,
-    top: getStatusBarHeight() + 16
+    top: getStatusBarHeight(true) + 16
   },
   skipButtonTextStyle: {
     textTransform: "uppercase",

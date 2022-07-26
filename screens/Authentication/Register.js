@@ -379,7 +379,7 @@ export function Register() {
                 color: colors.WHITE,
                 fontWeight: "500",
                 fontSize: 14,
-                lineHeight: 12.19
+                lineHeight: 16
               }}
             >
               By Signing In, you agree to our{" "}
@@ -394,7 +394,7 @@ export function Register() {
                   color: colors.AUTHENTICATION_GREEN,
                   fontWeight: "400",
                   fontSize: 14,
-                  lineHeight: 12.19
+                  lineHeight: 16
                 }}
               >
                 Privacy Policy
@@ -405,7 +405,7 @@ export function Register() {
                 color: colors.WHITE,
                 fontWeight: "500",
                 fontSize: 14,
-                lineHeight: 12.19
+                lineHeight: 16
               }}
             >
               {" "}
@@ -421,7 +421,7 @@ export function Register() {
                   color: colors.AUTHENTICATION_GREEN,
                   fontWeight: "400",
                   fontSize: 14,
-                  lineHeight: 12.19
+                  lineHeight: 16
                 }}
               >
                 Terms and Conditions

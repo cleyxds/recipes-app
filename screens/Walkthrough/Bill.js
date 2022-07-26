@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   skipButtonStyle: {
     position: "absolute",
     right: 20,
-    top: getStatusBarHeight() + 16
+    top: getStatusBarHeight(true) + 16
   },
   skipButtonTextStyle: {
     textTransform: "uppercase",
