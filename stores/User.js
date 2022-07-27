@@ -2,7 +2,6 @@ import create from "zustand"
 
 const DEFAULT_STATE = {
   id: "",
-  accountNumber: "",
   username: "",
   email: ""
 }

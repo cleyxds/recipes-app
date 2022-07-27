@@ -16,7 +16,7 @@ import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
-import WelcomeImage from "../../assets/images/Walkthrough/welcome.png"
+import CommunicationsImage from "../../assets/images/Walkthrough/communications.png"
 
 import { DEFAULT_OPACITY } from "../../utils/units"
 import colors from "../../utils/colors"
@@ -43,7 +43,7 @@ export function Communications() {
   }
 
   return (
-    <ImageBackground source={WelcomeImage} style={styles.container}>
+    <ImageBackground source={CommunicationsImage} style={styles.container}>
       <TouchableOpacity
         touchSoundDisabled
         activeOpacity={DEFAULT_OPACITY}

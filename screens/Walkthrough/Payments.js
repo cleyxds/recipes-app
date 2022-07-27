@@ -15,7 +15,7 @@ import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
-import WelcomeImage from "../../assets/images/Walkthrough/welcome.png"
+import PaymentsImage from "../../assets/images/Walkthrough/payments.png"
 import { DEFAULT_OPACITY } from "../../utils/units"
 import colors from "../../utils/colors"
 
@@ -27,7 +27,7 @@ export function Payments() {
   const CONTENT_HEIGHT = height * 0.45
 
   return (
-    <ImageBackground source={WelcomeImage} style={styles.container}>
+    <ImageBackground source={PaymentsImage} style={styles.container}>
       <TouchableOpacity
         touchSoundDisabled
         activeOpacity={DEFAULT_OPACITY}

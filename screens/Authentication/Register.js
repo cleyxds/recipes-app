@@ -51,18 +51,18 @@ export function Register() {
 
     setIsLoading(true)
 
-    setUser({
-      id: accountNumber.trim(),
-      accountNumber: accountNumber.trim(),
-      username: accountNumber.trim(),
-      email: "cleyxds.dev@gmail.com"
-    })
+    // setUser({
+    //   id: accountNumber.trim(),
+    //   accountNumber: accountNumber.trim(),
+    //   username: accountNumber.trim(),
+    //   email: "cleyxds.dev@gmail.com"
+    // })
 
-    logUserIn(accountNumber.trim())
+    // logUserIn(accountNumber.trim())
 
     await wait(3000)
 
-    reset({ index: 0, routes: [{ name: "SMain" }] })
+    // reset({ index: 0, routes: [{ name: "SMain" }] })
 
     await wait(300)
     setIsLoading(false)
@@ -263,6 +263,7 @@ export function Register() {
               </Text>
               <TouchableOpacity
                 touchSoundDisabled
+                onPress={() => navigate("Login")}
                 activeOpacity={DEFAULT_OPACITY}
               >
                 <Text

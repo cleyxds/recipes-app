@@ -24,10 +24,12 @@ import colors from "../utils/colors"
 
 export function Dashboard() {
   const { height } = useWindowDimensions()
-  const { user } = useUserStore()
+  const {
+    user: { id: userId }
+  } = useUserStore()
   const { auth } = useAuthStore()
 
-  const { data, isValidating } = useSWR(`users/01G8RTXS90Z3W2PVY190WYX6Q7`)
+  const { data, isValidating } = useSWR(`users/${userId}`)
 
   const firstName = data?.profile?.firstName
 
@@ -42,12 +44,9 @@ export function Dashboard() {
         { backgroundColor: colors.AUTHENTICATION_BLUE_II }
       ]}
     >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-        contentContainerStyle={{
+      <View
+        style={{
           paddingTop: getStatusBarHeight(),
-          paddingBottom: 36.19,
           flex: 1
         }}
       >
@@ -109,22 +108,25 @@ export function Dashboard() {
           </TouchableOpacity>
         </View>
 
-        <View
+        <ScrollView
+          bounces={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 36.19,
+            paddingTop: 27,
+            paddingHorizontal: 24
+          }}
           style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
+            flex: 1,
             borderTopLeftRadius: 38,
             borderTopRightRadius: 38,
             minHeight: height * 0.7,
             backgroundColor: colors.WHITE,
-            paddingHorizontal: 24
+            marginTop: 36
           }}
         >
           <View
             style={{
-              marginTop: 27,
               paddingHorizontal: 24,
               paddingVertical: 29,
               backgroundColor: colors.DASHBOARD_INTRO_GREEN,
@@ -326,8 +328,8 @@ export function Dashboard() {
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   )
 }
