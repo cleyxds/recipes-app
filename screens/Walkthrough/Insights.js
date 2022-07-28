@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   skipButtonTextStyle: {
     textTransform: "uppercase",
     color: colors.WALKTHROUGH_GREEN,
-    fontWeight: "700",
+    fontFamily: "MontserratBold",
     fontSize: 14,
     lineHeight: 16
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   contentTitle: {
     fontSize: 24,
-    fontWeight: "700",
+    fontFamily: "PoppinsSemiBold",
     color: colors.WHITE,
     lineHeight: 36,
     letterSpacing: 0.2
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   contentDescription: {
     color: colors.WHITE,
     fontSize: 16,
-    fontWeight: "400",
+    fontFamily: "MontserratRegular",
     lineHeight: 19.5,
     textAlign: "center"
   }

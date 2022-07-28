@@ -115,7 +115,7 @@ export function Login() {
                 fontSize: 22,
                 lineHeight: 28.64,
                 letterSpacing: 0.2,
-                fontWeight: "700",
+                fontFamily: "DMSansBold",
                 color: colors.AUTHENTICATION_BLUE
               }}
             >
@@ -130,7 +130,7 @@ export function Login() {
             >
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   fontSize: 14,
                   lineHeight: 22,
                   letterSpacing: 0.2,
@@ -141,7 +141,7 @@ export function Login() {
               </Text>
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   fontSize: 14,
                   lineHeight: 22,
                   letterSpacing: 0.2,
@@ -162,7 +162,7 @@ export function Login() {
                 value={email}
                 style={{
                   fontSize: 14,
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   lineHeight: 18.23,
                   letterSpacing: 0.2,
                   paddingHorizontal: 14.68,
@@ -183,7 +183,7 @@ export function Login() {
                 value={password}
                 style={{
                   fontSize: 14,
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   lineHeight: 18.23,
                   letterSpacing: 0.2,
                   marginTop: 18,
@@ -206,10 +206,10 @@ export function Login() {
                     alignSelf: "flex-end",
                     fontSize: 12,
                     lineHeight: 16,
-                    fontWeight: "400"
+                    fontFamily: "MontserratRegular"
                   }}
                 >
-                  Forgot password?
+                  Retrieve account
                 </Text>
               </TouchableOpacity>
             </View>
@@ -234,7 +234,7 @@ export function Login() {
               ) : (
                 <Text
                   style={{
-                    fontWeight: "700",
+                    fontFamily: "DMSansBold",
                     fontSize: 14,
                     lineHeight: 18.23,
                     letterSpacing: 0.2,
@@ -265,7 +265,7 @@ export function Login() {
               <Text
                 style={{
                   marginHorizontal: 16.78,
-                  fontWeight: "400",
+                  fontFamily: "NunitoSansRegular",
                   fontSize: 14,
                   lineHeight: 19.1,
                   letterSpacing: 0.3,
@@ -293,7 +293,7 @@ export function Login() {
             >
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "MontserratRegular",
                   color: colors.AUTHENTICATION_GREY,
                   fontSize: 14,
                   lineHeight: 16
@@ -308,7 +308,7 @@ export function Login() {
               >
                 <Text
                   style={{
-                    fontWeight: "700",
+                    fontFamily: "MontserratBold",
                     color: colors.WALKTHROUGH_BLUE,
                     fontSize: 14,
                     lineHeight: 16
@@ -332,7 +332,7 @@ export function Login() {
               >
                 <Text
                   style={{
-                    fontWeight: "400",
+                    fontFamily: "MontserratRegular",
                     fontSize: 12,
                     lineHeight: 16,
                     color: colors.BLACK
@@ -343,7 +343,7 @@ export function Login() {
               </TouchableOpacity>
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "MontserratRegular",
                   fontSize: 12,
                   lineHeight: 16,
                   color: colors.BLACK
@@ -358,7 +358,7 @@ export function Login() {
               >
                 <Text
                   style={{
-                    fontWeight: "400",
+                    fontFamily: "MontserratRegular",
                     fontSize: 12,
                     lineHeight: 16,
                     color: colors.BLACK

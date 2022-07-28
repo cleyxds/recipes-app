@@ -62,7 +62,7 @@ export function Dashboard() {
           <View>
             <Text
               style={{
-                fontWeight: "600",
+                fontFamily: "MontserratSemiBold",
                 fontSize: 24,
                 color: colors.WHITE
               }}
@@ -75,7 +75,7 @@ export function Dashboard() {
                 style={{
                   marginTop: 16,
                   color: colors.WHITE,
-                  fontWeight: "700",
+                  fontFamily: "MontserratBold",
                   fontSize: 32,
                   lineHeight: 36
                 }}
@@ -135,16 +135,14 @@ export function Dashboard() {
           >
             <Text
               style={{
-                fontWeight: "400",
+                fontFamily: "MontserratRegular",
                 fontSize: 14,
                 lineHeight: 16,
                 color: colors.AUTHENTICATION_GREY,
                 textAlign: "center"
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor cidi dunt ut.Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor cidi dunt ut.
+              You don't have any devices linked, try adding a new device.
             </Text>
           </View>
 
@@ -163,7 +161,7 @@ export function Dashboard() {
           >
             <Text
               style={{
-                fontWeight: "700",
+                fontFamily: "MontserratBold",
                 fontSize: 14,
                 lineHeight: 16,
                 color: colors.WHITE
@@ -198,7 +196,7 @@ export function Dashboard() {
 
               <Text
                 style={{
-                  fontWeight: "500",
+                  fontFamily: "DMSansMedium",
                   fontSize: 16,
                   lineHeight: 20.83,
                   letterSpacing: 0.2,
@@ -218,7 +216,11 @@ export function Dashboard() {
               />
 
               <Text
-                style={{ fontWeight: "400", fontSize: 24, lineHeight: 29.26 }}
+                style={{
+                  fontFamily: "MontserratRegular",
+                  fontSize: 24,
+                  lineHeight: 29.26
+                }}
               >
                 72°
               </Text>
@@ -251,7 +253,7 @@ export function Dashboard() {
               <View>
                 <Text
                   style={{
-                    fontWeight: "700",
+                    fontFamily: "DMSansBold",
                     fontSize: 18,
                     lineHeight: 23.44,
                     color: colors.WHITE
@@ -262,7 +264,7 @@ export function Dashboard() {
                 <Text
                   style={{
                     marginTop: 6,
-                    fontWeight: "700",
+                    fontFamily: "DMSansBold",
                     fontSize: 36,
                     lineHeight: 46.87,
                     color: colors.WHITE
@@ -273,7 +275,7 @@ export function Dashboard() {
                 <Text
                   style={{
                     marginTop: 6,
-                    fontWeight: "600",
+                    fontFamily: "MontserratSemiBold",
                     fontSize: 8,
                     lineHeight: 9.75,
                     color: colors.WHITE
@@ -296,7 +298,7 @@ export function Dashboard() {
                 >
                   <Text
                     style={{
-                      fontWeight: "600",
+                      fontFamily: "MontserratSemiBold",
                       fontSize: 14,
                       color: colors.WHITE,
                       lineHeight: 16
@@ -314,7 +316,7 @@ export function Dashboard() {
                 >
                   <Text
                     style={{
-                      fontWeight: "800",
+                      fontFamily: "MontserratExtraBold",
                       fontSize: 14,
                       color: colors.AUTHENTICATION_GREEN,
                       lineHeight: 16,

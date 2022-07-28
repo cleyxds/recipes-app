@@ -98,7 +98,7 @@ export function Register() {
                 fontSize: 22,
                 lineHeight: 28.64,
                 letterSpacing: 0.2,
-                fontWeight: "700",
+                fontFamily: "DMSansBold",
                 color: colors.AUTHENTICATION_BLUE
               }}
             >
@@ -113,7 +113,7 @@ export function Register() {
             >
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   fontSize: 14,
                   lineHeight: 22,
                   letterSpacing: 0.2,
@@ -124,7 +124,7 @@ export function Register() {
               </Text>
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   fontSize: 14,
                   lineHeight: 22,
                   letterSpacing: 0.2,
@@ -144,7 +144,7 @@ export function Register() {
                 value={accountNumber}
                 style={{
                   fontSize: 14,
-                  fontWeight: "400",
+                  fontFamily: "DMSansRegular",
                   lineHeight: 18.23,
                   letterSpacing: 0.2,
                   paddingHorizontal: 14.68,
@@ -166,7 +166,7 @@ export function Register() {
                     alignSelf: "flex-end",
                     fontSize: 12,
                     lineHeight: 16,
-                    fontWeight: "400"
+                    fontFamily: "MontserratRegular"
                   }}
                 >
                   Retrieve account
@@ -194,7 +194,7 @@ export function Register() {
               ) : (
                 <Text
                   style={{
-                    fontWeight: "700",
+                    fontFamily: "DMSansBold",
                     fontSize: 14,
                     lineHeight: 18.23,
                     letterSpacing: 0.2,
@@ -225,7 +225,7 @@ export function Register() {
               <Text
                 style={{
                   marginHorizontal: 16.78,
-                  fontWeight: "400",
+                  fontFamily: "NunitoSansRegular",
                   fontSize: 14,
                   lineHeight: 19.1,
                   letterSpacing: 0.3,
@@ -253,7 +253,7 @@ export function Register() {
             >
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "MontserratRegular",
                   color: colors.AUTHENTICATION_GREY,
                   fontSize: 14,
                   lineHeight: 16
@@ -268,7 +268,7 @@ export function Register() {
               >
                 <Text
                   style={{
-                    fontWeight: "700",
+                    fontFamily: "MontserratBold",
                     color: colors.WALKTHROUGH_BLUE,
                     fontSize: 14,
                     lineHeight: 16
@@ -292,7 +292,7 @@ export function Register() {
               >
                 <Text
                   style={{
-                    fontWeight: "400",
+                    fontFamily: "MontserratRegular",
                     fontSize: 12,
                     lineHeight: 16,
                     color: colors.BLACK
@@ -303,7 +303,7 @@ export function Register() {
               </TouchableOpacity>
               <Text
                 style={{
-                  fontWeight: "400",
+                  fontFamily: "MontserratRegular",
                   fontSize: 12,
                   lineHeight: 16,
                   color: colors.BLACK
@@ -318,7 +318,7 @@ export function Register() {
               >
                 <Text
                   style={{
-                    fontWeight: "400",
+                    fontFamily: "MontserratRegular",
                     fontSize: 12,
                     lineHeight: 16,
                     color: colors.BLACK
@@ -340,7 +340,7 @@ export function Register() {
             <Text
               style={{
                 color: colors.WHITE,
-                fontWeight: "500",
+                fontFamily: "MontserratMedium",
                 lineHeight: 16,
                 fontSize: 14
               }}
@@ -358,7 +358,7 @@ export function Register() {
                   color: colors.AUTHENTICATION_GREEN,
                   fontSize: 14,
                   lineHeight: 16,
-                  fontWeight: "800"
+                  fontFamily: "MontserratExtraBold"
                 }}
               >
                 Enroll now
@@ -378,7 +378,7 @@ export function Register() {
             <Text
               style={{
                 color: colors.WHITE,
-                fontWeight: "500",
+                fontFamily: "MontserratMedium",
                 fontSize: 14,
                 lineHeight: 16
               }}
@@ -393,7 +393,7 @@ export function Register() {
               <Text
                 style={{
                   color: colors.AUTHENTICATION_GREEN,
-                  fontWeight: "400",
+                  fontFamily: "MontserratRegular",
                   fontSize: 14,
                   lineHeight: 16
                 }}
@@ -404,7 +404,7 @@ export function Register() {
             <Text
               style={{
                 color: colors.WHITE,
-                fontWeight: "500",
+                fontFamily: "MontserratMedium",
                 fontSize: 14,
                 lineHeight: 16
               }}
@@ -420,7 +420,7 @@ export function Register() {
               <Text
                 style={{
                   color: colors.AUTHENTICATION_GREEN,
-                  fontWeight: "400",
+                  fontFamily: "MontserratRegular",
                   fontSize: 14,
                   lineHeight: 16
                 }}

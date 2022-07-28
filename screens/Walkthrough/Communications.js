@@ -61,7 +61,13 @@ export function Communications() {
 
           <View style={styles.contentTextContainer}>
             <View style={{ alignItems: "center" }}>
-              <Text style={styles.contentTitle}>Manage Communications</Text>
+              <Text
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                style={styles.contentTitle}
+              >
+                Manage Communications
+              </Text>
 
               <View style={{ marginTop: 10 }}>
                 <Text style={styles.contentDescription}>
@@ -85,14 +91,7 @@ export function Communications() {
                     style={{ height: 22 }}
                   />
                 ) : (
-                  <Text
-                    style={{
-                      color: colors.WALKTHROUGH_BLUE,
-                      fontWeight: "600",
-                      lineHeight: 22,
-                      fontSize: 18
-                    }}
-                  >
+                  <Text style={styles.getStartedTextStyle}>
                     Let’s Get Started
                   </Text>
                 )}
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
   skipButtonTextStyle: {
     textTransform: "uppercase",
     color: colors.WALKTHROUGH_GREEN,
-    fontWeight: "700",
+    fontFamily: "MontserratBold",
     fontSize: 14,
     lineHeight: 16
   },
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
   },
   contentTitle: {
     fontSize: 24,
-    fontWeight: "700",
+    fontFamily: "PoppinsSemiBold",
     color: colors.WHITE,
     lineHeight: 36,
     letterSpacing: 0.2
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
   contentDescription: {
     color: colors.WHITE,
     fontSize: 16,
-    fontWeight: "400",
+    fontFamily: "MontserratRegular",
     lineHeight: 19.5,
     textAlign: "center"
   },
@@ -174,5 +173,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 40,
     alignItems: "center"
+  },
+  getStartedTextStyle: {
+    color: colors.WALKTHROUGH_BLUE,
+    fontFamily: "MontserratSemiBold",
+    lineHeight: 22,
+    fontSize: 18
   }
 })
