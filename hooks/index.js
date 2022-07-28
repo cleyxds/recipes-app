@@ -1,3 +1,4 @@
 import { useStatusBar } from "./useStatusBar"
+import { useLocalFonts } from "./useLocalFonts"
 
-export { useStatusBar }
+export { useStatusBar, useLocalFonts }

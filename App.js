@@ -6,6 +6,10 @@ import { SWRConfig } from "swr"
 
 import { NavigationContainer } from "@react-navigation/native"
 
+import AppLoading from "expo-app-loading"
+
+import { useLocalFonts } from "./hooks"
+
 import { StatusBarWrapper } from "./components"
 
 import { Routes } from "./routes"
@@ -15,6 +19,12 @@ import { fetcher } from "./utils/fetcher"
 import { isAndroid } from "./utils/constants"
 
 export default function App() {
+  const { fontsLoaded } = useLocalFonts()
+
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
+
   return (
     <SWRConfig
       value={{
