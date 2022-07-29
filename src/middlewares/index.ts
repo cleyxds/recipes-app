@@ -1,6 +1,13 @@
 import { checkRedisConnection } from "./checkRedisConnection"
 import { createRedisIndex } from "./createRedisIndex"
 import { notImplemented } from "./notImplemented"
-import { checkApiKeys } from "./checkApiKeys"
+import { authenticateToken } from "./authenticateToken"
+import { adminOnlyRoute } from "./adminOnlyRoute"
 
-export { checkRedisConnection, createRedisIndex, notImplemented, checkApiKeys }
+export {
+  checkRedisConnection,
+  createRedisIndex,
+  notImplemented,
+  authenticateToken,
+  adminOnlyRoute
+}

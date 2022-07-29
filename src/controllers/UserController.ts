@@ -43,6 +43,11 @@ export default {
   fetch: async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
 
+    if (id === "me") {
+      next()
+      return
+    }
+
     const repo = req.client.fetchRepository(UserSchema)
 
     try {
@@ -157,6 +162,23 @@ export default {
       res.status(204).send()
     } catch (error) {
       res.status(500).json({ errors: ["delete()"] })
+    }
+  },
+  me: async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.user
+
+    try {
+      const repo = req.client.fetchRepository(UserSchema)
+
+      const user = await repo
+        .search()
+        .where("profile")
+        .contain(email)
+        .return.first()
+
+      res.status(200).json({ ...parseUserResponse(user), _ts: Date.now() })
+    } catch (error) {
+      res.status(500).json({ error, errors: ["me()"] })
     }
   },
   search: async (req: Request, res: Response, next: NextFunction) => {

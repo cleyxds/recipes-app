@@ -1,4 +1,5 @@
 import express from "express"
+
 import cors from "cors"
 
 import { config } from "dotenv"
@@ -7,11 +8,7 @@ import { join } from "path"
 
 config({ path: ".env" })
 
-import {
-  checkRedisConnection,
-  createRedisIndex,
-  checkApiKeys
-} from "./middlewares"
+import { checkRedisConnection, createRedisIndex } from "./middlewares"
 
 import { AuthRouter, UserRouter } from "./routes"
 
