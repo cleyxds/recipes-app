@@ -4,4 +4,6 @@ import { Payments } from "./Payments"
 import { Insights } from "./Insights"
 import { Communications } from "./Communications"
 
-export { Welcome, Bill, Payments, Insights, Communications }
+import { Walkthrough } from "./Walkthrough"
+
+export { Welcome, Bill, Payments, Insights, Communications, Walkthrough }

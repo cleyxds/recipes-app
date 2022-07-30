@@ -9,8 +9,6 @@ import {
 
 import { Stepper } from "./components"
 
-import { useNavigation } from "@react-navigation/native"
-
 import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
@@ -19,10 +17,9 @@ import WelcomeImage from "../../assets/images/Walkthrough/welcome.png"
 import { DEFAULT_OPACITY } from "../../utils/units"
 import colors from "../../utils/colors"
 
-export function Welcome() {
+export function Welcome({ screenRef }) {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
-  const { navigate } = useNavigation()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -42,12 +39,18 @@ export function Welcome() {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
-            onPress={() => navigate("Bill")}
+            onPress={() => screenRef?.scrollToIndex({ index: 1 })}
             style={styles.stepperStyle}
           />
 
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentTitle}>Welcome to Duke Energy</Text>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={styles.contentTitle}
+            >
+              Welcome to Duke Energy
+            </Text>
 
             <View style={{ marginTop: 10 }}>
               <Text style={styles.contentDescription}>

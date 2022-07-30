@@ -9,8 +9,6 @@ import {
 
 import { Stepper } from "./components"
 
-import { useNavigation } from "@react-navigation/native"
-
 import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
@@ -19,10 +17,9 @@ import InsightsImage from "../../assets/images/Walkthrough/insights.png"
 import { DEFAULT_OPACITY } from "../../utils/units"
 import colors from "../../utils/colors"
 
-export function Insights() {
+export function Insights({ screenRef }) {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
-  const { navigate } = useNavigation()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -42,12 +39,18 @@ export function Insights() {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
-            onPress={() => navigate("Communications")}
+            onPress={() => screenRef?.scrollToIndex({ index: 4 })}
             style={styles.stepperStyle}
           />
 
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentTitle}>View Energy Insights</Text>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={styles.contentTitle}
+            >
+              View Energy Insights
+            </Text>
 
             <View style={{ marginTop: 10 }}>
               <Text style={styles.contentDescription}>

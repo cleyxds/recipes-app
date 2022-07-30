@@ -9,8 +9,6 @@ import {
 
 import { Stepper } from "./components"
 
-import { useNavigation } from "@react-navigation/native"
-
 import useHandleSkip from "./hooks/useHandleSkip"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
@@ -19,10 +17,9 @@ import PaymentsImage from "../../assets/images/Walkthrough/payments.png"
 import { DEFAULT_OPACITY } from "../../utils/units"
 import colors from "../../utils/colors"
 
-export function Payments() {
+export function Payments({ screenRef }) {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
-  const { navigate } = useNavigation()
 
   const CONTENT_HEIGHT = height * 0.45
 
@@ -42,12 +39,18 @@ export function Payments() {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
-            onPress={() => navigate("Insights")}
+            onPress={() => screenRef?.scrollToIndex({ index: 3 })}
             style={styles.stepperStyle}
           />
 
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentTitle}>Payments</Text>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={styles.contentTitle}
+            >
+              Payments
+            </Text>
 
             <View style={{ marginTop: 10 }}>
               <Text style={styles.contentDescription}>
