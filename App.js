@@ -15,7 +15,6 @@ import { StatusBarWrapper } from "./components"
 import { Routes } from "./routes"
 
 import colors from "./utils/colors"
-import { fetcher } from "./utils/fetcher"
 import { isAndroid } from "./utils/constants"
 
 export default function App() {
@@ -26,11 +25,7 @@ export default function App() {
   }
 
   return (
-    <SWRConfig
-      value={{
-        fetcher
-      }}
-    >
+    <SWRConfig>
       <NavigationContainer>
         {isAndroid && <StatusBar backgroundColor={colors.WALKTHROUGH_BLUE} />}
         <StatusBarWrapper />

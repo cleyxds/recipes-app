@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import {
   ImageBackground,
@@ -41,48 +41,70 @@ export function Login() {
   const { navigate, reset } = useNavigation()
 
   const { setUser } = useUserStore()
-  const { logUserIn } = useAuthStore()
+  const { setAuth } = useAuthStore()
 
   const [isLoading, setIsLoading] = useState(DEFAULT_STATES["IS_LOADING"])
+
   const [email, setEmail] = useState(DEFAULT_STATES["EMAIL"])
   const [password, setPassword] = useState(DEFAULT_STATES["PASSWORD"])
+
+  function clearForm() {
+    setEmail(DEFAULT_STATES["EMAIL"])
+    setPassword(DEFAULT_STATES["PASSWORD"])
+  }
 
   async function handleLogin() {
     if (isLoading) return
 
     setIsLoading(true)
 
-    const response = await fetch(`${config.API_URL}auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        password
-      })
-    })
-
-    if (response.ok) {
-      const {
-        user: { id, status, statusChanged, credentials, ...rest }
-      } = await response.json()
-
-      setUser({
-        id,
-        ...rest
-      })
-
-      logUserIn(id)
-
-      reset({ index: 0, routes: [{ name: "SMain" }] })
-
-      await wait(300)
-      setIsLoading(false)
+    const parsedInputs = {
+      email,
+      password
     }
 
-    await wait(300)
-    setIsLoading(false)
+    try {
+      const response = await fetch(`${config.API_URL}auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(parsedInputs)
+      })
+
+      if (response.ok) {
+        const { accessToken, refreshToken } = await response.json()
+
+        const responseUserMeRequest = await fetch(`${config.API_URL}users/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+
+        const userData = await responseUserMeRequest.json()
+
+        const parsedAuthData = {
+          isAuthenticated: true,
+          accessToken,
+          refreshToken,
+          userId: userData?.id
+        }
+
+        setUser(userData)
+        setAuth(parsedAuthData)
+
+        reset({ index: 0, routes: [{ name: "SMain" }] })
+
+        await wait(300)
+        clearForm()
+        setIsLoading(false)
+      }
+    } catch (error) {
+      await wait(300)
+      clearForm()
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -119,7 +141,7 @@ export function Login() {
                 color: colors.AUTHENTICATION_BLUE
               }}
             >
-              Register for MyDuke
+              Login in at MyDuke
             </Text>
 
             <View

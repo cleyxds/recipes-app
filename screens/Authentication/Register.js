@@ -15,7 +15,11 @@ import {
   ScrollView
 } from "react-native"
 
+import { locale } from "expo-localization"
+
 import { useNavigation } from "@react-navigation/native"
+
+import { TextInputMask } from "react-native-masked-text"
 
 import { useUserStore } from "../../stores/User"
 import { useAuthStore } from "../../stores/Auth"
@@ -27,11 +31,16 @@ import LogoIcon from "../../assets/images/Authentication/logo.png"
 
 import { DEFAULT_OPACITY } from "../../utils/units"
 import wait from "../../utils/wait"
+import { config } from "../../utils/constants"
 import colors from "../../utils/colors"
 
 const DEFAULT_STATES = {
   IS_LOADING: false,
-  ACCOUNT_NUMBER: ""
+  FIRST_NAME: "",
+  LAST_NAME: "",
+  EMAIL: "",
+  PASSWORD: "",
+  PHONE_NUMBER: ""
 }
 
 export function Register() {
@@ -39,33 +48,95 @@ export function Register() {
   const { navigate, reset } = useNavigation()
 
   const { setUser } = useUserStore()
-  const { logUserIn } = useAuthStore()
+  const { logInUser } = useAuthStore()
 
   const [isLoading, setIsLoading] = useState(DEFAULT_STATES["IS_LOADING"])
-  const [accountNumber, setAccountNumber] = useState(
-    DEFAULT_STATES["ACCOUNT_NUMBER"]
-  )
+
+  const [firstName, setFirstName] = useState(DEFAULT_STATES["FIRST_NAME"])
+  const [lastname, setLastname] = useState(DEFAULT_STATES["LAST_NAME"])
+  const [email, setEmail] = useState(DEFAULT_STATES["EMAIL"])
+  const [password, setPassword] = useState(DEFAULT_STATES["PASSWORD"])
+  const [phoneNumber, setPhoneNumber] = useState(DEFAULT_STATES["PHONE_NUMBER"])
+
+  function clearForm() {
+    setFirstName(DEFAULT_STATES["FIRST_NAME"])
+    setLastname(DEFAULT_STATES["LAST_NAME"])
+    setEmail(DEFAULT_STATES["EMAIL"])
+    setPassword(DEFAULT_STATES["PASSWORD"])
+    setPhoneNumber(DEFAULT_STATES["PHONE_NUMBER"])
+  }
 
   async function handleRegister() {
     if (isLoading) return
 
     setIsLoading(true)
 
-    // setUser({
-    //   id: accountNumber.trim(),
-    //   accountNumber: accountNumber.trim(),
-    //   username: accountNumber.trim(),
-    //   email: "cleyxds.dev@gmail.com"
-    // })
+    const parsedInputs = {
+      firstName: firstName?.trim(),
+      lastName: lastname?.trim(),
+      password: password?.trim(),
+      phone: phoneNumber?.trim(),
+      email: email?.trim(),
+      locale
+    }
 
-    // logUserIn(accountNumber.trim())
+    try {
+      const response = await fetch(`${config.API_URL}users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(parsedInputs)
+      })
 
-    await wait(3000)
+      if (!response.ok) {
+        await wait(300)
+        setIsLoading(false)
+        return
+      }
 
-    // reset({ index: 0, routes: [{ name: "SMain" }] })
+      const parsedLoginData = {
+        email: parsedInputs?.email,
+        password: parsedInputs?.password
+      }
 
-    await wait(300)
-    setIsLoading(false)
+      const responseLogin = await fetch(`${config.API_URL}auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(parsedLoginData)
+      })
+
+      if (!response.ok) {
+        await wait(300)
+        setIsLoading(false)
+        return
+      }
+
+      const userData = await response.json()
+      const { accessToken, refreshToken } = await responseLogin.json()
+
+      const userAuthData = {
+        isAuthenticated: true,
+        accessToken,
+        refreshToken,
+        userId: userData?.id
+      }
+
+      setUser(userData)
+      setAuth(userAuthData)
+
+      reset({ index: 0, routes: [{ name: "SMain" }] })
+
+      await wait(300)
+      clearForm()
+      setIsLoading(false)
+    } catch (error) {
+      await wait(300)
+      clearForm()
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -136,24 +207,141 @@ export function Register() {
             </View>
 
             <View style={{ marginTop: 48.25 }}>
-              <TextInput
-                placeholder="Account number"
-                placeholderTextColor={colors.AUTHENTICATION_BLUE_II}
-                autoCapitalize="none"
-                onChangeText={setAccountNumber}
-                value={accountNumber}
-                style={{
-                  fontSize: 14,
-                  fontFamily: "DMSansRegular",
-                  lineHeight: 18.23,
-                  letterSpacing: 0.2,
-                  paddingHorizontal: 14.68,
-                  paddingVertical: 17.83,
-                  borderColor: colors.AUTHENTICATION_BLUE_II,
-                  borderWidth: 1,
-                  borderRadius: 8
-                }}
-              />
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{ flex: 1 }}>
+                  <Text>First name</Text>
+                  <TextInput
+                    placeholder="First name"
+                    placeholderTextColor={colors.AUTHENTICATION_BLUE_II}
+                    autoCapitalize="words"
+                    onChangeText={setFirstName}
+                    value={firstName}
+                    style={{
+                      marginTop: 4,
+                      fontSize: 14,
+                      color: colors.NOTIFICATION_BELL_GREEN,
+                      fontFamily: "DMSansRegular",
+                      lineHeight: 18.23,
+                      letterSpacing: 0.2,
+                      paddingHorizontal: 14.68,
+                      paddingVertical: 17.83,
+                      borderColor: colors.AUTHENTICATION_BLUE_II,
+                      borderWidth: 1,
+                      borderRadius: 8,
+                      flex: 1,
+                      marginRight: 8
+                    }}
+                  />
+                </View>
+
+                <View style={{ flex: 1 }}>
+                  <Text>Last name</Text>
+                  <TextInput
+                    placeholder="Last name"
+                    placeholderTextColor={colors.AUTHENTICATION_BLUE_II}
+                    autoCapitalize="words"
+                    onChangeText={setLastname}
+                    value={lastname}
+                    style={{
+                      marginTop: 4,
+                      fontSize: 14,
+                      color: colors.NOTIFICATION_BELL_GREEN,
+                      fontFamily: "DMSansRegular",
+                      lineHeight: 18.23,
+                      letterSpacing: 0.2,
+                      paddingHorizontal: 14.68,
+                      paddingVertical: 17.83,
+                      borderColor: colors.AUTHENTICATION_BLUE_II,
+                      borderWidth: 1,
+                      borderRadius: 8,
+                      flex: 1
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={{ marginTop: 18 }}>
+                <View>
+                  <Text>E-mail</Text>
+                  <TextInput
+                    placeholder="customer@energy-app.com"
+                    keyboardType="email-address"
+                    placeholderTextColor={colors.AUTHENTICATION_BLUE_II}
+                    autoCapitalize="none"
+                    onChangeText={setEmail}
+                    value={email}
+                    style={{
+                      marginTop: 4,
+                      fontSize: 14,
+                      color: colors.NOTIFICATION_BELL_GREEN,
+                      fontFamily: "DMSansRegular",
+                      lineHeight: 18.23,
+                      letterSpacing: 0.2,
+                      paddingHorizontal: 14.68,
+                      paddingVertical: 17.83,
+                      borderColor: colors.AUTHENTICATION_BLUE_II,
+                      borderWidth: 1,
+                      borderRadius: 8,
+                      marginBottom: 18
+                    }}
+                  />
+                </View>
+
+                <View>
+                  <Text>Password</Text>
+                  <TextInput
+                    placeholder="********"
+                    keyboardType="default"
+                    placeholderTextColor={colors.AUTHENTICATION_BLUE_II}
+                    autoCapitalize="none"
+                    onChangeText={setPassword}
+                    secureTextEntry
+                    value={password}
+                    style={{
+                      marginTop: 4,
+                      fontSize: 14,
+                      color: colors.NOTIFICATION_BELL_GREEN,
+                      fontFamily: "DMSansRegular",
+                      lineHeight: 18.23,
+                      letterSpacing: 0.2,
+                      paddingHorizontal: 14.68,
+                      paddingVertical: 17.83,
+                      borderColor: colors.AUTHENTICATION_BLUE_II,
+                      borderWidth: 1,
+                      borderRadius: 8
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={{ marginTop: 18 }}>
+                <View>
+                  <Text>Phone number</Text>
+                  <TextInputMask
+                    placeholder="(**) *****-****"
+                    type="cel-phone"
+                    options={{
+                      maskType: "BRL",
+                      withDDD: true
+                    }}
+                    onChangeText={setPhoneNumber}
+                    value={phoneNumber}
+                    style={{
+                      marginTop: 4,
+                      fontSize: 14,
+                      color: colors.NOTIFICATION_BELL_GREEN,
+                      fontFamily: "DMSansRegular",
+                      lineHeight: 18.23,
+                      letterSpacing: 0.2,
+                      paddingHorizontal: 14.68,
+                      paddingVertical: 17.83,
+                      borderColor: colors.AUTHENTICATION_BLUE_II,
+                      borderWidth: 1,
+                      borderRadius: 8
+                    }}
+                  />
+                </View>
+              </View>
 
               <TouchableOpacity
                 activeOpacity={DEFAULT_OPACITY}

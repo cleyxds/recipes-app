@@ -2,18 +2,16 @@ import create from "zustand"
 
 const DEFAULT_STATE = {
   isAuthenticated: false,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   userId: null
 }
 
 export const useAuthStore = create(set => ({
   auth: DEFAULT_STATE,
-  toggleIsAuthenticated: () =>
+  setAuth: auth =>
     set(state => ({
-      auth: { ...state.auth, isAuthenticated: !state.isAuthenticated }
-    })),
-  logUserIn: (userId = null) =>
-    set(state => ({
-      auth: { ...state.auth, userId, isAuthenticated: true }
+      ...state,
+      auth
     }))
 }))

@@ -20,16 +20,28 @@ import { BellIcon, DoubleArrowIcon, ThermometerIcon } from "../assets/icons"
 import BalanceImageBackground from "../assets/images/Dashboard/balance.png"
 
 import { DEFAULT_OPACITY } from "../utils/units"
+import { config } from "../utils/constants"
 import colors from "../utils/colors"
 
 export function Dashboard() {
   const { height } = useWindowDimensions()
-  const {
-    user: { id: userId }
-  } = useUserStore()
+  const { user } = useUserStore()
   const { auth } = useAuthStore()
 
-  const { data, isValidating } = useSWR(`users/${userId}`)
+  const { data, isValidatingUser } = useSWR(
+    `${config.API_URL}users/${user?.id}`,
+    {
+      fetcher: async url => {
+        const response = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${auth?.accessToken}`
+          }
+        })
+        const data = await response.json()
+        return data
+      }
+    }
+  )
 
   const firstName = data?.profile?.firstName
 
@@ -70,7 +82,7 @@ export function Dashboard() {
               Welcome{"\n"}to Duke Energy
             </Text>
 
-            {!!firstName ? (
+            {!isValidatingUser ? (
               <Text
                 style={{
                   marginTop: 16,
@@ -227,109 +239,111 @@ export function Dashboard() {
             </View>
           </View>
 
-          <View
-            style={{
-              minHeight: 181.81,
-              marginTop: 16,
-              borderRadius: 12,
-              backgroundColor: colors.AUTHENTICATION_BLUE_II
-            }}
-          >
-            <Image
-              source={BalanceImageBackground}
-              style={{ position: "absolute", top: 18, right: 21.48 }}
-            />
-
+          {!isValidatingUser && (
             <View
               style={{
-                paddingLeft: 21,
-                paddingRight: 15,
-                paddingTop: 18,
-                paddingBottom: 13.81,
-                flex: 1,
-                justifyContent: "space-between"
+                minHeight: 181.81,
+                marginTop: 16,
+                borderRadius: 12,
+                backgroundColor: colors.AUTHENTICATION_BLUE_II
               }}
             >
-              <View>
-                <Text
-                  style={{
-                    fontFamily: "DMSansBold",
-                    fontSize: 18,
-                    lineHeight: 23.44,
-                    color: colors.WHITE
-                  }}
-                >
-                  Amount due
-                </Text>
-                <Text
-                  style={{
-                    marginTop: 6,
-                    fontFamily: "DMSansBold",
-                    fontSize: 36,
-                    lineHeight: 46.87,
-                    color: colors.WHITE
-                  }}
-                >
-                  $123.66
-                </Text>
-                <Text
-                  style={{
-                    marginTop: 6,
-                    fontFamily: "MontserratSemiBold",
-                    fontSize: 8,
-                    lineHeight: 9.75,
-                    color: colors.WHITE
-                  }}
-                >
-                  Due Date 01/15/2021 - Autopay on
-                </Text>
-              </View>
+              <Image
+                source={BalanceImageBackground}
+                style={{ position: "absolute", top: 18, right: 21.48 }}
+              />
 
               <View
                 style={{
-                  flexDirection: "row",
+                  paddingLeft: 21,
+                  paddingRight: 15,
+                  paddingTop: 18,
+                  paddingBottom: 13.81,
+                  flex: 1,
                   justifyContent: "space-between"
                 }}
               >
-                <TouchableOpacity
-                  activeOpacity={DEFAULT_OPACITY}
-                  touchSoundDisabled
-                  onPress={handleBillDetails}
-                >
+                <View>
                   <Text
                     style={{
+                      fontFamily: "DMSansBold",
+                      fontSize: 18,
+                      lineHeight: 23.44,
+                      color: colors.WHITE
+                    }}
+                  >
+                    Amount due
+                  </Text>
+                  <Text
+                    style={{
+                      marginTop: 6,
+                      fontFamily: "DMSansBold",
+                      fontSize: 36,
+                      lineHeight: 46.87,
+                      color: colors.WHITE
+                    }}
+                  >
+                    $123.66
+                  </Text>
+                  <Text
+                    style={{
+                      marginTop: 6,
                       fontFamily: "MontserratSemiBold",
-                      fontSize: 14,
-                      color: colors.WHITE,
-                      lineHeight: 16
+                      fontSize: 8,
+                      lineHeight: 9.75,
+                      color: colors.WHITE
                     }}
                   >
-                    View Bill Details
+                    Due Date 01/15/2021 - Autopay on
                   </Text>
-                </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity
-                  touchSoundDisabled
-                  activeOpacity={DEFAULT_OPACITY}
-                  onPress={handleMakePayment}
-                  style={{ flexDirection: "row", alignItems: "center" }}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                  }}
                 >
-                  <Text
-                    style={{
-                      fontFamily: "MontserratExtraBold",
-                      fontSize: 14,
-                      color: colors.AUTHENTICATION_GREEN,
-                      lineHeight: 16,
-                      marginRight: 5
-                    }}
+                  <TouchableOpacity
+                    activeOpacity={DEFAULT_OPACITY}
+                    touchSoundDisabled
+                    onPress={handleBillDetails}
                   >
-                    Make a Payment
-                  </Text>
-                  <DoubleArrowIcon />
-                </TouchableOpacity>
+                    <Text
+                      style={{
+                        fontFamily: "MontserratSemiBold",
+                        fontSize: 14,
+                        color: colors.WHITE,
+                        lineHeight: 16
+                      }}
+                    >
+                      View Bill Details
+                    </Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    touchSoundDisabled
+                    activeOpacity={DEFAULT_OPACITY}
+                    onPress={handleMakePayment}
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "MontserratExtraBold",
+                        fontSize: 14,
+                        color: colors.AUTHENTICATION_GREEN,
+                        lineHeight: 16,
+                        marginRight: 5
+                      }}
+                    >
+                      Make a Payment
+                    </Text>
+                    <DoubleArrowIcon />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
+          )}
         </ScrollView>
       </View>
     </View>

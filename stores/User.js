@@ -9,5 +9,5 @@ const DEFAULT_STATE = {
 export const useUserStore = create(set => ({
   user: DEFAULT_STATE,
   setUser: user => set(state => ({ ...state, user })),
-  clearUser: () => set(() => ({ user: DEFAULT_STATE }))
+  clearUser: () => set(state => ({ ...state, user: DEFAULT_STATE }))
 }))
