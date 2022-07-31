@@ -14,6 +14,8 @@ import useSWR from "swr"
 import { useUserStore } from "../stores/User"
 import { useAuthStore } from "../stores/Auth"
 
+import { useNavigation } from "@react-navigation/native"
+
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import { BellIcon, DoubleArrowIcon, ThermometerIcon } from "../assets/icons"
@@ -24,6 +26,7 @@ import { config } from "../utils/constants"
 import colors from "../utils/colors"
 
 export function Dashboard() {
+  const { navigate } = useNavigation()
   const { height } = useWindowDimensions()
   const { user } = useUserStore()
   const { auth } = useAuthStore()
@@ -46,6 +49,11 @@ export function Dashboard() {
   const firstName = data?.profile?.firstName
 
   async function toggleNotifications() {}
+
+  function handleAddDevice() {
+    navigate("Product")
+  }
+
   function handleBillDetails() {}
   function handleMakePayment() {}
 
@@ -180,6 +188,7 @@ export function Dashboard() {
           <TouchableOpacity
             touchSoundDisabled
             activeOpacity={DEFAULT_OPACITY}
+            onPress={handleAddDevice}
             style={{
               paddingHorizontal: 24,
               paddingVertical: 18,
