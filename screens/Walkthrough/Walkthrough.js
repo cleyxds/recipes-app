@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { View, StyleSheet, FlatList, useWindowDimensions } from "react-native"
 
@@ -7,11 +7,12 @@ import { Welcome, Bill, Payments, Insights, Communications } from "./index"
 export function Walkthrough() {
   const { width, height } = useWindowDimensions()
   const screenRef = useRef(null)
+  const [flatListRef, setFlatListRef] = useState(null)
 
   function Container(Screen) {
     return (
       <View style={styles.container(width, height)}>
-        <Screen screenRef={screenRef.current} />
+        <Screen screenRef={flatListRef} />
       </View>
     )
   }
@@ -23,6 +24,11 @@ export function Walkthrough() {
     if (index === 3) return Container(Insights)
     if (index === 4) return Container(Communications)
   }
+
+  useEffect(() => {
+    if (!screenRef?.current) return
+    setFlatListRef(screenRef?.current)
+  }, [screenRef.current])
 
   return (
     <FlatList

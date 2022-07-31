@@ -39,6 +39,7 @@ export function Payments({ screenRef }) {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
+            percentage={50}
             onPress={() => screenRef?.scrollToIndex({ index: 3 })}
             style={styles.stepperStyle}
           />

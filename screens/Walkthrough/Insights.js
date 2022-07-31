@@ -39,6 +39,7 @@ export function Insights({ screenRef }) {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
+            percentage={75}
             onPress={() => screenRef?.scrollToIndex({ index: 4 })}
             style={styles.stepperStyle}
           />

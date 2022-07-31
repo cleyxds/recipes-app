@@ -39,6 +39,7 @@ export function Bill({ screenRef }) {
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
           <Stepper
+            percentage={25}
             onPress={() => screenRef?.scrollToIndex({ index: 2 })}
             style={styles.stepperStyle}
           />

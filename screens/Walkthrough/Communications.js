@@ -57,7 +57,7 @@ export function Communications() {
         <View style={styles.contentContainerWrapper(CONTENT_HEIGHT)}>
           <View style={styles.contentContainerBackground(CONTENT_HEIGHT)} />
 
-          <Stepper style={styles.stepperStyle} />
+          <Stepper percentage={100} style={styles.stepperStyle} />
 
           <View style={styles.contentTextContainer}>
             <View style={{ alignItems: "center" }}>

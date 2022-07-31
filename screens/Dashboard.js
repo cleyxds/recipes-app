@@ -58,16 +58,18 @@ export function Dashboard() {
     >
       <View
         style={{
-          paddingTop: getStatusBarHeight(),
+          paddingTop: getStatusBarHeight(true),
           flex: 1
         }}
       >
         <View
           style={{
+            height: 42,
             marginTop: 36,
             marginLeft: 30,
             marginRight: 17,
             flexDirection: "row",
+            alignItems: "center",
             justifyContent: "space-between"
           }}
         >
@@ -79,28 +81,18 @@ export function Dashboard() {
                 color: colors.WHITE
               }}
             >
-              Welcome{"\n"}to Duke Energy
+              Welcome
             </Text>
 
-            {!isValidatingUser ? (
-              <Text
-                style={{
-                  marginTop: 16,
-                  color: colors.WHITE,
-                  fontFamily: "MontserratBold",
-                  fontSize: 32,
-                  lineHeight: 36
-                }}
-              >
-                {firstName}
-              </Text>
-            ) : (
-              <ActivityIndicator
-                size="small"
-                style={{ height: 36, alignSelf: "flex-start" }}
-                color={colors.WHITE}
-              />
-            )}
+            <Text
+              style={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: 24,
+                color: colors.WHITE
+              }}
+            >
+              to Duke Energy
+            </Text>
           </View>
 
           <TouchableOpacity
@@ -118,6 +110,33 @@ export function Dashboard() {
           >
             <BellIcon />
           </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            marginTop: 16,
+            marginLeft: 30
+          }}
+        >
+          {!isValidatingUser ? (
+            <Text
+              style={{
+                marginTop: 16,
+                color: colors.WHITE,
+                fontFamily: "MontserratBold",
+                fontSize: 32,
+                lineHeight: 36
+              }}
+            >
+              {firstName}
+            </Text>
+          ) : (
+            <ActivityIndicator
+              size="small"
+              style={{ height: 36, alignSelf: "flex-start" }}
+              color={colors.WHITE}
+            />
+          )}
         </View>
 
         <ScrollView
