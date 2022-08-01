@@ -11,15 +11,21 @@ import {
   Keyboard
 } from "react-native"
 
+import { useNavigation } from "@react-navigation/native"
+
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import DefaultProductImage from "../assets/images/Product/DefaultProduct.png"
 
-import { DEFAULT_OPACITY } from "../utils/units"
-import colors from "../utils/colors"
+import { ArrowIcon } from "../assets/icons"
+
+import { colors, units } from "../utils"
+
+const { DEFAULT_OPACITY } = units
 
 export function Product() {
   const { width, height } = useWindowDimensions()
+  const { goBack } = useNavigation()
 
   const DEFAULT_PRICE = 150
 
@@ -31,6 +37,18 @@ export function Product() {
           { backgroundColor: colors.AUTHENTICATION_BLUE_II }
         ]}
       >
+        <TouchableOpacity
+          touchSoundDisabled
+          activeOpacity={DEFAULT_OPACITY}
+          style={styles.goBackButtonStyle}
+          onPress={goBack}
+        >
+          <ArrowIcon
+            style={{ transform: [{ rotate: "180deg" }] }}
+            color={colors.WHITE}
+          />
+        </TouchableOpacity>
+
         <View
           style={{
             paddingTop: getStatusBarHeight(true),
@@ -86,3 +104,18 @@ export function Product() {
     </TouchableWithoutFeedback>
   )
 }
+
+const styles = StyleSheet.create({
+  goBackButtonStyle: {
+    width: 32,
+    height: 32,
+    backgroundColor: colors.AUTHENTICATION_BLUE_II,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    left: 22,
+    top: getStatusBarHeight(true) + 28,
+    zIndex: 9999
+  }
+})

@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+
 import {
   View,
   Text,
@@ -11,15 +13,68 @@ import { Stepper } from "./components"
 
 import useHandleSkip from "./hooks/useHandleSkip"
 
+import { useNavigation } from "@react-navigation/native"
+
+import { useUserStore } from "../../stores/User"
+import { useAuthStore } from "../../stores/Auth"
+
+import { usePersistAuthData } from "../../hooks"
+
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import WelcomeImage from "../../assets/images/Walkthrough/welcome.png"
-import { DEFAULT_OPACITY } from "../../utils/units"
-import colors from "../../utils/colors"
+
+import { config } from "../../utils/constants"
+import { colors, wait, units } from "../../utils"
+
+const { DEFAULT_OPACITY } = units
 
 export function Welcome({ screenRef }) {
   const { height } = useWindowDimensions()
   const { handleSkip } = useHandleSkip()
+  const { reset } = useNavigation()
+  const { setUser } = useUserStore()
+  const { setAuth } = useAuthStore()
+
+  const { AuthState } = usePersistAuthData()
+
+  useEffect(() => {
+    if (!AuthState.accessToken) return
+
+    async function handleGetUserData() {
+      try {
+        const response = await fetch(`${config.API_URL}users/me`, {
+          headers: {
+            Authorization: `Bearer ${AuthState.accessToken}`
+          }
+        })
+
+        if (!response.ok) {
+          return
+        }
+
+        const userData = await response.json()
+
+        const parsedAuthData = {
+          isAuthenticated: true,
+          accessToken: AuthState.accessToken,
+          refreshToken: AuthState.refreshToken,
+          userId: userData?.id
+        }
+
+        setUser(userData)
+        setAuth(parsedAuthData)
+
+        reset({ index: 0, routes: [{ name: "SMain" }] })
+
+        await wait(300)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    handleGetUserData()
+  }, [AuthState])
 
   const CONTENT_HEIGHT = height * 0.45
 

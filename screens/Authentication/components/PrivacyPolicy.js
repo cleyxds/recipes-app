@@ -4,7 +4,7 @@ import { useRoute } from "@react-navigation/native"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
-import colors from "../../../utils/colors"
+import { colors } from "../../../utils"
 
 export function PrivacyPolicy() {
   const { key } = useRoute()

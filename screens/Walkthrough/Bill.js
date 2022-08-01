@@ -14,8 +14,10 @@ import useHandleSkip from "./hooks/useHandleSkip"
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import BillImage from "../../assets/images/Walkthrough/bill.png"
-import { DEFAULT_OPACITY } from "../../utils/units"
-import colors from "../../utils/colors"
+
+import { colors, units } from "../../utils"
+
+const { DEFAULT_OPACITY } = units
 
 export function Bill({ screenRef }) {
   const { height } = useWindowDimensions()

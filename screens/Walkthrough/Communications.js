@@ -18,8 +18,9 @@ import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import CommunicationsImage from "../../assets/images/Walkthrough/communications.png"
 
-import { DEFAULT_OPACITY } from "../../utils/units"
-import colors from "../../utils/colors"
+import { colors, units } from "../../utils"
+
+const { DEFAULT_OPACITY } = units
 
 const DEFAULT_STATE = {
   LOADING: false

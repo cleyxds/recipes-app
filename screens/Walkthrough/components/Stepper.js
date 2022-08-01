@@ -11,9 +11,10 @@ import Svg, { G, Circle } from "react-native-svg"
 
 import { ArrowIcon } from "../../../assets/icons"
 
-import { DEFAULT_OPACITY } from "../../../utils/units"
-import colors from "../../../utils/colors"
+import { colors, units } from "../../../utils"
 import { isIOS } from "../../../utils/constants"
+
+const { DEFAULT_OPACITY } = units
 
 export function Stepper({ percentage, style, onPress }) {
   function handlePress() {

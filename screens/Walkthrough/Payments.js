@@ -14,8 +14,10 @@ import useHandleSkip from "./hooks/useHandleSkip"
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import PaymentsImage from "../../assets/images/Walkthrough/payments.png"
-import { DEFAULT_OPACITY } from "../../utils/units"
-import colors from "../../utils/colors"
+
+import { colors, units } from "../../utils"
+
+const { DEFAULT_OPACITY } = units
 
 export function Payments({ screenRef }) {
   const { height } = useWindowDimensions()

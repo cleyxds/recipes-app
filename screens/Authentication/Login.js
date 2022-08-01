@@ -20,15 +20,17 @@ import { useNavigation } from "@react-navigation/native"
 import { useUserStore } from "../../stores/User"
 import { useAuthStore } from "../../stores/Auth"
 
+import { usePersistAuthData } from "../../hooks"
+
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
 import LoginBackground from "../../assets/images/Authentication/login.png"
 import LogoIcon from "../../assets/images/Authentication/logo.png"
 
-import { DEFAULT_OPACITY } from "../../utils/units"
 import { config } from "../../utils/constants"
-import wait from "../../utils/wait"
-import colors from "../../utils/colors"
+import { colors, wait, units } from "../../utils"
+
+const { DEFAULT_OPACITY } = units
 
 const DEFAULT_STATES = {
   IS_LOADING: false,
@@ -42,6 +44,8 @@ export function Login() {
 
   const { setUser } = useUserStore()
   const { setAuth } = useAuthStore()
+
+  const { persistAuthState } = usePersistAuthData()
 
   const [isLoading, setIsLoading] = useState(DEFAULT_STATES["IS_LOADING"])
 
@@ -93,6 +97,8 @@ export function Login() {
 
         setUser(userData)
         setAuth(parsedAuthData)
+
+        persistAuthState({ accessToken, refreshToken, userId: userData?.id })
 
         reset({ index: 0, routes: [{ name: "SMain" }] })
 

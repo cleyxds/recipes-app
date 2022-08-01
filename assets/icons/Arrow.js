@@ -13,7 +13,7 @@ export function ArrowIcon({ color, ...props }) {
     >
       <Path
         d="m1 1 4.859 4.859a.2.2 0 0 1 0 .282L1 11"
-        stroke={colors.WALKTHROUGH_BLUE ?? color}
+        stroke={color ?? colors.WALKTHROUGH_BLUE}
         strokeWidth={1.5}
         strokeLinecap="round"
       />

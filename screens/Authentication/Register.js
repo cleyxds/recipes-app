@@ -29,10 +29,10 @@ import { getStatusBarHeight } from "react-native-status-bar-height"
 import RegisterBackground from "../../assets/images/Authentication/register.png"
 import LogoIcon from "../../assets/images/Authentication/logo.png"
 
-import { DEFAULT_OPACITY } from "../../utils/units"
-import wait from "../../utils/wait"
 import { config } from "../../utils/constants"
-import colors from "../../utils/colors"
+import { colors, wait, units } from "../../utils"
+
+const { DEFAULT_OPACITY } = units
 
 const DEFAULT_STATES = {
   IS_LOADING: false,

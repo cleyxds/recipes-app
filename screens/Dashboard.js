@@ -21,9 +21,10 @@ import { getStatusBarHeight } from "react-native-status-bar-height"
 import { BellIcon, DoubleArrowIcon, ThermometerIcon } from "../assets/icons"
 import BalanceImageBackground from "../assets/images/Dashboard/balance.png"
 
-import { DEFAULT_OPACITY } from "../utils/units"
 import { config } from "../utils/constants"
-import colors from "../utils/colors"
+import { colors, units } from "../utils"
+
+const { DEFAULT_OPACITY } = units
 
 export function Dashboard() {
   const { navigate } = useNavigation()
@@ -31,7 +32,7 @@ export function Dashboard() {
   const { user } = useUserStore()
   const { auth } = useAuthStore()
 
-  const { data, isValidatingUser } = useSWR(
+  const { data, isValidating: isLoading } = useSWR(
     `${config.API_URL}users/${user?.id}`,
     {
       fetcher: async url => {
@@ -126,7 +127,7 @@ export function Dashboard() {
             marginLeft: 30
           }}
         >
-          {!isValidatingUser ? (
+          {!isLoading ? (
             <Text
               style={{
                 marginTop: 16,
@@ -217,7 +218,9 @@ export function Dashboard() {
                 flex: 1,
                 flexDirection: "row",
                 alignItems: "center",
-                backgroundColor: colors.WHITE
+                backgroundColor: colors.WHITE,
+                borderRadius: 10,
+                elevation: 10
               }}
             >
               <View
@@ -267,7 +270,7 @@ export function Dashboard() {
             </View>
           </View>
 
-          {!isValidatingUser && (
+          {!isLoading && (
             <View
               style={{
                 minHeight: 181.81,
