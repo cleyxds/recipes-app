@@ -14,8 +14,8 @@ import { StatusBarWrapper } from "./components"
 
 import { Routes } from "./routes"
 
-import colors from "./utils/colors"
-import { isAndroid } from "./utils/constants"
+import { colors } from "./utils"
+import { isAndroid, isIOS } from "./utils/constants"
 
 export default function App() {
   const { fontsLoaded } = useLocalFonts()
@@ -28,7 +28,7 @@ export default function App() {
     <SWRConfig>
       <NavigationContainer>
         {isAndroid && <StatusBar backgroundColor={colors.WALKTHROUGH_BLUE} />}
-        <StatusBarWrapper />
+        {isIOS && <StatusBarWrapper />}
         <Routes />
       </NavigationContainer>
     </SWRConfig>

@@ -36,46 +36,6 @@ export function Welcome({ screenRef }) {
   const { setUser } = useUserStore()
   const { setAuth } = useAuthStore()
 
-  const { AuthState } = usePersistAuthData()
-
-  useEffect(() => {
-    if (!AuthState.accessToken) return
-
-    async function handleGetUserData() {
-      try {
-        const response = await fetch(`${config.API_URL}users/me`, {
-          headers: {
-            Authorization: `Bearer ${AuthState.accessToken}`
-          }
-        })
-
-        if (!response.ok) {
-          return
-        }
-
-        const userData = await response.json()
-
-        const parsedAuthData = {
-          isAuthenticated: true,
-          accessToken: AuthState.accessToken,
-          refreshToken: AuthState.refreshToken,
-          userId: userData?.id
-        }
-
-        setUser(userData)
-        setAuth(parsedAuthData)
-
-        reset({ index: 0, routes: [{ name: "SMain" }] })
-
-        await wait(300)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    handleGetUserData()
-  }, [AuthState])
-
   const CONTENT_HEIGHT = height * 0.45
 
   return (

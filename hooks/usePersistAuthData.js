@@ -1,22 +1,6 @@
-import { useEffect, useState } from "react"
-
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const DEFAULT_STATE = {
-  AUTH_DATA: {
-    accessToken: null,
-    refreshToken: null,
-    userId: null
-  }
-}
-
 export function usePersistAuthData() {
-  const [authData, setAuthData] = useState(DEFAULT_STATE["AUTH_DATA"])
-
-  useEffect(() => {
-    getPersistedAuthData()
-  }, [])
-
   async function persistAuthData({ accessToken, refreshToken, userData }) {
     const authDataToBeStored = { accessToken, refreshToken, userData }
 
@@ -31,5 +15,5 @@ export function usePersistAuthData() {
     setAuthData(JSON.parse(data))
   }
 
-  return { persistAuthState: persistAuthData, AuthState: authData }
+  return { persistAuthData, getPersistedAuthData }
 }

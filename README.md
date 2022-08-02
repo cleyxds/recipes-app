@@ -1,4 +1,4 @@
-# Energy app project
+# Recipes-app project
 
 <p>
   <!-- iOS -->
@@ -10,4 +10,8 @@
 
 ## 📝 App design
 
-[_design_](<https://www.figma.com/file/ksD52pbAsgvxqDIp7kJpjI/Duke-Energy-(Community)?node-id=1%3A2>)
+[_design_](https://images.squarespace-cdn.com/content/v1/5d48ece5c9b54700015ba784/9d656a5a-feab-4e70-8a6e-e050ddca6c93/Osaka+Recipes+App+UI+Kit-Full+Preview.jpg?format=2500w)
+
+### Should take a look at it, DEFINITELY
+
+[expo-auth-session](https://docs.expo.dev/versions/latest/sdk/auth-session/)
