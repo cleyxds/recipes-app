@@ -13,7 +13,7 @@ export function StatusBarWrapper() {
         right: 0,
         top: 0,
         height: getStatusBarHeight(),
-        backgroundColor: colors.WALKTHROUGH_BLUE,
+        backgroundColor: colors.BLACK_I,
         zIndex: 9999
       }}
     />

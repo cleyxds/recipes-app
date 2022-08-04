@@ -1,4 +1,3 @@
-import { Dashboard } from "./Dashboard"
-import { Product } from "./Product"
+import { Basic } from "./Basic"
 
-export { Dashboard, Product }
+export { Basic }

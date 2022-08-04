@@ -12,4 +12,4 @@ const config = {
   }
 }
 
-export { config, WALKTHROUGH_TRANSITION }
+export { config as CONFIG, WALKTHROUGH_TRANSITION }

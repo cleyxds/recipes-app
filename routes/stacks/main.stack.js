@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 const { Navigator, Screen } = createStackNavigator()
 
-import { Dashboard, Product } from "../../screens"
+import { Basic } from "../../screens"
 
 export function MainStack() {
   return (
@@ -11,8 +11,7 @@ export function MainStack() {
         headerShown: false
       }}
     >
-      <Screen name="Dashboard" component={Dashboard} />
-      <Screen name="Product" component={Product} />
+      <Screen name="Basic" component={Basic} />
     </Navigator>
   )
 }

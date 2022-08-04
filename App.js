@@ -2,8 +2,6 @@ import "react-native-gesture-handler"
 
 import { StatusBar } from "react-native"
 
-import { SWRConfig } from "swr"
-
 import { NavigationContainer } from "@react-navigation/native"
 
 import AppLoading from "expo-app-loading"
@@ -25,12 +23,10 @@ export default function App() {
   }
 
   return (
-    <SWRConfig>
-      <NavigationContainer>
-        {isAndroid && <StatusBar backgroundColor={colors.WALKTHROUGH_BLUE} />}
-        {isIOS && <StatusBarWrapper />}
-        <Routes />
-      </NavigationContainer>
-    </SWRConfig>
+    <NavigationContainer>
+      {isAndroid && <StatusBar backgroundColor={colors.BLACK_I} />}
+      {isIOS && <StatusBarWrapper />}
+      <Routes />
+    </NavigationContainer>
   )
 }

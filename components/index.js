@@ -1,3 +1,4 @@
+import { Screen } from "./Screen"
 import { StatusBarWrapper } from "./StatusBarWrapper"
 
-export { StatusBarWrapper }
+export { Screen, StatusBarWrapper }

@@ -1,6 +1,7 @@
 export default {
   WHITE: "#FFFFFF",
-  BLACK: "#202020",
+  BLACK_I: "#000000",
+  BLACK_II: "#0E0E0E",
   GREY: "grey",
   AUTHENTICATION_GREEN: "#6FCF97",
   AUTHENTICATION_BLUE: "#1E263C",
