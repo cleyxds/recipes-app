@@ -1,3 +1,3 @@
-import { Basic } from "./Basic"
+import { Home } from "./Home"
 
-export { Basic }
+export { Home }
