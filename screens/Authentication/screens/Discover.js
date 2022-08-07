@@ -7,37 +7,35 @@ import { colors } from "../../../utils"
 import StrogonoffImage from "../../../assets/images/Walkthrough/Strogonoff.png"
 
 export function Discover() {
-  const { width } = useWindowDimensions()
+  const { height } = useWindowDimensions()
 
   return (
     <Screen>
-      <View style={{ height: "70%" }}>
-        <Image
-          source={StrogonoffImage}
+      <View
+        style={{
+          height: height * 0.5,
+          backgroundColor: colors.WHITE,
+          marginBottom: "15%"
+        }}
+      />
+
+      <View
+        style={{
+          paddingHorizontal: 32,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Text
           style={{
-            marginTop: 72,
-            transform: [{ scale: 0.5 }, { translateX: -width * 0.75 }]
-          }}
-        />
-        <View
-          style={{
-            marginTop: "-3%",
-            paddingHorizontal: 32,
-            justifyContent: "center",
-            alignItems: "center"
+            textAlign: "center",
+            fontFamily: "MontserratBold",
+            fontSize: 24,
+            color: colors.WHITE
           }}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              fontFamily: "MontserratBold",
-              fontSize: 24,
-              color: colors.WHITE
-            }}
-          >
-            Descubra receitas deliciosas todos os dias
-          </Text>
-        </View>
+          Descubra receitas deliciosas todos os dias
+        </Text>
       </View>
     </Screen>
   )

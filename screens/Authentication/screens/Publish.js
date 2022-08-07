@@ -7,19 +7,20 @@ import { colors } from "../../../utils"
 import FeijoadaImage from "../../../assets/images/Walkthrough/Feijoada.png"
 
 export function Publish() {
-  const { width } = useWindowDimensions()
+  const { height } = useWindowDimensions()
 
   return (
     <Screen>
-      <Image
-        source={FeijoadaImage}
-        style={{
-          transform: [{ scale: 0.6 }, { translateX: -width * 0.31 }]
-        }}
-      />
       <View
         style={{
-          marginTop: 32,
+          height: height * 0.5,
+          backgroundColor: colors.WHITE,
+          marginBottom: "15%"
+        }}
+      />
+
+      <View
+        style={{
           paddingHorizontal: 32,
           justifyContent: "center",
           alignItems: "center"

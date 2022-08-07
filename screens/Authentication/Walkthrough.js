@@ -1,11 +1,22 @@
-import { View, FlatList, useWindowDimensions, StyleSheet } from "react-native"
+import { useRef } from "react"
+
+import {
+  View,
+  FlatList,
+  useWindowDimensions,
+  StyleSheet,
+  Animated
+} from "react-native"
 
 import { Intro, Discover, Publish, Auth } from "./screens"
 
-import { colors } from "../../utils"
-
 export function Walkthrough() {
   const { width, height } = useWindowDimensions()
+
+  const scrollX = useRef(new Animated.Value(0)).current
+
+  const DOT_SIZE = 8
+  const DOT_SPACING = 12
 
   function renderScreen({ index }) {
     if (index === 0) return Container(Intro)
@@ -29,6 +40,12 @@ export function Walkthrough() {
       <FlatList
         bounces={false}
         horizontal
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          {
+            useNativeDriver: false
+          }
+        )}
         data={data}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -45,17 +62,54 @@ export function Walkthrough() {
           flexDirection: "row"
         }}
       >
-        {data?.map(() => (
-          <View
-            style={{
-              width: 10,
-              height: 10,
-              backgroundColor: colors.WHITE,
-              borderRadius: 9999,
-              marginRight: 12
-            }}
-          />
-        ))}
+        {data?.map((_, index) => {
+          const inputRange = [
+            (index - 1) * width,
+            index * width,
+            (index + 1) * width
+          ]
+          const outputRange = [0.8, 1.4, 0.8]
+
+          const scale = scrollX.interpolate({
+            inputRange,
+            outputRange,
+            extrapolate: "clamp"
+          })
+
+          const backgroundColor = scrollX.interpolate({
+            inputRange,
+            outputRange: [
+              "rgb(64, 64, 64)",
+              "rgba(255,255,255, 1)",
+              "rgb(201, 201, 201)"
+            ],
+            extrapolate: "clamp"
+          })
+
+          return (
+            <Animated.View
+              style={{
+                width: DOT_SIZE,
+                height: DOT_SIZE,
+                backgroundColor,
+                borderRadius: 9999,
+                marginRight: DOT_SPACING,
+                transform: [{ scale }]
+              }}
+            />
+          )
+        })}
+        {/* <View
+          style={{
+            position: "absolute",
+            left: -DOT_SIZE * 0.5,
+            width: DOT_INDICATOR_SIZE,
+            height: DOT_INDICATOR_SIZE,
+            borderRadius: 9999,
+            borderWidth: 1,
+            borderColor: colors.WHITE
+          }}
+        /> */}
       </View>
     </>
   )

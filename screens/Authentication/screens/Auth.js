@@ -9,7 +9,7 @@ import {
   ActivityIndicator
 } from "react-native"
 
-import { openAuthSessionAsync } from "expo-web-browser"
+import { openAuthSessionAsync, openBrowserAsync } from "expo-web-browser"
 
 import { useAuthStore } from "../../../stores/Auth"
 
@@ -23,7 +23,7 @@ import FeijoadaImage from "../../../assets/images/Walkthrough/Feijoada.png"
 const { DEFAULT_OPACITY } = units
 
 export function Auth() {
-  const { width } = useWindowDimensions()
+  const { height } = useWindowDimensions()
   const [isAuthenticating, setIsAuthenticating] = useState(false)
   const { setAuth } = useAuthStore()
 
@@ -31,9 +31,12 @@ export function Auth() {
     if (isAuthenticating) return
     setIsAuthenticating(true)
 
-    const { type } = await openAuthSessionAsync(`${config.API_URL}auth`)
+    const { type } = await openAuthSessionAsync(
+      `${config.API_URL}auth`,
+      "myapp://auth"
+    )
 
-    if (type === "dismiss") {
+    if (type === "cancel" || type === "dismiss" || type === "success") {
       await wait(2000)
       setAuth({
         isAuthenticated: true
@@ -50,67 +53,72 @@ export function Auth() {
 
   return (
     <Screen>
-      <Image
-        source={FeijoadaImage}
-        style={{
-          transform: [{ scale: 0.6 }, { translateX: -width * 0.31 }]
-        }}
-      />
-      <View
-        style={{
-          marginTop: 32,
-          paddingHorizontal: 32,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <Text
+      <View style={{ height: height * 0.85 }}>
+        <View
           style={{
-            textAlign: "center",
-            fontFamily: "MontserratBold",
-            fontSize: 24,
-            color: colors.WHITE
-          }}
-        >
-          Melhor aplicativo{"\n"}de receitas de todos os tempos
-        </Text>
-      </View>
-
-      <View
-        style={{
-          paddingHorizontal: 32,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <TouchableOpacity
-          activeOpacity={DEFAULT_OPACITY}
-          onPress={handleSignIn}
-          style={{
-            height: 50,
+            height: height * 0.5,
             backgroundColor: colors.WHITE,
-            borderRadius: 10,
-            paddingVertical: 10,
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center"
+            marginBottom: "5%"
           }}
-        >
-          {isAuthenticating ? (
-            <ActivityIndicator color={colors.BLACK_I} />
-          ) : (
+        />
+
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flex: 1,
+              paddingHorizontal: 32
+            }}
+          >
             <Text
               style={{
+                textAlign: "center",
                 fontFamily: "MontserratBold",
-                fontSize: 16,
-                color: colors.BLACK_I
+                fontSize: 24,
+                color: colors.WHITE
               }}
             >
-              Cadastre-se com e-mail
+              Melhor aplicativo{"\n"}de receitas de todos os tempos
             </Text>
-          )}
-        </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              flex: 1,
+              paddingHorizontal: 32,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <TouchableOpacity
+              activeOpacity={DEFAULT_OPACITY}
+              onPress={handleSignIn}
+              style={{
+                height: 50,
+                backgroundColor: colors.WHITE,
+                borderRadius: 10,
+                paddingVertical: 10,
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              {isAuthenticating ? (
+                <ActivityIndicator color={colors.BLACK_I} />
+              ) : (
+                <Text
+                  style={{
+                    fontFamily: "MontserratBold",
+                    fontSize: 16,
+                    color: colors.BLACK_I
+                  }}
+                >
+                  Cadastre-se com e-mail
+                </Text>
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </Screen>
   )
