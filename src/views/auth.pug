@@ -1,20 +1,29 @@
 html
   head
-    link(rel='stylesheet', href='styles/styles.css', type='text/css' )
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    script(src="https://cdn.tailwindcss.com")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&family=Montserrat:wght@500;700&family=Poppins&display=swap" rel="stylesheet")
     title= title
-  body
-    img(class="fixed w-screen min-h-screen bg-white", src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", alt="Logo")
-    
-    div(class="flex justify-center items-center absolute left-0 right-0 top-16")
+  body(class="bg-gradient-to-b from-[#3850EC] to-[#BFD1F8]")
+    main(class="flex flex-col items-center justify-center min-h-screen")
       
-      div(class="flex flex-col bg-white rounded-lg p-6 space-y-10 justify-center items-center")
+      div(class="min-h-[330px] bg-white rounded-xl flex flex-col items-center")
+        div(class="bg-gray-300 p-4 rounded-tl-xl rounded-tr-xl space-y-5 flex flex-col items-center justify-center")
+          img(src="/images/logo.png", alt="Logo")
+          p(class="font-[Poppins] font-normal text-xl") The monitoring app for you!
 
-        img(class="rounded-lg",src="/images/logo.png", alt="Logo")
+        div(class="flex flex-col items-center bg-white py-4")
+          p(class="mt-8 text-xl font-bold font-[Poppins]") Login
 
-        form(class="flex flex-col space-y-8 border-[#00456B] border-[2px] rounded-lg p-6 h-[200px]" action="/auth/login" method="GET") 
+          form(class="space-y-6 flex flex-col mt-8",action="/auth/callback/app", method="get")
+            div(class="flex flex-col")
+              label(for="email", class="text-sm text-gray-500 opacity-75 font-[Poppins] font-normal") Nome de usuário ou e-mail
+              input(type="email", name="email",class="p-2 bg-[#EDF0F6] rounded-lg font-normal font-[Montserrat]")
 
-          div(class="space-y-3")
-            p Account Number
-            input(name="account_number" type="text", required, placeholder="9J91J2J")
+            div(class="flex flex-col")
+              label(for="password", class="text-sm text-gray-500 opacity-75 font-[Poppins] font-normal") Senha
+              input(type="password", name="password", class="p-2 bg-[#EDF0F6] rounded-lg font-normal font-[Montserrat]")
 
-          button(type="submit" class="p-4 bg-green-400 rounded-lg") Submit
+            button(type="submit", class="bg-[#3850EC] p-2 rounded-md min-h-[40px] text-white font-[Montserrat] font-semi") Logar
