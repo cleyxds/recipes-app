@@ -24,6 +24,7 @@ app.use(express.json())
 app.use(checkRedisConnection)
 app.use(createRedisIndex)
 
+app.get("/", ({ res }) => res?.redirect("/auth"))
 app.use(AuthRouter)
 app.use(UserRouter)
 

@@ -6,6 +6,8 @@ import { sign, verify } from "jsonwebtoken"
 
 import { UserSchema } from "../models"
 
+import { parseUserResponse } from "../utils"
+
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 
@@ -109,8 +111,39 @@ export default {
       res.sendStatus(500)
     }
   },
-  webview: async (req: Request, res: Response, next: NextFunction) => {
-    res.render("auth", { title: "Duke Energy | Authenticate" })
+  auth: async (req: Request, res: Response, next: NextFunction) => {
+    res.render("auth", { title: "Barbosa Receitas | Autenticação" })
+  },
+  webviewLogin: async (req: Request, res: Response, next: NextFunction) => {
+    res.render("login", { title: "Barbosa Receitas | Login" })
+  },
+  webviewRegister: async (req: Request, res: Response, next: NextFunction) => {
+    res.render("register", { title: "Barbosa Receitas | Cadastro" })
+  },
+  appCallback: async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.query
+
+    if (!email || !password) return res.redirect("/auth/login?error=true")
+
+    try {
+      const repo = req.client.fetchRepository(UserSchema)
+
+      const user = await repo
+        .search()
+        .where("profile")
+        .contain(email)
+        .return.first()
+
+      if (!user) return res.redirect("/auth/login?error=true")
+
+      const success = await compare(password, user?.credentials[0])
+
+      if (!success) return res.redirect("/auth")
+
+      res.json({ ...parseUserResponse(user), _ts: Date.now() })
+    } catch (error) {
+      res.sendStatus(401)
+    }
   }
 }
 

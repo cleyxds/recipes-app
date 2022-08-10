@@ -1,0 +1,43 @@
+html
+  head
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="shortcut icon", href="/images/image.png", type="image/png")
+    link(rel='stylesheet', href='/styles/styles.css', type='text/css' )
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&family=Montserrat:wght@500;700&family=Poppins&display=swap" rel="stylesheet")
+    title= title
+  body(class="bg-black")
+    header(class="w-screen h-14 px-1 bg-white flex items-center absolute top-0")
+      img(class="h-12 mr-3", src="/images/image.png", alt="Logomarca")
+      p(class="font-[Montserrat] font-bold ") Barbosa Recipes
+
+      a(class="absolute bottom-[-85%] right-[3%] px-2 py-1 rounded border border-white", href="/auth")
+        p(class="text-white font-light font-[Poppins]") Voltar
+
+    main(class="flex justify-center items-center h-screen px-5")
+
+      div(class="flex flex-col items-center w-screen")
+        p(class="text-white mb-6 font-bold font-[Montserrat] text-4xl") Cadastro
+
+        form(class="flex flex-col space-y-4 w-11/12",action="/auth/callback/app", method="get") 
+
+          div(class="flex items-center space-x-2")
+            div(class="space-y-1")
+              label(for="firstName-input-I", class="text-white font-[Poppins] text-sm") Nome
+              input(id="firstName-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="firstName", type="text", required, placeholder="Seu primeiro nome")
+
+            div(class="space-y-1")
+              label(for="firstName-input-I", class="text-white font-[Poppins] text-sm") Sobrenome
+              input(id="firstName-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="lastName", type="text", required, placeholder="Seu sobrenome")
+
+          div(class="flex flex-col space-y-1")
+            label(for="email-input-I", class="text-white font-[Poppins] text-sm") E-mail
+            input(id="email-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="email", type="email", required, placeholder="Entre com seu email")
+
+          div(class="flex flex-col space-y-1")  
+            label(for="password-input-I", class="text-white font-[Poppins] text-sm") Senha
+            input(id="password-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="password" type="password", required, placeholder="********")
+
+          button(type="submit" class="p-4 bg-[#F94701] rounded font-[Poppins]")
+            p(class="text-[#7F2401] font-[Montserrat] font-bold text-base") Submit
