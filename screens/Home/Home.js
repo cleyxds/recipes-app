@@ -127,7 +127,10 @@ export function Home() {
 
   return (
     <Screen>
-      <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 32 }}
+      >
         <RecipesCarousel data={data} />
 
         <CardList
@@ -140,6 +143,14 @@ export function Home() {
           type="category"
           title="Categorias"
           data={["Prato principal", "Café da manhã", "Almoço", "Regionais"]}
+          style={{ marginTop: "5%" }}
+        />
+
+        <CardList
+          type="popular"
+          horizontal={false}
+          title="Receitas populares"
+          data={todayRecipes}
           style={{ marginTop: "5%" }}
         />
       </ScrollView>

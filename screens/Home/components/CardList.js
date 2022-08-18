@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native"
 import {
   FlatList,
   Text,
@@ -9,24 +8,34 @@ import {
   Image
 } from "react-native"
 
+import { useNavigation } from "@react-navigation/native"
+
+import { AntDesign } from "@expo/vector-icons"
+
 import { colors, units } from "../../../utils"
 
 const { DEFAULT_OPACITY } = units
 
-export function CardList({ type, title = "", data, style }) {
+export function CardList({
+  type = "today",
+  title = "",
+  data,
+  horizontal = true,
+  style
+}) {
   const { navigate } = useNavigation()
   const { width, height } = useWindowDimensions()
 
   function handlePressCategory({ item }) {}
   function handlePressRecipe({ item }) {}
 
-  function CategoriesCard({ item }) {
+  function renderCategoriesCard({ item }) {
     return (
       <TouchableOpacity
         activeOpacity={DEFAULT_OPACITY}
         onPress={() => handlePressCategory({ item })}
       >
-        <View style={{ marginRight: 6 }}>
+        <View style={{ marginHorizontal: 6 }}>
           <View
             style={{
               width: width * 0.4,
@@ -79,6 +88,250 @@ export function CardList({ type, title = "", data, style }) {
     )
   }
 
+  function renderPopularCards({ item }) {
+    return (
+      <View style={{ marginHorizontal: 6, marginVertical: 10 }}>
+        <View>
+          <View
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 1
+            }}
+          >
+            <TouchableOpacity activeOpacity={DEFAULT_OPACITY}>
+              <AntDesign name="playcircleo" size={64} color={colors.WHITE} />
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: "3%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginHorizontal: 10,
+              zIndex: 2
+            }}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <AntDesign
+                name="hearto"
+                size={20}
+                color={colors.WHITE}
+                style={{ opacity: 0.7, marginRight: 4 }}
+              />
+              <Text
+                style={{
+                  color: colors.WHITE,
+                  opacity: 0.7,
+                  fontFamily: "MontserratMedium"
+                }}
+              >
+                12k
+              </Text>
+            </View>
+            <Text
+              style={{
+                color: colors.WHITE,
+                opacity: 0.7,
+                fontFamily: "MontserratMedium"
+              }}
+            >
+              30 mins
+            </Text>
+          </View>
+
+          <Image
+            source={{ uri: item?.thumbnail }}
+            style={{
+              height: 250,
+              borderRadius: 12
+            }}
+          />
+        </View>
+
+        <View style={{ marginTop: 8 }}>
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={{
+              fontSize: 14,
+              fontFamily: "MontserratBold",
+              color: colors.WHITE
+            }}
+          >
+            {item?.title}
+          </Text>
+
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 8
+            }}
+          >
+            <Image
+              resizeMode="center"
+              source={{ uri: item?.thumbnail }}
+              style={{
+                width: 32,
+                height: 32,
+                backgroundColor: colors.PRODUCT_ORANGE,
+                borderRadius: 9999,
+                marginRight: 12
+              }}
+            />
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontFamily: "MontserratRegular",
+                  color: colors.WHITE
+                }}
+              >
+                {item?.author}
+              </Text>
+
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{
+                  fontSize: 11,
+                  fontFamily: "MontserratRegular",
+                  color: colors.WHITE,
+                  opacity: 0.7
+                }}
+              >
+                Postado {item?.timestamp} atrás
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    )
+  }
+
+  function renderTodaysRecipes({ item }) {
+    return (
+      <TouchableOpacity
+        activeOpacity={DEFAULT_OPACITY}
+        onPress={() => handlePressRecipe({ item })}
+      >
+        <View style={{ maxWidth: width * 0.5, marginHorizontal: 6 }}>
+          <View>
+            <Image
+              source={{ uri: item?.thumbnail }}
+              style={{
+                width: width * 0.5,
+                height: 250,
+                backgroundColor: colors.WHITE,
+                borderRadius: 12
+              }}
+            />
+            <View
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: "3%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginHorizontal: 8
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <AntDesign
+                  name="hearto"
+                  size={20}
+                  color={colors.WHITE}
+                  style={{ opacity: 0.7, marginRight: 4 }}
+                />
+                <Text
+                  style={{
+                    color: colors.WHITE,
+                    opacity: 0.7,
+                    fontFamily: "MontserratMedium"
+                  }}
+                >
+                  12k
+                </Text>
+              </View>
+              <Text
+                style={{
+                  color: colors.WHITE,
+                  opacity: 0.7,
+                  fontFamily: "MontserratMedium"
+                }}
+              >
+                30 mins
+              </Text>
+            </View>
+          </View>
+
+          <View style={{ marginTop: 8 }}>
+            <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
+              style={{
+                fontSize: 14,
+                fontFamily: "MontserratBold",
+                color: colors.WHITE
+              }}
+            >
+              {item?.title}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 8
+            }}
+          >
+            <Image
+              resizeMode="center"
+              source={{ uri: item?.thumbnail }}
+              style={{
+                width: 32,
+                height: 32,
+                backgroundColor: colors.PRODUCT_ORANGE,
+                borderRadius: 9999,
+                marginRight: 12
+              }}
+            />
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontFamily: "MontserratRegular",
+                  color: colors.WHITE
+                }}
+              >
+                {item?.author}
+              </Text>
+
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{
+                  fontSize: 11,
+                  fontFamily: "MontserratRegular",
+                  color: colors.WHITE,
+                  opacity: 0.7
+                }}
+              >
+                Postado {item?.timestamp} atrás
+              </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <View style={style}>
       <View
@@ -100,10 +353,10 @@ export function CardList({ type, title = "", data, style }) {
           {title}
         </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={DEFAULT_OPACITY}>
           <Text
             style={{
-              color: colors.WHITE,
+              color: colors.GREY,
               fontSize: 13,
               fontFamily: "PoppinsSemiBold"
             }}
@@ -113,85 +366,16 @@ export function CardList({ type, title = "", data, style }) {
         </TouchableOpacity>
       </View>
 
-      <View>
+      <View style={{ marginTop: 10 }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           data={data}
-          horizontal
-          style={{ paddingHorizontal: 16 }}
+          horizontal={horizontal}
+          contentContainerStyle={{ paddingHorizontal: 10 }}
           renderItem={({ item }) => {
-            if (type === "category") {
-              return CategoriesCard({ item })
-            }
-
-            return (
-              <TouchableOpacity
-                activeOpacity={DEFAULT_OPACITY}
-                onPress={() => handlePressRecipe({ item })}
-              >
-                <View style={{ maxWidth: width * 0.5, marginRight: 12 }}>
-                  <Image
-                    source={{ uri: item?.thumbnail }}
-                    style={{
-                      width: width * 0.5,
-                      height: 250,
-                      backgroundColor: colors.WHITE,
-                      borderRadius: 12
-                    }}
-                  />
-                  <Text
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                    style={{
-                      fontSize: 14,
-                      fontFamily: "MontserratBold",
-                      color: colors.WHITE
-                    }}
-                  >
-                    {item?.title}
-                  </Text>
-
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      marginTop: 8
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: 36,
-                        height: 36,
-                        backgroundColor: colors.PRODUCT_ORANGE,
-                        borderRadius: 9999,
-                        marginRight: 12
-                      }}
-                    />
-                    <View>
-                      <Text
-                        style={{
-                          fontSize: 13,
-                          fontFamily: "MontserratRegular",
-                          color: colors.WHITE
-                        }}
-                      >
-                        {item?.author}
-                      </Text>
-
-                      <Text
-                        style={{
-                          fontSize: 11,
-                          fontFamily: "MontserratRegular",
-                          color: colors.WHITE,
-                          opacity: 0.6
-                        }}
-                      >
-                        Postado {item?.timestamp} atrás
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )
+            if (type === "popular") return renderPopularCards({ item })
+            if (type === "category") return renderCategoriesCard({ item })
+            if (type === "today") return renderTodaysRecipes({ item })
           }}
         />
       </View>

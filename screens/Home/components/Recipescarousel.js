@@ -73,7 +73,7 @@ export function RecipesCarousel({ data }) {
                 width: width * 0.8 - 20,
                 height: 165,
                 borderRadius: 12,
-                backgroundColor: "#232220",
+                backgroundColor: colors.GREY_I,
                 paddingHorizontal: 16
               }}
             >
@@ -112,43 +112,45 @@ export function RecipesCarousel({ data }) {
                     justifyContent: "space-between"
                   }}
                 >
-                  <TouchableOpacity
-                    activeOpacity={DEFAULT_OPACITY}
-                    style={{ flexDirection: "row", alignItems: "center" }}
-                  >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View
                       style={{
                         backgroundColor: colors.WHITE,
-                        width: 32,
-                        height: 32,
+                        width: 28,
+                        height: 28,
                         borderRadius: 9999,
                         marginRight: 8
                       }}
                     />
 
-                    <Text
-                      style={{
-                        color: colors.WHITE,
-                        fontFamily: "PoppinsSemiBold"
-                      }}
+                    <TouchableOpacity activeOpacity={DEFAULT_OPACITY}>
+                      <Text
+                        style={{
+                          color: colors.WHITE,
+                          fontFamily: "PoppinsSemiBold"
+                        }}
+                      >
+                        ChefeRei
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <TouchableOpacity
+                      activeOpacity={DEFAULT_OPACITY}
+                      style={{ flexDirection: "row", alignItems: "center" }}
                     >
-                      ChefeRei
-                    </Text>
-                  </TouchableOpacity>
+                      <View
+                        style={{
+                          width: 24,
+                          height: 24,
+                          backgroundColor: "crimson",
+                          borderRadius: 9999,
+                          marginRight: 8
+                        }}
+                      />
+                    </TouchableOpacity>
 
-                  <TouchableOpacity
-                    activeOpacity={DEFAULT_OPACITY}
-                    style={{ flexDirection: "row", alignItems: "center" }}
-                  >
-                    <View
-                      style={{
-                        width: 24,
-                        height: 24,
-                        backgroundColor: "crimson",
-                        borderRadius: 9999,
-                        marginRight: 8
-                      }}
-                    />
                     <Text
                       style={{
                         fontFamily: "DMSansMedium",
@@ -158,7 +160,7 @@ export function RecipesCarousel({ data }) {
                     >
                       {item?.likes}
                     </Text>
-                  </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
