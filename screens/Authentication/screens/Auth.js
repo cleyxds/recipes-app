@@ -32,7 +32,7 @@ export function Auth() {
     setIsAuthenticating(true)
 
     const { type } = await openAuthSessionAsync(
-      `${config.API_URL}auth`,
+      `${config.API_URL}auth/login`,
       "myapp://auth"
     )
 
