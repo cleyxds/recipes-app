@@ -8,16 +8,19 @@ import { isAndroid } from "../utils/constants"
 export function Screen({
   children,
   ignoreAndroidStatusBarHeight = isAndroid,
-  props
+  ...props
 }) {
   return (
     <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.BLACK_I,
-        paddingTop: getStatusBarHeight(ignoreAndroidStatusBarHeight),
-        ...props
-      }}
+      style={[
+        props.style,
+        {
+          flex: 1,
+          backgroundColor: colors.BLACK_I,
+          paddingTop: getStatusBarHeight(ignoreAndroidStatusBarHeight)
+        }
+      ]}
+      {...props}
     >
       {children}
     </View>
