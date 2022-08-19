@@ -172,12 +172,12 @@ export function renderPopularCards({ item, size, navigate }) {
           }}
         >
           <Image
-            resizeMode="center"
+            resizeMode="cover"
             source={{ uri: item?.thumbnail }}
             style={{
               width: 32,
               height: 32,
-              backgroundColor: colors.PRODUCT_ORANGE,
+              backgroundColor: colors.BLACK_II,
               borderRadius: 9999,
               marginRight: 12
             }}
@@ -292,12 +292,12 @@ export function renderTodaysRecipes({ item, size, navigate }) {
           }}
         >
           <Image
-            resizeMode="center"
+            resizeMode="cover"
             source={{ uri: item?.thumbnail }}
             style={{
               width: 32,
               height: 32,
-              backgroundColor: colors.PRODUCT_ORANGE,
+              backgroundColor: colors.BLACK_II,
               borderRadius: 9999,
               marginRight: 12
             }}

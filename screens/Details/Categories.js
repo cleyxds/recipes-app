@@ -7,7 +7,8 @@ import {
   View,
   Dimensions,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  FlatList
 } from "react-native"
 
 import { useNavigation, useRoute } from "@react-navigation/native"
@@ -16,11 +17,9 @@ import { Screen } from "../../components"
 
 import { renderTodaysRecipes } from "../Home/components/CardList"
 
-import { Feather, Entypo } from "@expo/vector-icons"
-import { AntDesign } from "@expo/vector-icons"
+import { Feather, Entypo, AntDesign } from "@expo/vector-icons"
 
 import { colors, units } from "../../utils"
-import { FlatList } from "react-native-gesture-handler"
 
 const { DEFAULT_OPACITY } = units
 const { width } = Dimensions.get("window")
@@ -58,6 +57,10 @@ export function CategoriesDetails() {
     setIsSearchInputOpen(state => !state)
   }
 
+  function handleGoToFollowers() {
+    navigate("S.Followers")
+  }
+
   return (
     <Screen>
       <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
@@ -83,7 +86,10 @@ export function CategoriesDetails() {
               </TouchableOpacity>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <TouchableOpacity activeOpacity={DEFAULT_OPACITY}>
+                <TouchableOpacity
+                  onPress={handleGoToFollowers}
+                  activeOpacity={DEFAULT_OPACITY}
+                >
                   <AntDesign
                     name="hearto"
                     size={20}
