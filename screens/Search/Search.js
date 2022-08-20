@@ -46,7 +46,7 @@ export function Search() {
               style={{
                 paddingHorizontal: 16,
                 marginTop: 18,
-                marginBottom: 32,
+                marginBottom: !!searchInputValue?.length ? 8 : 32,
                 justifyContent: "center"
               }}
             >
