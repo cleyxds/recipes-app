@@ -1,4 +1,5 @@
 import UserController from "./UserController"
 import AuthController from "./AuthController"
+import RecipeController from "./RecipeController"
 
-export { UserController, AuthController }
+export { UserController, AuthController, RecipeController }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 
-import { UserSchema } from "../models"
+import { RecipeSchema, UserSchema } from "../models"
 
 export async function createRedisIndex(
   req: Request,
@@ -13,9 +13,11 @@ export async function createRedisIndex(
   }
 
   const repo = req.client.fetchRepository(UserSchema)
+  const recipesRepo = req.client.fetchRepository(RecipeSchema)
 
   try {
     await repo.createIndex()
+    await recipesRepo.createIndex()
 
     next()
   } catch (error) {

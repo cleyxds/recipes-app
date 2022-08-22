@@ -1,5 +1,7 @@
 import express from "express"
 
+import multer from "multer"
+
 import cors from "cors"
 
 import { config } from "dotenv"
@@ -10,11 +12,13 @@ config({ path: ".env" })
 
 import { checkRedisConnection, createRedisIndex } from "./middlewares"
 
-import { AuthRouter, UserRouter } from "./routes"
+import { AuthRouter, RecipeRouter, UserRouter } from "./routes"
 
 const SERVER_PORT = process.env.SERVER_PORT
 
 const app = express()
+
+const upload = multer({ dest: "public/uploads/" })
 
 app.set("views", join(__dirname, "views"))
 app.set("view engine", "pug")
@@ -27,6 +31,11 @@ app.use(createRedisIndex)
 app.get("/", ({ res }) => res?.redirect("/auth"))
 app.use(AuthRouter)
 app.use(UserRouter)
+app.use(RecipeRouter)
+
+app.post("/upload/video", upload.single("video"), (req, res, next) => {
+  next()
+})
 
 app.listen(SERVER_PORT, () =>
   console.log(`Server is running on http://localhost:${SERVER_PORT}`)
