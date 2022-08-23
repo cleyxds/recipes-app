@@ -94,6 +94,7 @@ export default {
         ({
           entityId,
           profile,
+          avatar_url,
           locale,
           status,
           createdAt,
@@ -116,7 +117,10 @@ export default {
             lastName: profile[1],
             email: profile[2],
             login: profile[3],
-            phone: profile[4]
+            phone: profile[4],
+            avatar_url: !!avatar_url
+              ? new URL(`http://localhost:3333/uploads/${avatar_url}`)
+              : null
           },
           credentials: {
             provider: "Express-Server"
@@ -202,6 +206,23 @@ export default {
       res.json(queryResult)
     } catch (error) {
       res.status(500).json({ error, errors: ["search()"] })
+    }
+  },
+  uploadAvatar: async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params?.id
+
+    const repo = req.client.fetchRepository(UserSchema)
+
+    try {
+      const user = await repo.fetch(id)
+
+      user.avatar_url = req.file?.filename
+
+      await repo.save(user)
+
+      res.json({ ...parseUserResponse(user), _ts: Date.now() })
+    } catch (error) {
+      res.status(500).json({ error, errors: ["uploadAvatar()"] })
     }
   }
 }

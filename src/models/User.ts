@@ -24,7 +24,8 @@ export let UserSchema = new Schema(
     lastUpdated: { type: "date", indexed: false },
     passwordChangedAt: { type: "date", indexed: false },
     locale: { type: "string", indexed: false },
-    status: { type: "string", indexed: false }
+    status: { type: "string", indexed: false },
+    avatar_url: { type: "string" }
   },
   {
     dataStructure: "JSON"

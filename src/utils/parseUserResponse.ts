@@ -1,5 +1,5 @@
 export function parseUserResponse(user) {
-  const { entityId, profile, status, locale } = user
+  const { entityId, profile, status, locale, avatar_url } = user
   return {
     id: entityId,
     status: status,
@@ -14,7 +14,10 @@ export function parseUserResponse(user) {
       lastName: profile[1],
       email: profile[2],
       login: profile[3],
-      phone: profile[4]
+      phone: profile[4],
+      avatar_url: !!avatar_url
+        ? new URL(`http://localhost:3333/uploads/${avatar_url}`)
+        : null
     },
     credentials: {
       provider: "Express-Server"
