@@ -541,6 +541,9 @@ video {
 .h-9 {
   height: 2.25rem;
 }
+.min-h-screen {
+  min-height: 100vh;
+}
 .w-screen {
   width: 100vw;
 }
@@ -550,6 +553,12 @@ video {
 .w-11\/12 {
   width: 91.666667%;
 }
+.max-w-\[45\.83\%\] {
+  max-width: 45.83%;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -558,6 +567,9 @@ video {
 }
 .justify-center {
   justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
 }
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
