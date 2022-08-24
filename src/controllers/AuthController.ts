@@ -152,9 +152,29 @@ export default {
 
       const success = await compare(password, user?.credentials[0])
 
-      if (!success) return res.redirect("/auth")
+      if (!success) return res.redirect("/auth/login?error=true")
 
-      res.redirect("exp://")
+      const refreshTokenAlreadyExists = await req.client.execute([
+        "EXISTS",
+        `RefreshToken:${email}`
+      ])
+
+      if (!refreshTokenAlreadyExists) {
+        const refreshToken = sign(
+          { email, userId: user?.entityId },
+          REFRESH_TOKEN_SECRET,
+          {
+            expiresIn: "24h"
+          }
+        )
+
+        await req.client.set(`RefreshToken:${email}`, refreshToken)
+        await req.client.expire(`RefreshToken:${email}`, 24 * 60 * 60)
+      }
+
+      const storedRefreshToken = await req.client.get(`RefreshToken:${email}`)
+
+      res.redirect(`exp://${storedRefreshToken}`)
     } catch (error) {
       res.sendStatus(401)
     }
