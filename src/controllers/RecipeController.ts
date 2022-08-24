@@ -7,11 +7,13 @@ import { parseRecipeResponse } from "../utils"
 export default {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const { title, description, summary, specs } = req.body
+    const userId = req.user?.userId
 
     const repo = await req.client.fetchRepository(RecipeSchema)
 
     try {
       const recipe = await repo.createAndSave({
+        userId,
         title,
         description,
         likes: 0,
@@ -22,16 +24,16 @@ export default {
       })
 
       res.json({ ...parseRecipeResponse(recipe) })
-    } catch (error) {}
+    } catch (error) {
+      res.sendStatus(500)
+    }
   },
   fetchAll: async (req: Request, res: Response, next: NextFunction) => {
     const repo = req.client.fetchRepository(RecipeSchema)
 
     const recipes = await repo.search().return.all()
 
-    const parsedRecipes = recipes?.map(item => ({
-      ...parseRecipeResponse(item)
-    }))
+    const parsedRecipes = recipes?.map(item => parseRecipeResponse(item))
 
     res.json(parsedRecipes)
   },
@@ -52,6 +54,23 @@ export default {
     try {
       await repo.save(recipe)
       res.status(201).json({ ...parseRecipeResponse(recipe) })
+    } catch (error) {
+      res.sendStatus(403)
+    }
+  },
+  mine: async (req: Request, res: Response, next: NextFunction) => {
+    const repo = await req.client.fetchRepository(RecipeSchema)
+
+    try {
+      const myRecipes = await repo
+        .search()
+        .where("userId")
+        .eq(req.user?.userId)
+        .return.all()
+
+      const myRecipesParsed = myRecipes?.map(item => parseRecipeResponse(item))
+
+      res.status(201).json(myRecipesParsed)
     } catch (error) {
       res.sendStatus(403)
     }

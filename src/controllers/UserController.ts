@@ -48,32 +48,14 @@ export default {
       return
     }
 
+    if (id !== req.user?.userId) return res.sendStatus(403)
+
     const repo = req.client.fetchRepository(UserSchema)
 
     try {
       const user = await repo.fetch(id)
 
-      const { entityId, credentials, profile, status, locale, ...rest } = {
-        ...user.toJSON()
-      }
-
-      const parsedUser = {
-        id: entityId,
-        status: status,
-        ...rest,
-        profile: {
-          firstName: profile[0],
-          lastName: profile[1],
-          email: profile[2],
-          login: profile[3],
-          phone: profile[4]
-        },
-        credentials: {
-          provider: "Express-Server"
-        }
-      }
-
-      res.json({ ...parsedUser, _ts: Date.now() })
+      res.json({ ...parseUserResponse(user), _ts: Date.now() })
     } catch (error) {
       res.status(500).json({ error, errors: ["fetch()"] })
     }
@@ -82,6 +64,7 @@ export default {
     const repo = req.client.fetchRepository(UserSchema)
 
     try {
+      const usersResponse = await repo.search().return.all()
       const userIds = await req.client.execute(["KEYS", "User:0*"])
       const parsedUserIds = userIds?.map(item => item?.replace("User:", ""))
       const usersRequestPromises = parsedUserIds?.map(
@@ -129,13 +112,15 @@ export default {
         })
       )
 
-      res.json({ users: parsedUsers, _ts: Date.now() })
+      res.json(usersResponse?.map(item => parseUserResponse(item)))
     } catch (error) {
       res.status(500).json({ error, errors: ["findAll()"] })
     }
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
+
+    if (id !== req.user?.userId) return res.sendStatus(403)
 
     const { firstName, lastName, email, phone, locale } = req.body
 
@@ -157,6 +142,8 @@ export default {
   },
   delete: async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
+
+    if (id !== req.user?.userId) return res.sendStatus(403)
 
     const repo = req.client.fetchRepository(UserSchema)
 

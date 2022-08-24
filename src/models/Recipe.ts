@@ -10,6 +10,7 @@ class Recipe extends Entity {}
 export let RecipeSchema = new Schema(
   Recipe,
   {
+    userId: { type: "string" },
     title: { type: "string" },
     description: { type: "text" },
     likes: { type: "number" },

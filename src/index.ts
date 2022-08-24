@@ -12,23 +12,36 @@ import { checkRedisConnection, createRedisIndex } from "./middlewares"
 
 import { AuthRouter, RecipeRouter, UserRouter } from "./routes"
 
-const SERVER_PORT = process.env.SERVER_PORT
+const AUTHORIZATION_SERVER_PORT = process.env.AUTHORIZATION_SERVER_PORT
+const SERVICE_PORT = process.env.SERVICE_PORT
 
-const app = express()
+const authorizationServer = express()
+const usersApp = express()
 
-app.set("views", join(__dirname, "views"))
-app.set("view engine", "pug")
-app.use(express.static(join(__dirname, "..", "public")))
-app.use(cors())
-app.use(express.json())
-app.use(checkRedisConnection)
-app.use(createRedisIndex)
+authorizationServer.set("views", join(__dirname, "views"))
+authorizationServer.set("view engine", "pug")
+authorizationServer.use(express.static(join(__dirname, "..", "public")))
+authorizationServer.use(cors())
+authorizationServer.use(express.json())
+authorizationServer.use(checkRedisConnection)
+authorizationServer.use(createRedisIndex)
 
-app.get("/", ({ res }) => res?.redirect("/auth"))
-app.use(AuthRouter)
-app.use(UserRouter)
-app.use(RecipeRouter)
+authorizationServer.get("/", ({ res }) => res?.redirect("/auth"))
+authorizationServer.use(AuthRouter)
 
-app.listen(SERVER_PORT, () =>
-  console.log(`Server is running on http://localhost:${SERVER_PORT}`)
+usersApp.use(cors())
+usersApp.use(express.json())
+usersApp.use(checkRedisConnection)
+usersApp.use(createRedisIndex)
+usersApp.use(express.static(join(__dirname, "..", "public")))
+usersApp.use(UserRouter)
+usersApp.use(RecipeRouter)
+
+authorizationServer.listen(AUTHORIZATION_SERVER_PORT, () =>
+  console.log(
+    `authorizationServer is running on http://localhost:${AUTHORIZATION_SERVER_PORT}`
+  )
+)
+usersApp.listen(SERVICE_PORT, () =>
+  console.log(`usersApp is running on http://localhost:${SERVICE_PORT}`)
 )

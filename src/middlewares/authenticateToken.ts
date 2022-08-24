@@ -15,7 +15,10 @@ export async function authenticateToken(
   if (!!!token) return res.sendStatus(401)
 
   verify(token, ACCESS_TOKEN_SECRET, (error, user) => {
-    if (error) return res.sendStatus(403)
+    if (error)
+      return res
+        .status(403)
+        .json({ message: error.message, errors: [error.name] })
 
     req.user = user
     next()
