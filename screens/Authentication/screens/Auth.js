@@ -9,9 +9,10 @@ import {
   ActivityIndicator
 } from "react-native"
 
-import { openAuthSessionAsync, openBrowserAsync } from "expo-web-browser"
+import { openAuthSessionAsync } from "expo-web-browser"
 
 import { useAuthStore } from "../../../stores/Auth"
+import { useUserStore } from "../../../stores/User"
 
 import { Screen } from "../../../components"
 
@@ -26,28 +27,57 @@ export function Auth() {
   const { height } = useWindowDimensions()
   const [isAuthenticating, setIsAuthenticating] = useState(false)
   const { setAuth } = useAuthStore()
+  const { setUser } = useUserStore()
 
   async function handleSignIn() {
     if (isAuthenticating) return
     setIsAuthenticating(true)
 
-    const { type } = await openAuthSessionAsync(
-      `${config.API_URL}auth/login`,
+    const { type, url } = await openAuthSessionAsync(
+      `${config.AUTHORIZATION_SERVER}auth/login`,
       "myapp://auth"
     )
 
-    if (type === "cancel" || type === "dismiss" || type === "success") {
-      await wait(2000)
-      setAuth({
-        isAuthenticated: true
+    if (type === "success") {
+      const route = url?.replace(/.*?:\/\//g, "")
+      const [refreshToken] = route.split("/")
+
+      const response = await fetch(`${config.AUTHORIZATION_SERVER}auth/token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          token: refreshToken
+        })
       })
 
-      await wait(300)
+      const data = await response.json()
+
+      const userDataResponse = await fetch(`${config.API_URL}users/me`, {
+        headers: {
+          Authorization: `Bearer ${data?.accessToken}`
+        }
+      })
+
+      const userData = await userDataResponse.json()
+
+      const parsedContract = {
+        isAuthenticated: true,
+        accessToken: data?.accessToken,
+        refreshToken,
+        userId: userData?.id
+      }
+
+      setAuth(parsedContract)
+      setUser(userData)
+
+      await wait(500)
       setIsAuthenticating(false)
       return
     }
 
-    await wait(3000)
+    await wait(300)
     setIsAuthenticating(false)
   }
 

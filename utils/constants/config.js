@@ -1,5 +1,6 @@
-import { API_URL } from "../../env"
+import { API_URL, AUTHORIZATION_SERVER } from "../../env"
 
 export default {
-  API_URL
+  API_URL,
+  AUTHORIZATION_SERVER
 }

@@ -1,5 +1,3 @@
-import { View } from "react-native"
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
 const { Navigator, Screen } = createBottomTabNavigator()
@@ -8,6 +6,7 @@ import { Screen as ScreenComponent } from "../../components"
 
 import { HomeStack } from "../stacks/home.stack"
 import { SearchStack } from "../stacks/search.stack"
+import { Profile } from "../../screens/Profile"
 
 import { DEFAULT_SCREEN_OPTIONS } from "../config"
 
@@ -22,7 +21,7 @@ export function MainTabs() {
       <Screen name="T.Search" component={SearchStack} />
       <Screen name="T.Create" component={BlankTab} />
       <Screen name="T.Shopping" component={BlankTab} />
-      <Screen name="T.Profile" component={BlankTab} />
+      <Screen name="T.Profile" component={Profile} />
     </Navigator>
   )
 }
