@@ -39,7 +39,7 @@ router.get(
 )
 router.get("/users/me", authenticateToken, UserController["me"])
 router.put(
-  "/upload/user/:id",
+  "/upload/users/:id",
   authenticateToken,
   upload.single("avatar_url"),
   UserController["uploadAvatar"]
