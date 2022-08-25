@@ -1,82 +1,10 @@
-import { useState, useRef } from "react"
-
-import {
-  Animated,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-  useWindowDimensions,
-  ScrollView,
-  FlatList
-} from "react-native"
-
-import { useNavigation } from "@react-navigation/native"
-
-import { useAuthStore } from "../../stores/Auth"
+import { ScrollView } from "react-native"
 
 import { Screen } from "../../components"
 
-import { colors, wait, units } from "../../utils"
 import { RecipesCarousel, CardList } from "./components"
 
-const { DEFAULT_OPACITY } = units
-
 export function Home() {
-  const { setAuth } = useAuthStore()
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
-
-  async function handleLogout() {
-    if (isLoggingOut) return
-    setIsLoggingOut(true)
-
-    await wait(1000)
-
-    setAuth({
-      isAuthenticated: false
-    })
-
-    await wait(300)
-    setIsLoggingOut(false)
-  }
-
-  function renderLogout() {
-    return (
-      <TouchableOpacity
-        activeOpacity={DEFAULT_OPACITY}
-        onPress={handleLogout}
-        style={{
-          width: 80,
-          height: 40,
-          paddingHorizontal: 16,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: colors.WHITE,
-          borderRadius: 12,
-          position: "absolute",
-          right: 32,
-          top: 32
-        }}
-      >
-        {isLoggingOut ? (
-          <ActivityIndicator color={colors.BLACK_I} />
-        ) : (
-          <Text
-            adjustsFontSizeToFit
-            numberOfLines={1}
-            style={{
-              fontFamily: "PoppinsSemiBold",
-              color: colors.BLACK_I
-            }}
-          >
-            Logout
-          </Text>
-        )}
-      </TouchableOpacity>
-    )
-  }
-
   const data = [
     {
       thumbnail:

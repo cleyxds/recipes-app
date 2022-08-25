@@ -3,13 +3,12 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  FlatList,
-  Image
+  FlatList
 } from "react-native"
 
 import { useNavigation, useRoute } from "@react-navigation/native"
 
-import { Screen } from "../../components"
+import { OptimizedImage, Screen } from "../../components"
 
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons"
 
@@ -42,7 +41,7 @@ export function renderFollowerCard({ item, index }, type = "followers") {
         <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
           {type === "followers" && (
             <View>
-              <Image
+              <OptimizedImage
                 source={{ uri: item?.avatar_url }}
                 style={{
                   width: 48,

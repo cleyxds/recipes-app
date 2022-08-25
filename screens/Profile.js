@@ -1,7 +1,5 @@
 import {
-  Image,
   Keyboard,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -15,7 +13,7 @@ import { useUserStore } from "../stores/User"
 
 import { Feather, MaterialCommunityIcons, Entypo } from "@expo/vector-icons"
 
-import { Screen } from "../components"
+import { Screen, OptimizedImage } from "../components"
 
 import { colors, units } from "../utils"
 import { config } from "../utils/constants"
@@ -84,7 +82,7 @@ export function Profile() {
                 activeOpacity={DEFAULT_OPACITY}
                 onPress={handleUploadImage}
               >
-                <Image
+                <OptimizedImage
                   source={{
                     uri: user?.profile?.avatar_url.replace(
                       "http://localhost:3333/",
@@ -94,6 +92,7 @@ export function Profile() {
                   style={{ width: 128, height: 128, borderRadius: 9999 }}
                 />
               </TouchableOpacity>
+
               <TouchableOpacity
                 activeOpacity={DEFAULT_OPACITY}
                 onPress={handleUploadImage}
@@ -101,7 +100,7 @@ export function Profile() {
                 <View
                   style={{
                     position: "absolute",
-                    left: 100,
+                    left: "70%",
                     right: 0,
                     bottom: 0,
                     width: 28,

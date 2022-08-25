@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
 import {
-  Image,
   Keyboard,
   Text,
   TextInput,
@@ -13,7 +12,7 @@ import { SearchTabs } from "./components/SearchTabs"
 
 import { Entypo } from "@expo/vector-icons"
 
-import { Screen } from "../../components"
+import { OptimizedImage, Screen } from "../../components"
 
 import { colors } from "../../utils"
 
@@ -154,7 +153,7 @@ export function Search() {
                   </View>
                 </View>
 
-                <Image
+                <OptimizedImage
                   source={{
                     uri: "https://images.unsplash.com/photo-1528736235302-52922df5c122?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1254&q=80"
                   }}

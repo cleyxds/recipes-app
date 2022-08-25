@@ -4,13 +4,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  Image,
   Dimensions
 } from "react-native"
 
 import { useNavigation } from "@react-navigation/native"
 
 import { AntDesign } from "@expo/vector-icons"
+
+import { OptimizedImage } from "../../../components"
 
 import { colors, units } from "../../../utils"
 
@@ -143,7 +144,7 @@ export function renderPopularCards({ item, size, navigate }) {
           </Text>
         </View>
 
-        <Image
+        <OptimizedImage
           source={{ uri: item?.thumbnail }}
           style={{
             height: 250,
@@ -171,7 +172,7 @@ export function renderPopularCards({ item, size, navigate }) {
             marginTop: 8
           }}
         >
-          <Image
+          <OptimizedImage
             resizeMode="cover"
             source={{ uri: item?.thumbnail }}
             style={{
@@ -223,7 +224,7 @@ export function renderTodaysRecipes({ item, size, navigate }) {
     >
       <View style={{ maxWidth: width * 0.5, marginHorizontal: 6 }}>
         <View>
-          <Image
+          <OptimizedImage
             source={{ uri: item?.thumbnail }}
             style={{
               height: 250,
@@ -291,7 +292,7 @@ export function renderTodaysRecipes({ item, size, navigate }) {
             marginTop: 8
           }}
         >
-          <Image
+          <OptimizedImage
             resizeMode="cover"
             source={{ uri: item?.thumbnail }}
             style={{
