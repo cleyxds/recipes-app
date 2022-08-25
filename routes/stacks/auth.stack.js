@@ -6,6 +6,7 @@ import {
 const { Navigator, Screen, Group } = createStackNavigator()
 
 import { Walkthrough } from "../../screens/Authentication"
+import { AuthLoading } from "../../screens"
 
 import {
   PrivacyPolicy,
@@ -17,6 +18,7 @@ import { DEFAULT_SCREEN_OPTIONS } from "../config"
 export function AuthStack() {
   return (
     <Navigator screenOptions={DEFAULT_SCREEN_OPTIONS}>
+      <Screen name="Loading" component={AuthLoading} />
       <Screen name="Walkthrough" component={Walkthrough} />
 
       <Group

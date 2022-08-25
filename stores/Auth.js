@@ -13,5 +13,6 @@ export const useAuthStore = create(set => ({
     set(state => ({
       ...state,
       auth
-    }))
+    })),
+  clearAuth: () => set(state => ({ ...state, auth: DEFAULT_STATE }))
 }))

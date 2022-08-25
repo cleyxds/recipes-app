@@ -16,12 +16,13 @@ import { useUserStore } from "../../../stores/User"
 
 import { Screen } from "../../../components"
 
-import { colors, units, wait } from "../../../utils"
+import { colors, units, wait, user } from "../../../utils"
 import { config } from "../../../utils/constants"
 
 import FeijoadaImage from "../../../assets/images/Walkthrough/Feijoada.png"
 
 const { DEFAULT_OPACITY } = units
+const { setLocalUserCredentials } = user
 
 export function Auth() {
   const { height } = useWindowDimensions()
@@ -71,6 +72,7 @@ export function Auth() {
 
       setAuth(parsedContract)
       setUser(userData)
+      await setLocalUserCredentials({ credentials: parsedContract })
 
       await wait(500)
       setIsAuthenticating(false)

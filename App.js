@@ -1,10 +1,8 @@
 import "react-native-gesture-handler"
 
-import { StatusBar } from "react-native"
+import { ActivityIndicator, StatusBar } from "react-native"
 
 import { NavigationContainer } from "@react-navigation/native"
-
-import AppLoading from "expo-app-loading"
 
 import { useLocalFonts } from "./hooks"
 
@@ -19,7 +17,7 @@ export default function App() {
   const { fontsLoaded } = useLocalFonts()
 
   if (!fontsLoaded) {
-    return <AppLoading />
+    return <ActivityIndicator size="large" color={colors.ORANGE_NAVIGATION} />
   }
 
   return (
