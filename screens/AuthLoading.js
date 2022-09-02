@@ -2,8 +2,6 @@ import { useEffect } from "react"
 
 import { ActivityIndicator, StyleSheet, View } from "react-native"
 
-import { useNavigation } from "@react-navigation/native"
-
 import { Screen } from "../components"
 
 import { useAuthStore } from "../stores/Auth"
@@ -36,6 +34,8 @@ export function AuthLoading({ navigation }) {
           token: refreshToken
         })
       })
+
+      if (!response.ok) return navigate("Walkthrough")
 
       const data = await response.json()
 

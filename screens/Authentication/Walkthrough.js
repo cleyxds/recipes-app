@@ -88,6 +88,7 @@ export function Walkthrough() {
 
           return (
             <Animated.View
+              key={index}
               style={{
                 width: DOT_SIZE,
                 height: DOT_SIZE,

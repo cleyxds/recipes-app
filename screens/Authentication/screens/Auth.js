@@ -34,53 +34,63 @@ export function Auth() {
     if (isAuthenticating) return
     setIsAuthenticating(true)
 
-    const { type, url } = await openAuthSessionAsync(
-      `${config.AUTHORIZATION_SERVER}auth/login`,
-      "myapp://auth"
-    )
+    try {
+      const { type, url } = await openAuthSessionAsync(
+        `${config.AUTHORIZATION_SERVER}auth/login?redirectUrl=${config.APP_SCHEMA}`,
+        config.APP_SCHEMA
+      )
 
-    if (type === "success") {
-      const route = url?.replace(/.*?:\/\//g, "")
-      const [refreshToken] = route.split("/")
+      if (type === "success") {
+        const route = url?.replace(/.*?:\/\//g, "")
+        const [host, doubleDashes, refreshToken] = route.split("/")
 
-      const response = await fetch(`${config.AUTHORIZATION_SERVER}auth/token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          token: refreshToken
+        const response = await fetch(
+          `${config.AUTHORIZATION_SERVER}auth/token`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              token: refreshToken
+            })
+          }
+        )
+
+        const data = await response.json()
+
+        const userDataResponse = await fetch(`${config.API_URL}users/me`, {
+          headers: {
+            Authorization: `Bearer ${data?.accessToken}`
+          }
         })
-      })
 
-      const data = await response.json()
+        const userData = await userDataResponse.json()
 
-      const userDataResponse = await fetch(`${config.API_URL}users/me`, {
-        headers: {
-          Authorization: `Bearer ${data?.accessToken}`
+        const parsedContract = {
+          isAuthenticated: true,
+          accessToken: data?.accessToken,
+          refreshToken,
+          userId: userData?.id
         }
-      })
 
-      const userData = await userDataResponse.json()
+        setAuth(parsedContract)
+        setUser(userData)
+        await setLocalUserCredentials({ credentials: parsedContract })
 
-      const parsedContract = {
-        isAuthenticated: true,
-        accessToken: data?.accessToken,
-        refreshToken,
-        userId: userData?.id
+        await wait(500)
+        setIsAuthenticating(false)
+        return
       }
 
-      setAuth(parsedContract)
-      setUser(userData)
-      await setLocalUserCredentials({ credentials: parsedContract })
-
-      await wait(500)
+      await wait(300)
       setIsAuthenticating(false)
-      return
-    }
+    } catch (error) {
+      alert("Ocorreu um erro 😢, por favor tente novamente.")
 
-    await wait(300)
-    setIsAuthenticating(false)
+      await wait(300)
+      setIsAuthenticating(false)
+    }
   }
 
   return (
