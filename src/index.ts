@@ -20,6 +20,7 @@ const usersApp = express()
 
 authorizationServer.set("views", join(__dirname, "views"))
 authorizationServer.set("view engine", "pug")
+authorizationServer.use(express.urlencoded({ extended: true }))
 authorizationServer.use(express.static(join(__dirname, "..", "public")))
 authorizationServer.use(cors())
 authorizationServer.use(express.json())

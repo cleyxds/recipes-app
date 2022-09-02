@@ -129,13 +129,19 @@ export default {
     res.render("auth", { title: "Barbosa Receitas | Autenticação" })
   },
   webviewLogin: async (req: Request, res: Response, next: NextFunction) => {
-    res.render("login", { title: "Barbosa Receitas | Login" })
+    const { redirectUrl } = req.query
+
+    res.render("login", {
+      title: "Barbosa Receitas | Login",
+      redirectUrl: `/auth/callback/app?redirectUrl=${redirectUrl}`
+    })
   },
   webviewRegister: async (req: Request, res: Response, next: NextFunction) => {
     res.render("register", { title: "Barbosa Receitas | Cadastro" })
   },
-  appCallback: async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.query
+  redirectCallback: async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body
+    const { redirectUrl } = req.query
 
     if (!email || !password) return res.redirect("/auth/login?error=true")
 
@@ -174,7 +180,14 @@ export default {
 
       const storedRefreshToken = await req.client.get(`RefreshToken:${email}`)
 
-      res.redirect(`exp://${storedRefreshToken}`)
+      const DEFAULT_REDIRECT_SCHEMA = "exp://192.168.0.106:19000/--/auth"
+
+      function parseRedirectUrl({ redirectUrl }) {
+        if (!!redirectUrl) return redirectUrl
+        return DEFAULT_REDIRECT_SCHEMA
+      }
+
+      res.redirect(parseRedirectUrl({ redirectUrl }))
     } catch (error) {
       res.sendStatus(401)
     }

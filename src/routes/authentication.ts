@@ -12,6 +12,6 @@ router.get("/auth", AuthController["auth"])
 router.get("/auth/login", AuthController["webviewLogin"])
 router.get("/auth/register", AuthController["webviewRegister"])
 
-router.get("/auth/callback/app", AuthController["appCallback"])
+router.post("/auth/callback/app", AuthController["redirectCallback"])
 
 export { router }

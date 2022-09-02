@@ -20,7 +20,7 @@ html
       div(class="flex flex-col items-center w-screen")
         p(class="text-white mb-6 font-bold font-[Montserrat] text-4xl") Login
 
-        form(class="flex flex-col space-y-4 w-full",action="/auth/callback/app", method="get") 
+        form(class="flex flex-col space-y-4 w-full",action= redirectUrl, method="POST") 
 
           div(class="flex flex-col space-y-1")
             label(for="email-input-I", class="text-white font-[Poppins] text-sm") E-mail
