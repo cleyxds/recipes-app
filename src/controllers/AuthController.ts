@@ -180,11 +180,11 @@ export default {
 
       const storedRefreshToken = await req.client.get(`RefreshToken:${email}`)
 
-      const DEFAULT_REDIRECT_SCHEMA = "exp://192.168.0.106:19000/--/auth"
+      const DEFAULT_REDIRECT_SCHEMA = "exp://192.168.0.106:19000/--/"
 
       function parseRedirectUrl({ redirectUrl }) {
-        if (!!redirectUrl) return redirectUrl
-        return DEFAULT_REDIRECT_SCHEMA
+        if (!!redirectUrl) return redirectUrl + storedRefreshToken
+        return DEFAULT_REDIRECT_SCHEMA + storedRefreshToken
       }
 
       res.redirect(parseRedirectUrl({ redirectUrl }))
