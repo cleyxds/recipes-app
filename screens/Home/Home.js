@@ -1,6 +1,6 @@
 import { ScrollView } from "react-native"
 
-import { Screen } from "../../components"
+import { Screen, OptimizedScrollView } from "../../components"
 
 import { RecipesCarousel, CardList } from "./components"
 
@@ -55,7 +55,7 @@ export function Home() {
 
   return (
     <Screen>
-      <ScrollView
+      <OptimizedScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 32 }}
       >
@@ -81,7 +81,7 @@ export function Home() {
           data={todayRecipes}
           style={{ marginTop: "5%" }}
         />
-      </ScrollView>
+      </OptimizedScrollView>
     </Screen>
   )
 }

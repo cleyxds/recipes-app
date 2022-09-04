@@ -20,10 +20,6 @@ import { isAndroid, isIOS } from "./utils/constants"
 export default function App() {
   const { fontsLoaded } = useLocalFonts()
 
-  useEffect(() => {
-    Linking.createURL("exp://192.168.0.113:19000/--/")
-  }, [])
-
   if (!fontsLoaded) {
     return <ActivityIndicator size="large" color={colors.ORANGE_NAVIGATION} />
   }

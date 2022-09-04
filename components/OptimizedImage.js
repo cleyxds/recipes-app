@@ -1,11 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { ActivityIndicator, Image, StyleSheet } from "react-native"
 
 import { colors } from "../utils"
 
 export function OptimizedImage(props) {
+  const { isUpdating } = props
+
   const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (!isUpdating && isLoading) return setIsLoading(false)
+
+    setIsLoading(true)
+  }, [isUpdating])
 
   async function handleLoadEnd() {
     setIsLoading(false)
@@ -24,6 +32,7 @@ export function OptimizedImage(props) {
             width: props?.style?.width,
             borderRadius: props?.style?.borderRadius,
             height: props?.style?.height,
+            backgroundColor: colors.WHITE,
             ...StyleSheet.absoluteFillObject
           }}
         />

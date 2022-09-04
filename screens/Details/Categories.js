@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  TouchableWithoutFeedback,
-  Keyboard,
   FlatList
 } from "react-native"
 
@@ -63,110 +61,105 @@ export function CategoriesDetails() {
 
   return (
     <Screen>
-      <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
-        <View style={{ flex: 1, backgroundColor: colors.GREY_I }}>
+      <View style={{ flex: 1, backgroundColor: colors.GREY_I }}>
+        <View
+          style={{
+            paddingVertical: 24,
+            paddingHorizontal: 16
+          }}
+        >
           <View
             style={{
-              paddingVertical: 24,
-              paddingHorizontal: 16
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center"
             }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
+            <TouchableOpacity onPress={goBack} activeOpacity={DEFAULT_OPACITY}>
+              <Feather name="arrow-left" size={24} color={colors.WHITE} />
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <TouchableOpacity
-                onPress={goBack}
+                onPress={handleGoToFollowers}
                 activeOpacity={DEFAULT_OPACITY}
               >
-                <Feather name="arrow-left" size={24} color={colors.WHITE} />
+                <AntDesign
+                  name="hearto"
+                  size={20}
+                  color={colors.WHITE}
+                  style={{ marginRight: 24 }}
+                />
               </TouchableOpacity>
-
               <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {isSearchInputOpen && (
+                  <TextInput
+                    style={{
+                      width: width * 0.6,
+                      height: 24,
+                      backgroundColor: colors.WHITE,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      marginRight: 8
+                    }}
+                  />
+                )}
                 <TouchableOpacity
-                  onPress={handleGoToFollowers}
+                  onPress={handleToggleShowInput}
                   activeOpacity={DEFAULT_OPACITY}
                 >
-                  <AntDesign
-                    name="hearto"
-                    size={20}
+                  <Entypo
+                    name="magnifying-glass"
+                    size={24}
                     color={colors.WHITE}
-                    style={{ marginRight: 24 }}
                   />
                 </TouchableOpacity>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  {isSearchInputOpen && (
-                    <TextInput
-                      style={{
-                        width: width * 0.6,
-                        height: 24,
-                        backgroundColor: colors.WHITE,
-                        borderRadius: 8,
-                        paddingHorizontal: 8,
-                        marginRight: 8
-                      }}
-                    />
-                  )}
-                  <TouchableOpacity
-                    onPress={handleToggleShowInput}
-                    activeOpacity={DEFAULT_OPACITY}
-                  >
-                    <Entypo
-                      name="magnifying-glass"
-                      size={24}
-                      color={colors.WHITE}
-                    />
-                  </TouchableOpacity>
-                </View>
               </View>
             </View>
           </View>
+        </View>
 
-          <View style={{ marginTop: "10%", paddingHorizontal: 16 }}>
+        <View style={{ marginTop: "10%", paddingHorizontal: 16 }}>
+          <Text
+            style={{
+              fontFamily: "NunitoSemiBold",
+              fontSize: 28,
+              color: colors.WHITE
+            }}
+          >
+            #{item}
+          </Text>
+
+          <View style={{ marginTop: 8 }}>
             <Text
               style={{
-                fontFamily: "NunitoSemiBold",
-                fontSize: 28,
-                color: colors.WHITE
+                fontSize: 14,
+                fontFamily: "MontserratSemiBold",
+                color: colors.GREY,
+                opacity: 0.5
               }}
             >
-              #{item}
+              {categorizedRecipesFound?.length} Receitas
             </Text>
-
-            <View style={{ marginTop: 8 }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: "MontserratSemiBold",
-                  color: colors.GREY,
-                  opacity: 0.5
-                }}
-              >
-                {categorizedRecipesFound?.length} Receitas
-              </Text>
-            </View>
           </View>
-
-          <FlatList
-            data={categorizedRecipesFound}
-            style={{ marginTop: 16, backgroundColor: "#0f0d10" }}
-            contentContainerStyle={{
-              paddingTop: 10,
-              paddingBottom: 32,
-              alignSelf: "center"
-            }}
-            numColumns={2}
-            renderItem={({ item }) => (
-              <View style={{ marginVertical: 10 }}>
-                {renderTodaysRecipes({ item, navigate, size: "medium" })}
-              </View>
-            )}
-          />
         </View>
-      </TouchableWithoutFeedback>
+
+        <FlatList
+          data={categorizedRecipesFound}
+          style={{ marginTop: 16, backgroundColor: "#0f0d10" }}
+          contentContainerStyle={{
+            paddingTop: 10,
+            paddingBottom: 32,
+            alignSelf: "center"
+          }}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <View style={{ marginVertical: 10 }}>
+              {renderTodaysRecipes({ item, navigate, size: "medium" })}
+            </View>
+          )}
+        />
+      </View>
     </Screen>
   )
 }

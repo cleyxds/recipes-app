@@ -204,6 +204,7 @@ export function RecipesCarousel({ data }) {
 
           return (
             <Animated.View
+              key={index}
               style={{
                 width: 8,
                 height: 8,
