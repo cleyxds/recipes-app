@@ -4,9 +4,7 @@ import { ActivityIndicator, Image, StyleSheet } from "react-native"
 
 import { colors } from "../utils"
 
-export function OptimizedImage(props) {
-  const { isUpdating } = props
-
+export function OptimizedImage({ isUpdating, ...props }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

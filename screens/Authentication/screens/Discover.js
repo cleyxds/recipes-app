@@ -11,32 +11,34 @@ export function Discover() {
 
   return (
     <Screen>
-      <View
-        style={{
-          height: height * 0.5,
-          backgroundColor: colors.WHITE,
-          marginBottom: "15%"
-        }}
-      />
-
-      <View
-        style={{
-          paddingHorizontal: 32,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <Text
+      <>
+        <View
           style={{
-            textAlign: "center",
-            fontFamily: "MontserratBold",
-            fontSize: 24,
-            color: colors.WHITE
+            height: height * 0.5,
+            backgroundColor: colors.WHITE,
+            marginBottom: "15%"
+          }}
+        />
+
+        <View
+          style={{
+            paddingHorizontal: 32,
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
-          Descubra receitas deliciosas todos os dias
-        </Text>
-      </View>
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "MontserratBold",
+              fontSize: 24,
+              color: colors.WHITE
+            }}
+          >
+            Descubra receitas deliciosas todos os dias
+          </Text>
+        </View>
+      </>
     </Screen>
   )
 }

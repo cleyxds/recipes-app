@@ -23,7 +23,7 @@ export function Screen({
       {...props}
     >
       <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
-        <>{children}</>
+        {!!children ? children : <View />}
       </TouchableWithoutFeedback>
     </View>
   )

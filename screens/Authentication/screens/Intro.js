@@ -11,32 +11,34 @@ export function Intro() {
 
   return (
     <Screen>
-      <View
-        style={{
-          height: height * 0.5,
-          backgroundColor: colors.WHITE,
-          marginBottom: "15%"
-        }}
-      />
-
-      <View
-        style={{
-          paddingHorizontal: 32,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <Text
+      <>
+        <View
           style={{
-            textAlign: "center",
-            fontFamily: "MontserratBold",
-            fontSize: 24,
-            color: colors.WHITE
+            height: height * 0.5,
+            backgroundColor: colors.WHITE,
+            marginBottom: "15%"
+          }}
+        />
+
+        <View
+          style={{
+            paddingHorizontal: 32,
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
-          Videos de receita passo-a-passo
-        </Text>
-      </View>
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "MontserratBold",
+              fontSize: 24,
+              color: colors.WHITE
+            }}
+          >
+            Videos de receita passo-a-passo
+          </Text>
+        </View>
+      </>
     </Screen>
   )
 }

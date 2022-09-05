@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react"
 
 import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native"
 
+import { useNavigation } from "@react-navigation/native"
+
 import { SearchTabs } from "./components/SearchTabs"
 
 import { Entypo } from "@expo/vector-icons"
@@ -11,7 +13,15 @@ import { OptimizedImage, Screen } from "../../components"
 import { colors } from "../../utils"
 
 export function Search() {
-  const [searchInputValue, setSearchInputValue] = useState("")
+  const DEFAULT_STATE = {
+    SEARCH_INPUT_VALUE: ""
+  }
+
+  const navigation = useNavigation()
+
+  const [searchInputValue, setSearchInputValue] = useState(
+    DEFAULT_STATE["SEARCH_INPUT_VALUE"]
+  )
   const searchInputRef = useRef()
 
   async function handleSearchInput(text) {
@@ -26,6 +36,14 @@ export function Search() {
     if (searchInputValue?.length > 0 && searchInputValue?.length <= 2)
       handlePressSearch()
   }, [searchInputValue])
+
+  useEffect(() => {
+    const blur = navigation.addListener("blur", () => {
+      setSearchInputValue(DEFAULT_STATE["SEARCH_INPUT_VALUE"])
+    })
+
+    return blur
+  }, [navigation])
 
   return (
     <Screen>
