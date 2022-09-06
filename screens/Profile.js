@@ -128,7 +128,7 @@ export function Profile() {
               <OptimizedImage
                 isUpdating={isUploadingAvatarImage}
                 source={{
-                  uri: user?.profile?.avatar_url.replace(
+                  uri: user?.profile?.avatar_url?.replace(
                     "http://localhost:3333/",
                     config.API_URL
                   )
