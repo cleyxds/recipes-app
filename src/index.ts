@@ -32,6 +32,7 @@ authorizationServer.use(AuthRouter)
 
 usersApp.use(cors())
 usersApp.use(express.json())
+usersApp.use(express.urlencoded({ extended: true }))
 usersApp.use(checkRedisConnection)
 usersApp.use(createRedisIndex)
 usersApp.use(express.static(join(__dirname, "..", "public")))

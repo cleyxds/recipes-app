@@ -2,13 +2,18 @@ import { Request, Response, NextFunction } from "express"
 
 import { genSalt, hash } from "bcrypt"
 
+import { sign } from "jsonwebtoken"
+
 import { UserSchema } from "../models"
 
 import { parseUserResponse } from "../utils"
 
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
+
 export default {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, email, phone, password, locale } = req.body
+    const { redirectUrl } = req.query
 
     const passwordSalt = await genSalt()
     const encryptedPassword = await hash(password, passwordSalt)
@@ -24,7 +29,7 @@ export default {
       lastLogin: now,
       lastUpdated: now,
       passwordChangedAt: now,
-      locale,
+      locale: "pt-BR",
       status: "PENDING"
     }
 
@@ -34,6 +39,38 @@ export default {
       const user = repo.createEntity(data)
 
       await repo.save(user)
+
+      if (!!redirectUrl) {
+        const refreshTokenAlreadyExists = await req.client.execute([
+          "EXISTS",
+          `RefreshToken:${email}`
+        ])
+
+        if (!refreshTokenAlreadyExists) {
+          const refreshToken = sign(
+            { email, userId: user?.entityId },
+            REFRESH_TOKEN_SECRET,
+            {
+              expiresIn: "24h"
+            }
+          )
+
+          await req.client.set(`RefreshToken:${email}`, refreshToken)
+          await req.client.expire(`RefreshToken:${email}`, 24 * 60 * 60)
+        }
+
+        const storedRefreshToken = await req.client.get(`RefreshToken:${email}`)
+
+        const DEFAULT_REDIRECT_SCHEMA = "exp://192.168.0.106:19000/--/"
+
+        function parseRedirectUrl({ redirectUrl }) {
+          if (!!redirectUrl) return redirectUrl + storedRefreshToken
+          return DEFAULT_REDIRECT_SCHEMA + storedRefreshToken
+        }
+
+        res.redirect(parseRedirectUrl({ redirectUrl }))
+        return
+      }
 
       res.json({ ...parseUserResponse(user), _ts: now })
     } catch (error) {

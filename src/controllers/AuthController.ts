@@ -137,7 +137,12 @@ export default {
     })
   },
   webviewRegister: async (req: Request, res: Response, next: NextFunction) => {
-    res.render("register", { title: "Barbosa Receitas | Cadastro" })
+    const { redirectUrl } = req.query
+
+    res.render("register", {
+      title: "Barbosa Receitas | Cadastro",
+      registerEndpoint: `http://192.168.0.113:3333/users?redirectUrl=${redirectUrl}`
+    })
   },
   redirectCallback: async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body
