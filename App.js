@@ -21,7 +21,7 @@ export default function App() {
   const { fontsLoaded } = useLocalFonts()
 
   if (!fontsLoaded) {
-    return <ActivityIndicator size="large" color={colors.ORANGE_NAVIGATION} />
+    return <ActivityIndicator size="large" color={colors.PRODUCT_ORANGE} />
   }
 
   return (

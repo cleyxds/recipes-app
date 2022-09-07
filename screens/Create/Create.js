@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import {
   View,
   Text,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  Dimensions
 } from "react-native"
+
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 
 import { useNavigation } from "@react-navigation/native"
 
@@ -19,6 +21,8 @@ import { InputDropdown } from "./components/InputDropdown"
 
 const { DEFAULT_OPACITY } = units
 
+const { height } = Dimensions.get("window")
+
 export function Create() {
   const DEFAULT_STATE = {
     RECIPE_NAME: "",
@@ -29,6 +33,7 @@ export function Create() {
   }
 
   const navigation = useNavigation()
+  const { navigate } = navigation
 
   const [recipeName, setRecipeName] = useState(DEFAULT_STATE["RECIPE_NAME"])
   const [recipeCategory, setRecipeCategory] = useState(
@@ -58,7 +63,7 @@ export function Create() {
       ? `${recipeServings} pessoa`
       : `${recipeServings} pessoas`
 
-  useEffect(() => {
+  /* useEffect(() => {
     const blur = navigation.addListener("blur", () => {
       setRecipeName(DEFAULT_STATE["RECIPE_NAME"])
       setRecipeCategory(DEFAULT_STATE["RECIPE_CATEGORY"])
@@ -68,18 +73,21 @@ export function Create() {
     })
 
     return blur
-  }, [navigation])
+  }, [navigation]) */
+
+  function handleContinue() {
+    navigate("S.Steps")
+  }
 
   return (
     <Screen>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 32 }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity touchSoundDisabled activeOpacity={DEFAULT_OPACITY}>
+      <>
+        <View
+          style={{ flexDirection: "row", alignSelf: "center", marginTop: 32 }}
+        >
+          {/* <TouchableOpacity touchSoundDisabled activeOpacity={DEFAULT_OPACITY}>
             <AntDesign name="close" size={24} color={colors.WHITE} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <Text
             style={{
@@ -92,7 +100,9 @@ export function Create() {
           </Text>
         </View>
 
-        <View style={{ marginTop: 32 }}>
+        <View
+          style={{ marginTop: 32, marginBottom: 16, paddingHorizontal: 16 }}
+        >
           <Text
             style={{
               fontFamily: "MontserratSemiBold",
@@ -104,78 +114,19 @@ export function Create() {
           </Text>
         </View>
 
-        <View style={{ marginTop: 32 }}>
-          <TextInput
-            autoCapitalize="words"
-            placeholder="Nome da receita"
-            placeholderTextColor={colors.GREY}
-            onChangeText={setRecipeName}
-            value={recipeName}
-            style={{
-              marginTop: 8,
-              borderRadius: 8,
-              padding: 16,
-              backgroundColor: colors.GREY_I,
-              fontFamily: "MontserratBold",
-              fontSize: 14,
-              color: colors.WHITE
-            }}
-          />
-        </View>
-
-        <View style={{ marginTop: 32 }}>
-          <Text
-            style={{
-              fontFamily: "MontserratSemiBold",
-              fontSize: 14,
-              color: colors.WHITE
-            }}
-          >
-            Categoria
-          </Text>
-
-          <InputDropdown
-            editable={false}
-            items={categoriesItems}
-            onSelectItem={({ item }) => setRecipeCategory(item)}
-            onChangeText={setRecipeCategory}
-            value={recipeCategory}
-            style={{
-              marginTop: 8,
-              borderRadius: 8,
-              padding: 16,
-              backgroundColor: colors.GREY_I,
-              fontFamily: "MontserratBold",
-              fontSize: 14,
-              color: colors.WHITE
-            }}
-          />
-        </View>
-
-        <View
-          style={{
-            marginTop: 32,
-            flexDirection: "row",
-            justifyContent: "space-between"
-          }}
+        <KeyboardAwareScrollView
+          extraHeight={height * 0.35}
+          enableOnAndroid
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 48 }}
         >
-          <View style={{ flex: 1, marginRight: 16 }}>
-            <Text
-              style={{
-                fontFamily: "MontserratSemiBold",
-                fontSize: 14,
-                color: colors.WHITE
-              }}
-            >
-              Serve
-            </Text>
-
-            <InputDropdown
-              editable={false}
-              items={servingsItems}
-              onSelectItem={({ item }) => setRecipeServings(item)}
-              onChangeText={setRecipeServings}
-              value={parsedRecipeServingsValue}
+          <View style={{ marginTop: 16 }}>
+            <TextInput
+              autoCapitalize="words"
+              placeholder="Nome da receita"
+              placeholderTextColor={colors.GREY}
+              onChangeText={setRecipeName}
+              value={recipeName}
               style={{
                 marginTop: 8,
                 borderRadius: 8,
@@ -188,7 +139,7 @@ export function Create() {
             />
           </View>
 
-          <View style={{ flex: 1 }}>
+          <View style={{ marginTop: 32 }}>
             <Text
               style={{
                 fontFamily: "MontserratSemiBold",
@@ -196,15 +147,15 @@ export function Create() {
                 color: colors.WHITE
               }}
             >
-              Dificuldade
+              Categoria
             </Text>
 
             <InputDropdown
               editable={false}
-              items={dificultyItems}
-              onSelectItem={({ item }) => setRecipeDificulty(item)}
-              onChangeText={setRecipeDificulty}
-              value={recipeDificulty}
+              items={categoriesItems}
+              onSelectItem={({ item }) => setRecipeCategory(item)}
+              onChangeText={setRecipeCategory}
+              value={recipeCategory}
               style={{
                 marginTop: 8,
                 borderRadius: 8,
@@ -216,38 +167,128 @@ export function Create() {
               }}
             />
           </View>
-        </View>
 
-        <View style={{ marginTop: 32 }}>
-          <Text
+          <View
             style={{
-              fontFamily: "MontserratSemiBold",
-              fontSize: 14,
-              color: colors.WHITE
+              marginTop: 32,
+              flexDirection: "row",
+              justifyContent: "space-between"
             }}
           >
-            Resumo
-          </Text>
+            <View style={{ flex: 1, marginRight: 16 }}>
+              <Text
+                style={{
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: 14,
+                  color: colors.WHITE
+                }}
+              >
+                Serve
+              </Text>
 
-          <TextInput
-            multiline
-            placeholder="Escreva algo sobre a receita"
-            placeholderTextColor={colors.GREY}
-            onChangeText={setRecipeSummary}
-            value={recipeSummary}
+              <InputDropdown
+                editable={false}
+                items={servingsItems}
+                onSelectItem={({ item }) => setRecipeServings(item)}
+                onChangeText={setRecipeServings}
+                value={parsedRecipeServingsValue}
+                style={{
+                  marginTop: 8,
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: colors.GREY_I,
+                  fontFamily: "MontserratBold",
+                  fontSize: 14,
+                  color: colors.WHITE
+                }}
+              />
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: 14,
+                  color: colors.WHITE
+                }}
+              >
+                Dificuldade
+              </Text>
+
+              <InputDropdown
+                editable={false}
+                items={dificultyItems}
+                onSelectItem={({ item }) => setRecipeDificulty(item)}
+                onChangeText={setRecipeDificulty}
+                value={recipeDificulty}
+                style={{
+                  marginTop: 8,
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: colors.GREY_I,
+                  fontFamily: "MontserratBold",
+                  fontSize: 14,
+                  color: colors.WHITE
+                }}
+              />
+            </View>
+          </View>
+
+          <View style={{ marginTop: 32 }}>
+            <Text
+              style={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: 14,
+                color: colors.WHITE
+              }}
+            >
+              Resumo
+            </Text>
+
+            <TextInput
+              multiline
+              placeholder="Escreva algo sobre a receita"
+              placeholderTextColor={colors.GREY}
+              onChangeText={setRecipeSummary}
+              value={recipeSummary}
+              style={{
+                height: 64,
+                marginTop: 8,
+                borderRadius: 8,
+                padding: 16,
+                backgroundColor: colors.GREY_I,
+                fontFamily: "MontserratBold",
+                fontSize: 14,
+                color: colors.WHITE
+              }}
+            />
+          </View>
+
+          <TouchableOpacity
+            activeOpacity={DEFAULT_OPACITY}
+            onPress={handleContinue}
             style={{
-              height: 64,
-              marginTop: 8,
-              borderRadius: 8,
+              flex: 1,
+              backgroundColor: colors.PRODUCT_ORANGE,
               padding: 16,
-              backgroundColor: colors.GREY_I,
-              fontFamily: "MontserratBold",
-              fontSize: 14,
-              color: colors.WHITE
+              marginTop: 96,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 8
             }}
-          />
-        </View>
-      </ScrollView>
+          >
+            <Text
+              style={{
+                fontFamily: "MontserratSemiBold",
+                fontSize: 14,
+                color: colors.WHITE
+              }}
+            >
+              Continuar
+            </Text>
+          </TouchableOpacity>
+        </KeyboardAwareScrollView>
+      </>
     </Screen>
   )
 }

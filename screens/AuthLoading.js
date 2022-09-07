@@ -73,7 +73,7 @@ export function AuthLoading({ navigation }) {
             alignItems: "center"
           }}
         >
-          <ActivityIndicator size="large" color={colors.ORANGE_NAVIGATION} />
+          <ActivityIndicator size="large" color={colors.PRODUCT_ORANGE} />
         </View>
       </View>
     </Screen>

@@ -170,7 +170,7 @@ export function Auth() {
       <View style={{ height: height * 0.85 }}>
         <View
           style={{
-            height: height * 0.5,
+            height: height * 0.4,
             backgroundColor: colors.WHITE,
             marginBottom: "5%"
           }}
@@ -218,7 +218,7 @@ export function Auth() {
               }}
             >
               {isRegistering ? (
-                <ActivityIndicator color={colors.BLACK_I} />
+                <ActivityIndicator color={colors.PRODUCT_ORANGE} />
               ) : (
                 <Text
                   style={{
@@ -294,7 +294,7 @@ export function Auth() {
             >
               {isSigningIn ? (
                 <ActivityIndicator
-                  color={colors.BLACK_I}
+                  color={colors.PRODUCT_ORANGE}
                   style={{ width: 36, height: 36 }}
                 />
               ) : (

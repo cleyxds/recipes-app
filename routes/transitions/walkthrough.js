@@ -1,10 +1,12 @@
+import { CONFIG as config } from "../transitions"
+
 const WALKTHROUGH_TRANSITION = {
   gestureEnabled: true,
   gestureDirection: "horizontal",
-  transitionSpec: {
+  /* transitionSpec: {
     open: config,
     close: config
-  },
+  }, */
   cardStyleInterpolator: ({ current, next, layouts }) => {
     return {
       cardStyle: {

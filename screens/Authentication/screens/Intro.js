@@ -14,7 +14,7 @@ export function Intro() {
       <>
         <View
           style={{
-            height: height * 0.5,
+            height: height * 0.4,
             backgroundColor: colors.WHITE,
             marginBottom: "15%"
           }}

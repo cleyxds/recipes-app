@@ -1,9 +1,17 @@
-import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { useState } from "react"
+
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native"
 
 import { AntDesign } from "@expo/vector-icons"
 
 import { colors, units } from "../../../utils"
-import { useState } from "react"
 
 const { DEFAULT_OPACITY } = units
 
@@ -37,6 +45,14 @@ export function InputDropdown({ items, onSelectItem, ...props }) {
     <View>
       <View>
         <TextInput {...props} />
+
+        <TouchableOpacity
+          activeOpacity={DEFAULT_OPACITY}
+          onPress={toggleDropdown}
+          style={{
+            ...StyleSheet.absoluteFillObject
+          }}
+        />
 
         <TouchableOpacity
           activeOpacity={DEFAULT_OPACITY}

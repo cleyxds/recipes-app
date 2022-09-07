@@ -24,7 +24,7 @@ export function OptimizedImage({ isUpdating, ...props }) {
       {isLoading && (
         <ActivityIndicator
           size="small"
-          color={colors.ORANGE_NAVIGATION}
+          color={colors.PRODUCT_ORANGE}
           style={{
             ...props?.style,
             width: props?.style?.width,

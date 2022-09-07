@@ -7,7 +7,12 @@ import { useNavigation } from "@react-navigation/native"
 import { useUserStore } from "../stores/User"
 import { useAuthStore } from "../stores/Auth"
 
-import { Feather, MaterialCommunityIcons, Entypo } from "@expo/vector-icons"
+import {
+  Feather,
+  MaterialCommunityIcons,
+  Entypo,
+  FontAwesome
+} from "@expo/vector-icons"
 
 import { Screen, OptimizedImage } from "../components"
 
@@ -125,16 +130,38 @@ export function Profile() {
               activeOpacity={DEFAULT_OPACITY}
               onPress={handleUploadImage}
             >
-              <OptimizedImage
-                isUpdating={isUploadingAvatarImage}
-                source={{
-                  uri: user?.profile?.avatar_url?.replace(
-                    "http://localhost:3333/",
-                    config.API_URL
-                  )
-                }}
-                style={{ width: 128, height: 128, borderRadius: 9999 }}
-              />
+              {!!user?.profile?.avatar_url && (
+                <OptimizedImage
+                  isUpdating={isUploadingAvatarImage}
+                  source={{
+                    uri: user?.profile?.avatar_url?.replace(
+                      "http://localhost:3333/",
+                      config.API_URL
+                    )
+                  }}
+                  style={{ width: 128, height: 128, borderRadius: 9999 }}
+                />
+              )}
+              {!!!user?.profile?.avatar_url && (
+                <TouchableOpacity
+                  activeOpacity={DEFAULT_OPACITY}
+                  onPress={handleUploadImage}
+                  style={{
+                    width: 128,
+                    height: 128,
+                    backgroundColor: colors.WHITE,
+                    borderRadius: 9999,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <FontAwesome
+                    name="user-circle"
+                    size={100}
+                    color={colors.BLACK_I}
+                  />
+                </TouchableOpacity>
+              )}
             </TouchableOpacity>
 
             <TouchableOpacity
