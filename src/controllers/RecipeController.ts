@@ -6,7 +6,7 @@ import { parseRecipeResponse } from "../utils"
 
 export default {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const { title, description, summary, specs } = req.body
+    const { title, description, summary, specs, categories } = req.body
     const userId = req.user?.userId
 
     const repo = await req.client.fetchRepository(RecipeSchema)
@@ -18,7 +18,7 @@ export default {
         description,
         likes: 0,
         images: [],
-        categories: [],
+        categories,
         specs: [specs?.duration, specs?.servings, specs?.dificulty],
         summary
       })
