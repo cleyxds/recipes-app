@@ -1,7 +1,9 @@
+import { useState } from "react"
+
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -10,17 +12,26 @@ import {
 
 import { useNavigation } from "@react-navigation/native"
 
-import { Feather } from "@expo/vector-icons"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
+
+import { Feather, Entypo } from "@expo/vector-icons"
+import { IngredientsInput } from "../components/IngredientsInput"
 
 import { Screen } from "../../../components"
-import { colors, units } from "../../../utils"
+
+import { colors, units, wait } from "../../../utils"
 
 const { DEFAULT_OPACITY } = units
 
-const { width } = Dimensions.get("window")
+const { width, height } = Dimensions.get("window")
 
-export function RecipeStep({ data = [], ...props }) {
-  const { goBack } = useNavigation()
+export function RecipeSteps() {
+  const { navigate, goBack } = useNavigation()
+
+  const [steps, setSteps] = useState([])
+  const [stepMethod, setStepMethod] = useState("")
+  const [ingredients, setIngredients] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   function renderVideoClipCard({ item, index }) {
     return (
@@ -35,7 +46,9 @@ export function RecipeStep({ data = [], ...props }) {
     )
   }
 
-  const parseIngredientInputPlaceholder = `Ingrediente #1`
+  const parseIngredientInputPlaceholder = `Ingrediente #${
+    ingredients?.length + 1
+  }`
 
   function renderEmptyVideoClip() {
     return (
@@ -43,7 +56,7 @@ export function RecipeStep({ data = [], ...props }) {
         style={{
           width,
           height: width * 0.5,
-          backgroundColor: colors.WHITE,
+          backgroundColor: colors.GREY_I,
           justifyContent: "center",
           alignItems: "center"
         }}
@@ -52,7 +65,7 @@ export function RecipeStep({ data = [], ...props }) {
           style={{
             fontSize: 14,
             fontFamily: "MontserratSemiBold",
-            color: colors.BLACK_II
+            color: colors.WHITE
           }}
         >
           Nenhum clipe de vídeo ainda, adicione um
@@ -61,33 +74,71 @@ export function RecipeStep({ data = [], ...props }) {
     )
   }
 
-  function handleAddVideoClipStep() {}
+  async function handleAddVideoClipStep() {
+    setIsLoading(true)
+    await wait(600)
+
+    navigate("S.RecipeRecord")
+
+    await wait(150)
+    setIsLoading(false)
+  }
+
+  function handleAddIngredient({ item }) {
+    setIngredients(state => [...state, item])
+  }
+
+  function handleRemoveIngredient({ item, index }) {
+    setIngredients(state => {
+      const clone = [...state].filter((_, _index) => _index !== index)
+
+      return clone
+    })
+  }
+
+  function handlePublishRecipe({}) {}
 
   function renderAddVideoClipStep() {
     return (
       <View
         style={{
-          ...StyleSheet.absoluteFillObject,
-          backgroundColor: "green"
+          position: "absolute",
+          bottom: "40%",
+          right: 16,
+          zIndex: 9999
         }}
       >
         <TouchableOpacity
           activeOpacity={DEFAULT_OPACITY}
           onPress={handleAddVideoClipStep}
           style={{
-            backgroundColor: "white",
+            backgroundColor: colors.WHITE,
             width: 64,
             height: 64,
-            zIndex: 9999
+            borderRadius: 9999,
+            justifyContent: "center",
+            alignItems: "center"
           }}
-        />
+        >
+          {isLoading && (
+            <ActivityIndicator size="small" color={colors.PRODUCT_ORANGE} />
+          )}
+          {!isLoading && (
+            <Entypo name="plus" size={28} color={colors.ORANGE_NAVIGATION} />
+          )}
+        </TouchableOpacity>
       </View>
     )
   }
 
   return (
     <Screen>
-      <View style={{ flex: 1, backgroundColor: colors.GREY }}>
+      <KeyboardAwareScrollView
+        extraHeight={height * 0.1}
+        enableOnAndroid
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flex: 1, backgroundColor: colors.GREY }}
+      >
         <View style={{ marginTop: 32 }}>
           <TouchableOpacity
             onPress={goBack}
@@ -125,7 +176,7 @@ export function RecipeStep({ data = [], ...props }) {
             </View>
 
             <FlatList
-              data={data}
+              data={steps}
               horizontal
               renderItem={renderVideoClipCard}
               ListEmptyComponent={renderEmptyVideoClip}
@@ -133,6 +184,8 @@ export function RecipeStep({ data = [], ...props }) {
             />
           </View>
         </View>
+
+        {renderAddVideoClipStep()}
 
         <View
           style={{
@@ -156,8 +209,8 @@ export function RecipeStep({ data = [], ...props }) {
                 autoCapitalize="words"
                 placeholder="Escreva algo sobre esta etapa..."
                 placeholderTextColor={colors.GREY}
-                /* onChangeText={setRecipeName} */
-                /* value={recipeName} */
+                onChangeText={setStepMethod}
+                value={stepMethod}
                 style={{
                   marginTop: 8,
                   borderRadius: 8,
@@ -180,12 +233,13 @@ export function RecipeStep({ data = [], ...props }) {
               >
                 Ingredientes
               </Text>
-              <TextInput
-                autoCapitalize="words"
+
+              <IngredientsInput
                 placeholder={parseIngredientInputPlaceholder}
                 placeholderTextColor={colors.GREY}
-                /* onChangeText={setRecipeName} */
-                /* value={recipeName} */
+                onRemoveItem={handleRemoveIngredient}
+                onAddItem={handleAddIngredient}
+                items={ingredients}
                 style={{
                   marginTop: 8,
                   borderRadius: 8,
@@ -199,7 +253,7 @@ export function RecipeStep({ data = [], ...props }) {
             </View>
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </Screen>
   )
 }

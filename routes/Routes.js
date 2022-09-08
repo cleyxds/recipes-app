@@ -8,8 +8,7 @@ import { CategoriesDetails, Followers } from "../screens/Details"
 
 import { MainTabs } from "./tabs/main.tabs"
 import { AuthStack } from "./stacks/auth.stack"
-
-import { RecipeStep } from "../screens/Create/screens"
+import { RecipeRecord, RecipeSteps } from "../screens/Create/screens"
 
 import { DEFAULT_SCREEN_OPTIONS } from "./config"
 import { WALKTHROUGH_TRANSITION } from "./transitions"
@@ -25,8 +24,10 @@ export function Routes() {
             <Screen name="T.Main" component={MainTabs} />
             <Screen name="S.CategoriesDetails" component={CategoriesDetails} />
             <Screen name="S.Followers" component={Followers} />
+
             <Group screenOptions={{ ...WALKTHROUGH_TRANSITION }}>
-              <Screen name="S.Steps" component={RecipeStep} />
+              <Screen name="S.RecipeSteps" component={RecipeSteps} />
+              <Screen name="S.RecipeRecord" component={RecipeRecord} />
             </Group>
           </>
         ) : (

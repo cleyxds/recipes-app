@@ -1,3 +1,4 @@
-import { RecipeStep } from "./RecipeStep"
+import { RecipeSteps } from "./RecipeSteps"
+import { RecipeRecord } from "./RecipeRecord"
 
-export { RecipeStep }
+export { RecipeSteps, RecipeRecord }

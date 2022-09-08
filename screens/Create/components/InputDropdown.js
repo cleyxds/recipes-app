@@ -70,6 +70,7 @@ export function InputDropdown({ items, onSelectItem, ...props }) {
       {isDropdownOpen && (
         <FlatList
           keyExtractor={(item, index) => `${index}`}
+          showsVerticalScrollIndicator={false}
           data={items}
           renderItem={renderDropdownItem}
           ItemSeparatorComponent={() => (

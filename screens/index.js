@@ -5,4 +5,4 @@ import { Settings } from "./Settings"
 import { AuthLoading } from "./AuthLoading"
 import { Create } from "./Create"
 
-export { Home, Search, Profile, Settings, AuthLoading, Create }
+export { Home, Search, Profile, Settings, AuthLoading, Create as RecipeCreate }

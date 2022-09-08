@@ -76,7 +76,19 @@ export function Create() {
   }, [navigation]) */
 
   function handleContinue() {
-    navigate("S.Steps")
+    const recipeCreated = {
+      title: recipeName,
+      categories: [recipeCategory],
+      description: recipeSummary,
+      summary: recipeSummary,
+      specs: [null, recipeServings, recipeDificulty]
+    }
+
+    /**
+     * SET THIS OBJECT TO THE RECIPE CREATION RECOIL
+     */
+
+    navigate("S.RecipeSteps")
   }
 
   return (
@@ -271,7 +283,7 @@ export function Create() {
               flex: 1,
               backgroundColor: colors.PRODUCT_ORANGE,
               padding: 16,
-              marginTop: 96,
+              marginTop: 64,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 8
