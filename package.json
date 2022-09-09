@@ -32,13 +32,18 @@
     "zustand": "^4.0.0-rc.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-rename": "^2.0.0"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "use:dev": "gulp set --env=dev",
+    "use:prod": "gulp set --env=prod"
   },
   "version": "v1.0.0",
   "private": true,
