@@ -1,7 +1,9 @@
 export function parseRecipeResponse(recipe) {
-  const { entityId, description, summary, specs, likes, categories } = recipe
+  const { entityId, title, description, summary, specs, likes, categories } =
+    recipe
   return {
     id: entityId,
+    title,
     description,
     likes,
     summary,
