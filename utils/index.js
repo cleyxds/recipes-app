@@ -3,5 +3,6 @@ import wait from "./wait"
 import * as units from "./units"
 import user from "./user"
 import { getImage } from "./getImage"
+import { getVideo } from "./getVideo"
 
-export { colors, wait, units, user, getImage }
+export { colors, wait, units, user, getImage, getVideo }

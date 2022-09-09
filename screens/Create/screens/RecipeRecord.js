@@ -12,15 +12,23 @@ import { useNavigation } from "@react-navigation/native"
 
 import { Camera, CameraType } from "expo-camera"
 
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
+import { useRecipeCreationStore } from "../../../stores/RecipeCreation"
+
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  MaterialIcons
+} from "@expo/vector-icons"
 
 import { Screen } from "../../../components"
 
-import { colors, units, wait } from "../../../utils"
+import { colors, getVideo, units, wait } from "../../../utils"
 const { DEFAULT_OPACITY } = units
 
 export function RecipeRecord() {
   const { goBack } = useNavigation()
+
+  const { steps, setSteps } = useRecipeCreationStore()
 
   const [isRecording, setIsRecording] = useState(false)
   const [type, setType] = useState(CameraType.back)
@@ -47,10 +55,15 @@ export function RecipeRecord() {
     return (
       <Screen>
         <View style={{ flex: 1, backgroundColor: colors.WHITE }}>
-          {renderClose()}
+          {renderClose({ color: colors.BLACK_I })}
 
           <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              paddingHorizontal: 16
+            }}
           >
             <Text
               style={{
@@ -93,7 +106,7 @@ export function RecipeRecord() {
   }
 
   async function handleToggleRecording() {
-    await wait(150)
+    await wait({ random: true, maxRandomTime: 150 })
     setIsRecording(state => !state)
   }
 
@@ -103,7 +116,20 @@ export function RecipeRecord() {
     )
   }
 
-  function renderClose({ color = colors.BLACK_I }) {
+  async function handleGetVideoFromMediaLibrary() {
+    try {
+      const { uri, type, duration, ...responseVideo } = await getVideo()
+
+      setSteps([...steps, { uri, type, duration }])
+
+      await wait({ random: true, maxRandomTime: 300 })
+      goBack()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function renderClose({ color }) {
     return (
       <View style={{ position: "absolute", top: 32, left: 16, zIndex: 9999 }}>
         <TouchableOpacity
@@ -193,7 +219,18 @@ export function RecipeRecord() {
               </View>
             </TouchableOpacity>
 
-            <View style={{ flex: 1 }} />
+            <TouchableOpacity
+              touchSoundDisabled
+              activeOpacity={DEFAULT_OPACITY}
+              onPress={handleGetVideoFromMediaLibrary}
+              style={{
+                flex: 1,
+                alignSelf: "flex-end",
+                alignItems: "center"
+              }}
+            >
+              <MaterialIcons name="perm-media" size={32} color={colors.WHITE} />
+            </TouchableOpacity>
           </View>
         </Camera>
       </View>

@@ -12,6 +12,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { useNavigation } from "@react-navigation/native"
 
+import { useRecipeCreationStore } from "../../stores/RecipeCreation"
+
 import { Screen } from "../../components"
 
 import { AntDesign } from "@expo/vector-icons"
@@ -33,7 +35,9 @@ export function Create() {
   }
 
   const navigation = useNavigation()
-  const { navigate } = navigation
+  const { navigate, goBack } = navigation
+
+  const { setRecipe } = useRecipeCreationStore()
 
   const [recipeName, setRecipeName] = useState(DEFAULT_STATE["RECIPE_NAME"])
   const [recipeCategory, setRecipeCategory] = useState(
@@ -84,9 +88,7 @@ export function Create() {
       specs: [null, recipeServings, recipeDificulty]
     }
 
-    /**
-     * SET THIS OBJECT TO THE RECIPE CREATION RECOIL
-     */
+    setRecipe(recipeCreated)
 
     navigate("S.RecipeSteps")
   }
@@ -95,11 +97,21 @@ export function Create() {
     <Screen>
       <>
         <View
-          style={{ flexDirection: "row", alignSelf: "center", marginTop: 32 }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 32,
+            paddingHorizontal: 16
+          }}
         >
-          {/* <TouchableOpacity touchSoundDisabled activeOpacity={DEFAULT_OPACITY}>
+          <TouchableOpacity
+            touchSoundDisabled
+            onPress={goBack}
+            activeOpacity={DEFAULT_OPACITY}
+          >
             <AntDesign name="close" size={24} color={colors.WHITE} />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           <Text
             style={{
@@ -110,6 +122,14 @@ export function Create() {
           >
             Criar receita
           </Text>
+
+          <View
+            style={{
+              backgroundColor: colors.TRANSPARENT,
+              height: 24,
+              width: 24
+            }}
+          />
         </View>
 
         <View

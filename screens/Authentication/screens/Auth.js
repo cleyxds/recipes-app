@@ -82,17 +82,17 @@ export function Auth() {
         setUser(userData)
         await setLocalUserCredentials({ credentials: parsedContract })
 
-        await wait(500)
+        await wait({ ms: 500 })
         setIsSigningIn(false)
         return
       }
 
-      await wait(300)
+      await wait({ ms: 300 })
       setIsSigningIn(false)
     } catch (error) {
       alert("Ocorreu um erro 😢, por favor tente novamente.")
 
-      await wait(300)
+      await wait({ ms: 300 })
       setIsSigningIn(false)
     }
   }
@@ -145,21 +145,21 @@ export function Auth() {
         setUser(userData)
         await setLocalUserCredentials({ credentials: parsedContract })
 
-        await wait(500)
+        await wait({ ms: 500 })
         setIsRegistering(false)
         return
       }
 
-      await wait(300)
+      await wait({ ms: 300 })
       setIsRegistering(false)
     } catch (error) {
       alert("Ocorreu um erro 😢, por favor tente novamente.")
 
-      await wait(300)
+      await wait({ ms: 300 })
       setIsRegistering(false)
     }
 
-    await wait(300)
+    await wait({ ms: 300 })
     setIsRegistering(false)
   }
 

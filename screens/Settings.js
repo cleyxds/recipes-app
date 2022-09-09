@@ -44,7 +44,7 @@ export function Settings() {
 
     await removeLocalUserCredentials()
 
-    await wait(1000)
+    await wait({ ms: 1000 })
     setIsLoading(false)
     clearAuth()
     clearUser()

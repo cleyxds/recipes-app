@@ -56,10 +56,11 @@ export function AuthLoading({ navigation }) {
 
       await setLocalUserCredentials({ credentials: parsedContract })
 
-      await wait(500)
-      setAuth(parsedContract)
+      await wait({ ms: 500 })
       setUser(userData)
+      setAuth(parsedContract)
     }
+
     getLocalAuth()
   }, [])
 

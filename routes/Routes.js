@@ -25,7 +25,12 @@ export function Routes() {
             <Screen name="S.CategoriesDetails" component={CategoriesDetails} />
             <Screen name="S.Followers" component={Followers} />
 
-            <Group screenOptions={{ ...WALKTHROUGH_TRANSITION }}>
+            <Group
+              screenOptions={{
+                ...WALKTHROUGH_TRANSITION,
+                gestureEnabled: false
+              }}
+            >
               <Screen name="S.RecipeSteps" component={RecipeSteps} />
               <Screen name="S.RecipeRecord" component={RecipeRecord} />
             </Group>
