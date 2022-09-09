@@ -1,9 +1,5 @@
 import "react-native-gesture-handler"
 
-import { useEffect } from "react"
-
-import * as Linking from "expo-linking"
-
 import { ActivityIndicator, StatusBar } from "react-native"
 
 import { NavigationContainer } from "@react-navigation/native"
