@@ -74,5 +74,31 @@ export default {
     } catch (error) {
       res.sendStatus(403)
     }
+  },
+  uploadRecipeVideos: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { id } = req.params
+
+    const parsedAssetsData = req.files?.map(item => {
+      const [type] = item?.mimetype.split("/")
+      return [type, item?.filename]
+    })
+
+    const repo = req.client.fetchRepository(RecipeSchema)
+
+    try {
+      const recipe = await repo.fetch(id)
+
+      recipe.assets = parsedAssetsData
+
+      await repo.save(recipe)
+
+      res.status(201).json({ ...parseRecipeResponse(recipe), _ts: Date.now() })
+    } catch (error) {
+      res.status(500).json({ error, errors: ["uploadAvatar()"] })
+    }
   }
 }

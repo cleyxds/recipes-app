@@ -5,6 +5,9 @@ class Recipe extends Entity {}
 /**
  * Specs array schema
  * [duration, servings, dificulty]
+ *
+ * Assets array schema
+ * [["image","01G96H73AQKWM9EMTMSR58FNW3"],["video", "01G96OWLQNDO9EMTMSR58FNW3"]]
  */
 
 export let RecipeSchema = new Schema(
@@ -17,7 +20,8 @@ export let RecipeSchema = new Schema(
     images: { type: "string[]" },
     categories: { type: "string[]" },
     specs: { type: "string[]" },
-    summary: { type: "text" }
+    summary: { type: "text" },
+    assets: { type: "string[]" }
   },
   {
     dataStructure: "JSON"
