@@ -1,3 +1,5 @@
+# DEPRECATED @17/09/2022, using App Engine instead Cloud Run
+
 FROM node:16.14.2-alpine
 
 LABEL author="cleyxds"
