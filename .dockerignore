@@ -1,8 +1,5 @@
 node_modules/
 build/
-public/uploads
-
-gulpfile.js
 
 *.lock
 

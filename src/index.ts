@@ -15,7 +15,7 @@ import { AuthRouter, RecipeRouter, UserRouter } from "./routes"
 import { ALLOWED_ENVIRONMENTS } from "./utils/constants"
 
 const AUTHORIZATION_SERVER_PORT = process.env.AUTHORIZATION_SERVER_PORT
-const SERVICE_PORT = process.env.PORT
+const SERVICES_SERVER_PORT = process.env.SERVICES_SERVER_PORT
 
 const ENVIRONMENT = process.env.NODE_ENV
 
@@ -55,6 +55,8 @@ authorizationServer.listen(AUTHORIZATION_SERVER_PORT, () =>
     `AUTHORIZATION_SERVER:${ENVIRONMENT}/PORT:${AUTHORIZATION_SERVER_PORT}`
   )
 )
-usersApp.listen(SERVICE_PORT, () =>
-  console.log(`USERS_SERVER:${ENVIRONMENT}/PORT:${SERVICE_PORT}`)
+usersApp.listen(SERVICES_SERVER_PORT, () =>
+  console.log(
+    `SERVICES_SERVER_PORT:${ENVIRONMENT}/PORT:${SERVICES_SERVER_PORT}`
+  )
 )
