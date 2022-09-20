@@ -13,11 +13,20 @@ import {
   notImplemented
 } from "../middlewares"
 
+import { ALLOWED_ENVIRONMENTS } from "../utils/constants"
+
+const ENVIRONMENT = process.env.NODE_ENV
+
 const router = express.Router()
+
+const PUBLIC_PATH =
+  ENVIRONMENT === ALLOWED_ENVIRONMENTS["DEV"]
+    ? join(__dirname, "..", "..", "public", "uploads")
+    : join(__dirname, "..", "public", "uploads")
 
 const storage = multer.diskStorage({
   destination(req, file, callback) {
-    callback(null, join(__dirname, "..", "..", "public", "uploads"))
+    callback(null, PUBLIC_PATH)
   },
   filename(req, file, callback) {
     callback(null, `${ulid()}-${file.originalname}`)

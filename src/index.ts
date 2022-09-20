@@ -1,7 +1,6 @@
 import express from "express"
 
 import cors from "cors"
-import helmet from "helmet"
 
 import { config } from "dotenv"
 
@@ -27,7 +26,6 @@ const PUBLIC_FOLDER_PATH =
     ? express.static(join(__dirname, "..", "public"))
     : express.static(join(__dirname, "public"))
 
-authorizationServer.use(helmet())
 authorizationServer.set("views", join(__dirname, "views"))
 authorizationServer.set("view engine", "pug")
 authorizationServer.use(express.urlencoded({ extended: true }))
@@ -40,7 +38,6 @@ authorizationServer.use(createRedisIndex)
 authorizationServer.get("/", ({ res }) => res?.redirect("/auth"))
 authorizationServer.use(AuthRouter)
 
-usersApp.use(helmet())
 usersApp.use(cors())
 usersApp.use(express.urlencoded({ extended: true }))
 usersApp.use(express.json())
