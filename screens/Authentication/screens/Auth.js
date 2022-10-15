@@ -46,7 +46,8 @@ export function Auth() {
 
       if (type === "success") {
         const route = url?.replace(/.*?:\/\//g, "")
-        const [host, doubleDashes, refreshToken] = route.split("/")
+
+        const [_, __, refreshToken] = route.split("/")
 
         const response = await fetch(
           `${config.AUTHORIZATION_SERVER}auth/token`,

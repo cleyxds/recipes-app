@@ -7,9 +7,14 @@ import { isAndroid } from "../utils/constants"
 
 export function Screen({
   children,
+  noPadding = false,
   ignoreAndroidStatusBarHeight = isAndroid,
   ...props
 }) {
+  const parsePaddingTop = noPadding
+    ? 0
+    : getStatusBarHeight(ignoreAndroidStatusBarHeight)
+
   return (
     <View
       style={[
@@ -17,7 +22,7 @@ export function Screen({
         {
           flex: 1,
           backgroundColor: colors.BLACK_I,
-          paddingTop: getStatusBarHeight(ignoreAndroidStatusBarHeight)
+          paddingTop: parsePaddingTop
         }
       ]}
       {...props}

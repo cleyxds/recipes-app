@@ -1,7 +1,8 @@
-import { API_URL, AUTHORIZATION_SERVER, APP_SCHEMA } from "../../env"
+import { API_URL, AUTHORIZATION_SERVER, APP_SCHEMA, ENV } from "../../env"
 
 export default {
   API_URL,
   AUTHORIZATION_SERVER,
-  APP_SCHEMA
+  APP_SCHEMA,
+  ENV
 }

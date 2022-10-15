@@ -5,6 +5,7 @@ import { ActivityIndicator, StatusBar } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 
 import { useLocalFonts } from "./hooks"
+import { useStatusBarStatusStore } from "./stores/StatusBarState"
 
 import { StatusBarWrapper } from "./components"
 
@@ -16,13 +17,15 @@ import { isAndroid, isIOS } from "./utils/constants"
 export default function App() {
   const { fontsLoaded } = useLocalFonts()
 
+  const { color } = useStatusBarStatusStore()
+
   if (!fontsLoaded) {
     return <ActivityIndicator size="large" color={colors.PRODUCT_ORANGE} />
   }
 
   return (
     <NavigationContainer>
-      {isAndroid && <StatusBar backgroundColor={colors.BLACK_I} />}
+      {isAndroid && <StatusBar backgroundColor={color} />}
       {isIOS && <StatusBarWrapper />}
       <Routes />
     </NavigationContainer>

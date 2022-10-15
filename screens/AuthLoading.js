@@ -1,4 +1,6 @@
-import { useEffect } from "react"
+import { useCallback } from "react"
+
+import { useFocusEffect } from "@react-navigation/native"
 
 import { ActivityIndicator, StyleSheet, View } from "react-native"
 
@@ -17,52 +19,61 @@ export function AuthLoading({ navigation }) {
   const { setAuth } = useAuthStore()
   const { setUser } = useUserStore()
 
-  useEffect(() => {
-    async function getLocalAuth() {
-      const credentials = await getLocalUserCredentials()
+  useFocusEffect(
+    useCallback(() => {
+      async function getLocalAuth() {
+        try {
+          const credentials = await getLocalUserCredentials()
 
-      if (!!!credentials) return navigate("Walkthrough")
+          if (!!!credentials) throw new Error()
 
-      const refreshToken = credentials?.refreshToken
+          const refreshToken = credentials?.refreshToken
 
-      const response = await fetch(`${config.AUTHORIZATION_SERVER}auth/token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          token: refreshToken
-        })
-      })
+          const response = await fetch(
+            `${config.AUTHORIZATION_SERVER}auth/token`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                token: refreshToken
+              })
+            }
+          )
 
-      if (!response.ok) return navigate("Walkthrough")
+          if (!response.ok) throw new Error()
 
-      const data = await response.json()
+          const data = await response.json()
 
-      const userDataResponse = await fetch(`${config.API_URL}users/me`, {
-        headers: {
-          Authorization: `Bearer ${data?.accessToken}`
+          const userDataResponse = await fetch(`${config.API_URL}users/me`, {
+            headers: {
+              Authorization: `Bearer ${data?.accessToken}`
+            }
+          })
+
+          const userData = await userDataResponse.json()
+
+          const parsedContract = {
+            isAuthenticated: true,
+            accessToken: data?.accessToken,
+            refreshToken,
+            userId: userData?.id
+          }
+
+          await setLocalUserCredentials({ credentials: parsedContract })
+
+          await wait({ ms: 500 })
+          setUser(userData)
+          setAuth(parsedContract)
+        } catch (error) {
+          navigate("Walkthrough")
         }
-      })
-
-      const userData = await userDataResponse.json()
-
-      const parsedContract = {
-        isAuthenticated: true,
-        accessToken: data?.accessToken,
-        refreshToken,
-        userId: userData?.id
       }
 
-      await setLocalUserCredentials({ credentials: parsedContract })
-
-      await wait({ ms: 500 })
-      setUser(userData)
-      setAuth(parsedContract)
-    }
-
-    getLocalAuth()
-  }, [])
+      getLocalAuth()
+    }, [])
+  )
 
   return (
     <Screen>

@@ -32,34 +32,6 @@ export function Settings() {
   const { user, clearUser } = useUserStore()
   const { clearAuth } = useAuthStore()
 
-  const [isLoading, setIsLoading] = useState(false)
-
-  function getUserLanguage() {
-    return user?.locale ?? "Desconhecido"
-  }
-
-  async function handleSignOut() {
-    if (isLoading) return
-    setIsLoading(true)
-
-    await removeLocalUserCredentials()
-
-    await wait({ ms: 1000 })
-    setIsLoading(false)
-    clearAuth()
-    clearUser()
-  }
-
-  function handlePressItem({ item }) {
-    switch (item) {
-      case "logout":
-        return handleSignOut()
-
-      default:
-        return alert("Function not implemented")
-    }
-  }
-
   const options = [
     {
       action: "changePassword",
@@ -95,14 +67,64 @@ export function Settings() {
     }
   ]
 
-  function renderCards({ item }) {
+  const [isLoadingAtIndex, setIsLoadingAtIndex] = useState(() =>
+    options?.map(() => false)
+  )
+
+  function toggleLoadingAtIndex({ index }) {
+    setIsLoadingAtIndex(state => {
+      const clone = [...state]
+      clone[index] = !state[index]
+      return clone
+    })
+  }
+
+  function getUserLanguage() {
+    return user?.locale ?? "Desconhecido"
+  }
+
+  async function handleSignOut({ index }) {
+    if (isLoadingAtIndex[index]) return
+
+    toggleLoadingAtIndex({ index })
+
+    await removeLocalUserCredentials()
+
+    await wait({ ms: 1000 })
+    toggleLoadingAtIndex({ index })
+
+    clearAuth()
+    clearUser()
+  }
+
+  async function handleNotImplemented({ index }) {
+    if (isLoadingAtIndex[index]) return
+
+    toggleLoadingAtIndex({ index })
+
+    await wait({ random: true, maxRandomTime: 1000 })
+
+    toggleLoadingAtIndex({ index })
+  }
+
+  function handlePressItem({ item, index }) {
+    switch (item) {
+      case "logout":
+        return handleSignOut({ index })
+
+      default:
+        return handleNotImplemented({ index })
+    }
+  }
+
+  function renderCards({ item, index }) {
     const variation = item?.variation ?? "arrow"
 
     return (
       <View style={{ paddingVertical: 16, paddingHorizontal: 6, flex: 1 }}>
         <TouchableOpacity
           activeOpacity={DEFAULT_OPACITY}
-          onPress={() => handlePressItem({ item: item?.action })}
+          onPress={() => handlePressItem({ item: item?.action, index })}
         >
           <View
             style={{
@@ -122,7 +144,7 @@ export function Settings() {
               {item?.text}
             </Text>
 
-            {!isLoading && variation === "icon" && (
+            {!isLoadingAtIndex[index] && variation === "icon" && (
               <MaterialIcons
                 name={item?.iconName}
                 size={24}
@@ -130,12 +152,16 @@ export function Settings() {
               />
             )}
 
-            {isLoading && variation === "icon" && (
+            {isLoadingAtIndex[index] && variation === "icon" && (
               <ActivityIndicator size={24} color={colors.WHITE} />
             )}
 
-            {variation === "arrow" && (
+            {!isLoadingAtIndex[index] && variation === "arrow" && (
               <AntDesign name="right" size={24} color={colors.WHITE} />
+            )}
+
+            {isLoadingAtIndex[index] && variation === "arrow" && (
+              <ActivityIndicator size={24} color={colors.WHITE} />
             )}
 
             {variation === "text" && (

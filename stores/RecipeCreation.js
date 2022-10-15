@@ -27,5 +27,11 @@ export const useRecipeCreationStore = create(set => ({
     set(state => ({
       ...state,
       recipe
+    })),
+  clearRecipeCreation: () =>
+    set(state => ({
+      ...state,
+      steps: STEPS_DEFAULT_STATE,
+      recipe: DEFAULT_STATE
     }))
 }))

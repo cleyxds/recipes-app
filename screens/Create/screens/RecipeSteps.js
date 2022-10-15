@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import {
   ActivityIndicator,
@@ -13,7 +13,7 @@ import {
 
 import { Video, ResizeMode } from "expo-av"
 
-import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 
@@ -27,19 +27,22 @@ import { Screen } from "../../../components"
 
 import { colors, units, wait } from "../../../utils"
 import { config } from "../../../utils/constants"
+import { useStatusBarStatusStore } from "../../../stores/StatusBarState"
 
 const { DEFAULT_OPACITY } = units
 
 const { width, height } = Dimensions.get("window")
 
 export function RecipeSteps() {
-  const { navigate, goBack } = useNavigation()
+  const navigation = useNavigation()
+  const { navigate, goBack } = navigation
 
   const videoRef = useRef(null)
 
   const { recipe, steps, deleteStepByIndex, setRecipe } =
     useRecipeCreationStore()
   const { auth } = useAuthStore()
+  const { setStatusBarColor, resetStatusBarColor } = useStatusBarStatusStore()
 
   const [stepMethod, setStepMethod] = useState("")
   const [ingredients, setIngredients] = useState([])
@@ -67,6 +70,20 @@ export function RecipeSteps() {
       ]
     })
   }, [steps])
+
+  useFocusEffect(
+    useCallback(() => {
+      setStatusBarColor(colors.PRODUCT_ORANGE)
+    }, [])
+  )
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      resetStatusBarColor()
+    })
+
+    return unsubscribe
+  }, [navigation])
 
   function renderVideoClipCard({ item, index, list }) {
     const isLastIndex = index + 1 === list?.length
@@ -297,7 +314,7 @@ export function RecipeSteps() {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginTop: 32,
+            marginBottom: 32,
             paddingHorizontal: 16
           }}
         >

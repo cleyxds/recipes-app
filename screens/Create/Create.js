@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import {
   View,
   Text,
   TouchableOpacity,
   TextInput,
-  Dimensions
+  Dimensions,
+  StyleSheet
 } from "react-native"
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
@@ -37,7 +38,7 @@ export function Create() {
   const navigation = useNavigation()
   const { navigate, goBack } = navigation
 
-  const { setRecipe } = useRecipeCreationStore()
+  const { setRecipe, clearRecipeCreation } = useRecipeCreationStore()
 
   const [recipeName, setRecipeName] = useState(DEFAULT_STATE["RECIPE_NAME"])
   const [recipeCategory, setRecipeCategory] = useState(
@@ -67,17 +68,13 @@ export function Create() {
       ? `${recipeServings} pessoa`
       : `${recipeServings} pessoas`
 
-  /* useEffect(() => {
-    const blur = navigation.addListener("blur", () => {
-      setRecipeName(DEFAULT_STATE["RECIPE_NAME"])
-      setRecipeCategory(DEFAULT_STATE["RECIPE_CATEGORY"])
-      setRecipeServings(DEFAULT_STATE["SERVINGS"])
-      setRecipeDificulty(DEFAULT_STATE["DIFICULTY"])
-      setRecipeSummary(DEFAULT_STATE["SUMMARY"])
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      clearRecipeCreation()
     })
 
-    return blur
-  }, [navigation]) */
+    return unsubscribe
+  }, [navigation])
 
   function handleContinue() {
     const recipeCreated = {
@@ -94,8 +91,13 @@ export function Create() {
   }
 
   return (
-    <Screen>
-      <>
+    <Screen ignore>
+      <View
+        style={{
+          ...StyleSheet.absoluteFillObject,
+          backgroundColor: colors.BLACK_II
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -320,7 +322,7 @@ export function Create() {
             </Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
-      </>
+      </View>
     </Screen>
   )
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 
 import {
   ActivityIndicator,
@@ -8,11 +8,12 @@ import {
   View
 } from "react-native"
 
-import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
 
 import { Camera, CameraType } from "expo-camera"
 
 import { useRecipeCreationStore } from "../../../stores/RecipeCreation"
+import { useStatusBarStatusStore } from "../../../stores/StatusBarState"
 
 import {
   AntDesign,
@@ -29,6 +30,18 @@ export function RecipeRecord() {
   const { goBack } = useNavigation()
 
   const { steps, setSteps } = useRecipeCreationStore()
+  const { setStatusBarColor } = useStatusBarStatusStore()
+
+  async function adjustStatusBar() {
+    await wait({ ms: 0 })
+    setStatusBarColor(colors.PRODUCT_ORANGE)
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      adjustStatusBar()
+    }, [])
+  )
 
   const [isRecording, setIsRecording] = useState(false)
   const [type, setType] = useState(CameraType.back)
