@@ -133,12 +133,7 @@ export function Profile() {
               {!!user?.profile?.avatar_url && (
                 <OptimizedImage
                   isUpdating={isUploadingAvatarImage}
-                  source={{
-                    uri: user?.profile?.avatar_url?.replace(
-                      "http://localhost:3333/",
-                      config.API_URL
-                    )
-                  }}
+                  source={{ uri: user?.profile?.avatar_url }}
                   style={{ width: 128, height: 128, borderRadius: 9999 }}
                 />
               )}
