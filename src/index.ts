@@ -11,7 +11,7 @@ config({ path: ".env" })
 import { checkRedisConnection, createRedisIndex } from "./middlewares"
 import { AuthRouter, RecipeRouter, UserRouter } from "./routes"
 
-import { ALLOWED_ENVIRONMENTS } from "./utils/constants"
+import { isDevelopment } from "./utils/constants"
 
 const AUTHORIZATION_SERVER_PORT = process.env.AUTHORIZATION_SERVER_PORT
 const SERVICES_SERVER_PORT = process.env.SERVICES_SERVER_PORT
@@ -21,10 +21,9 @@ const ENVIRONMENT = process.env.NODE_ENV
 const authorizationServer = express()
 const usersApp = express()
 
-const PUBLIC_FOLDER_PATH =
-  ENVIRONMENT === ALLOWED_ENVIRONMENTS["DEV"]
-    ? express.static(join(__dirname, "..", "public"))
-    : express.static(join(__dirname, "public"))
+const PUBLIC_FOLDER_PATH = isDevelopment
+  ? express.static(join(__dirname, "..", "public"))
+  : express.static(join(__dirname, "public"))
 
 authorizationServer.set("views", join(__dirname, "views"))
 authorizationServer.set("view engine", "pug")

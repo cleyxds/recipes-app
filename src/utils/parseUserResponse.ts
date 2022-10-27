@@ -1,3 +1,5 @@
+import { isDevelopment } from "./constants"
+
 export function parseUserResponse(user) {
   const { entityId, profile, status, locale, avatar_url } = user
   return {
@@ -16,7 +18,9 @@ export function parseUserResponse(user) {
       login: profile[3],
       phone: profile[4],
       avatar_url: !!avatar_url
-        ? new URL(`http://localhost:3333/uploads/${avatar_url}`)
+        ? isDevelopment
+          ? new URL(`http://localhost:3333/uploads/${avatar_url}`)
+          : avatar_url
         : null
     },
     credentials: {

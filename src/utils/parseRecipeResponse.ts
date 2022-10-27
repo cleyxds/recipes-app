@@ -1,3 +1,5 @@
+import { isDevelopment } from "./constants"
+
 export function parseRecipeResponse(recipe) {
   function parseAssets({ assets }: { assets: any[] }) {
     if (!assets?.length) return null
@@ -6,7 +8,9 @@ export function parseRecipeResponse(recipe) {
       ?.map((item: string) => item.split(","))
       .map(item => ({
         type: item[0],
-        url: new URL(`http://localhost:3333/uploads/${item[1]}`)
+        url: isDevelopment
+          ? new URL(`http://localhost:3333/uploads/${item[1]}`)
+          : new URL(item[1])
       }))
 
     return parsedAssets

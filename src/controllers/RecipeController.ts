@@ -84,7 +84,7 @@ export default {
 
     const parsedAssetsData = req.files?.map(item => {
       const [type] = item?.mimetype.split("/")
-      return [type, item?.filename]
+      return [type, item?.path]
     })
 
     const repo = req.client.fetchRepository(RecipeSchema)

@@ -240,11 +240,13 @@ export default {
     try {
       const user = await repo.fetch(id)
 
-      user.avatar_url = req.file?.filename
+      user.avatar_url = req.file?.path
 
       await repo.save(user)
 
-      res.json({ ...parseUserResponse(user), _ts: Date.now() })
+      const userAfterUpdate = await repo.fetch(id)
+
+      res.json({ ...parseUserResponse(userAfterUpdate), _ts: Date.now() })
     } catch (error) {
       res.status(500).json({ error, errors: ["uploadAvatar()"] })
     }
