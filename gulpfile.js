@@ -25,6 +25,7 @@ async function handleViewsFolder() {
 
 async function handleProjectFiles() {
   gulp.src("./package.json").pipe(gulp.dest("build"))
+  gulp.src("./gcs.config.json").pipe(gulp.dest("build"))
 }
 
 async function handleUploadsFolderCreation() {

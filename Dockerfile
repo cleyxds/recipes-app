@@ -30,11 +30,11 @@ EXPOSE 4444
 
 CMD yarn start
 
-# docker build -t cleyxds/barbosarecipes-api:v1.3.5 .
+# docker build -t cleyxds/barbosarecipes-api:v1.4.0 .
 
-# docker run -dti -p 3333:3333 -p 4444:4444 -v ${PWD}/public/uploads:/usr/share/app/public/uploads --env-file dev.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.3.5
-#🌟 docker run -dti -p 3333:3333 -p 4444:4444 -v ${PWD}/public/uploads:/usr/share/app/public/uploads --env-file prod.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.3.5
+# docker run -dti -p 3333:3333 -p 4444:4444 -v ${PWD}/public/uploads:/usr/share/app/public/uploads --env-file dev.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.4.0
+#🌟 docker run -dti -p 3333:3333 -p 4444:4444 --env-file prod.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.4.0
 
-# docker tag cleyxds/barbosarecipes-api:v1.3.5 gcr.io/recipes-app-360601/barbosarecipes-api:v1.3.5
+# docker tag cleyxds/barbosarecipes-api:v1.4.0 gcr.io/recipes-app-360601/barbosarecipes-api:v1.4.0
 
 # DONT FORGET THE ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, AUTHORIZATION_SERVER_PORT and SERVICE_PORT environment variables
