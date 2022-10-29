@@ -1,4 +1,4 @@
-import { Keyboard, TouchableWithoutFeedback, View } from "react-native"
+import { View } from "react-native"
 
 import { getStatusBarHeight } from "react-native-status-bar-height"
 
@@ -27,9 +27,7 @@ export function Screen({
       ]}
       {...props}
     >
-      <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
-        {!!children ? children : <View />}
-      </TouchableWithoutFeedback>
+      {!!children ? children : <View />}
     </View>
   )
 }

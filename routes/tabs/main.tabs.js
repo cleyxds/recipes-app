@@ -10,6 +10,7 @@ import { HomeStack } from "../stacks/home.stack"
 import { SearchStack } from "../stacks/search.stack"
 import { ProfileStack } from "../stacks/profile.stack"
 import { CreateStack } from "../stacks/create.stack"
+import { ShoppingStack } from "../stacks/shopping.stack"
 
 import {
   AntDesign,
@@ -149,7 +150,7 @@ export function MainTabs() {
           }
         })}
       />
-      <Screen name="T.Shopping" component={BlankTab} />
+      <Screen name="T.Shopping" component={ShoppingStack} />
       <Screen name="T.Profile" component={ProfileStack} />
     </Navigator>
   )
