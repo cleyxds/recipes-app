@@ -10,11 +10,13 @@ import { isDevelopment } from "./constants"
 
 const PUBLIC_PATH = join(__dirname, "..", "..", "public", "uploads")
 
-const handleUploadCloud = new MulterGoogleCloudStorage({
-  filename: (req, file, callback) => {
-    callback(null, `images/${ulid()}-${file.originalname}`)
-  }
-})
+const handleUploadCloud = isDevelopment
+  ? null
+  : new MulterGoogleCloudStorage({
+      filename: (req, file, callback) => {
+        callback(null, `images/${ulid()}-${file.originalname}`)
+      }
+    })
 
 const handleUploadLocal = multer.diskStorage({
   destination: (req, file, callback) => {
