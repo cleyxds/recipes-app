@@ -141,7 +141,7 @@ export default {
 
     res.render("register", {
       title: "Barbosa Receitas | Cadastro",
-      registerEndpoint: `http://192.168.0.113:3333/users?redirectUrl=${redirectUrl}`
+      registerEndpoint: `http://192.168.1.106:3333/users?redirectUrl=${redirectUrl}`
     })
   },
   redirectCallback: async (req: Request, res: Response, next: NextFunction) => {
@@ -185,11 +185,11 @@ export default {
 
       const storedRefreshToken = await req.client.get(`RefreshToken:${email}`)
 
-      const DEFAULT_REDIRECT_SCHEMA = "exp://192.168.0.106:19000/--/"
+      const DEFAULT_REDIRECT_SCHEMA = "exp://192.168.0.106:19000"
 
       function parseRedirectUrl({ redirectUrl }) {
-        if (!!redirectUrl) return redirectUrl + storedRefreshToken
-        return DEFAULT_REDIRECT_SCHEMA + storedRefreshToken
+        if (!!redirectUrl) return redirectUrl + "?token=" + storedRefreshToken
+        return DEFAULT_REDIRECT_SCHEMA + "?token=" + storedRefreshToken
       }
 
       res.redirect(parseRedirectUrl({ redirectUrl }))

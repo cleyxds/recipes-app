@@ -1,5 +1,15 @@
 import { isDevelopment } from "./constants"
 
+function getAvatarUrl(avatar_url) {
+  if (avatar_url) {
+    return isDevelopment
+      ? new URL(`http://192.168.1.106:3333/uploads/${avatar_url}`)
+      : avatar_url
+  }
+
+  return null
+}
+
 export function parseUserResponse(user) {
   const { entityId, profile, status, locale, avatar_url } = user
   return {
@@ -17,11 +27,7 @@ export function parseUserResponse(user) {
       email: profile[2],
       login: profile[3],
       phone: profile[4],
-      avatar_url: !!avatar_url
-        ? isDevelopment
-          ? new URL(`http://localhost:3333/uploads/${avatar_url}`)
-          : avatar_url
-        : null
+      avatar_url: getAvatarUrl(avatar_url)
     },
     credentials: {
       provider: "Express-Server"
