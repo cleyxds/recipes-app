@@ -23,5 +23,6 @@ router.put(
 router.put("/recipes/:id", authenticateToken, RecipeController["update"])
 router.get("/recipes/mine", authenticateToken, RecipeController["mine"])
 router.get("/recipes", adminOnlyRoute, RecipeController["fetchAll"])
+router.get("/recipes/search", RecipeController["search"])
 
 export { router }

@@ -100,5 +100,31 @@ export default {
     } catch (error) {
       res.status(500).json({ error, errors: ["uploadAvatar()"] })
     }
+  },
+  search: async (req: Request, res: Response, next: NextFunction) => {
+    const q = req.query.q
+
+    const repo = req.client.fetchRepository(RecipeSchema)
+
+    try {
+      const recipesQueryResult = await repo
+        .search()
+        .where("title")
+        .eq(`${q}*`)
+        .or("description")
+        .match(`${q}*`)
+        .or("summary")
+        .match(`${q}*`)
+        .return.all()
+
+      const parsedRecipes = recipesQueryResult?.map(item =>
+        parseRecipeResponse(item)
+      )
+
+      res.json(parsedRecipes)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ error, errors: ["search()"] })
+    }
   }
 }
