@@ -8,29 +8,32 @@ html
     link(href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&family=Montserrat:wght@500;700&family=Poppins&display=swap" rel="stylesheet")
     title= title
   body(class="bg-black")
-    header(class="w-screen h-14 px-1 bg-white flex items-center absolute top-0")
-      img(class="h-12 mr-3", src="/images/image.png", alt="Logomarca")
-      p(class="font-[Montserrat] font-bold ") Barbosa Recipes
+    script(src="js/mask.js", defer)
+
+    header(class="w-screen h-14 px-4 bg-white flex items-center absolute top-0")
+      a(href="/", class="flex items-center")
+        img(class="h-12 mr-3", src="/images/image.png", alt="Logomarca")
+        p(class="font-[Montserrat] font-bold") Barbosa Recipes
 
     main(class="flex justify-center items-center min-h-screen px-5")
 
-      div(class="flex flex-col items-center w-screen")
-        p(class="text-white mb-6 font-bold font-[Montserrat] text-4xl") Cadastro
+      div(class="flex flex-col items-center w-screen md:w-1/2")
+        h2(class="text-white mb-6 font-bold font-[Montserrat] text-4xl") Cadastro
 
         form(class="flex flex-col space-y-4 w-11/12",action= registerEndpoint, method="POST") 
 
-          div(class="flex justify-between space-x-2")
-            div(class="flex flex-1 flex-col space-y-1 max-w-[45.83%]")
+          div(class="flex gap-4 flex-wrap")
+            div(class="flex flex-1 flex-col space-y-1")
               label(for="firstName-input-I", class="text-white font-[Poppins] text-sm") Nome
               input(id="firstName-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="firstName", type="text", required, placeholder="Seu primeiro nome")
 
-            div(class="flex flex-1 flex-col space-y-1 max-w-[45.83%]")
-              label(for="firstName-input-I", class="text-white font-[Poppins] text-sm") Sobrenome
-              input(id="firstName-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="lastName", type="text", required, placeholder="Seu sobrenome")
+            div(class="flex flex-1 flex-col space-y-1")
+              label(for="firstName-input-II", class="text-white font-[Poppins] text-sm") Sobrenome
+              input(id="firstName-input-II", class="py-2 px-3 rounded font-[Montserrat]", name="lastName", type="text", required, placeholder="Seu sobrenome")
 
-            div(class="flex flex-1 flex-col space-y-1 max-w-[45.83%]")
-              label(for="phone-input-I", class="text-white font-[Poppins] text-sm") Celular
-              input(id="phone-input-I", class="py-2 px-3 rounded font-[Montserrat]", name="phone", type="tel", required, placeholder="Seu celular")
+            div(class="flex flex-1 flex-col space-y-1")
+              label(for="phone-input-III", class="text-white font-[Poppins] text-sm") Celular
+              input(id="phone-input-III", class="py-2 px-3 rounded font-[Montserrat]", data-js="input", name="phone", type="text", required, placeholder="Seu celular")
 
           div(class="flex flex-col space-y-1")
             label(for="email-input-I", class="text-white font-[Poppins] text-sm") E-mail

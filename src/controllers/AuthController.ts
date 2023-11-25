@@ -8,6 +8,7 @@ import { UserSchema } from "../models"
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
+const API_SERVER_URL = process.env.API_SERVER_URL ?? "http://192.168.1.106:3333"
 
 export default {
   login: async (req: Request, res: Response, next: NextFunction) => {
@@ -141,7 +142,7 @@ export default {
 
     res.render("register", {
       title: "Barbosa Receitas | Cadastro",
-      registerEndpoint: `http://192.168.1.106:3333/users?redirectUrl=${redirectUrl}`
+      registerEndpoint: `${API_SERVER_URL}/users?redirectUrl=${redirectUrl}`
     })
   },
   redirectCallback: async (req: Request, res: Response, next: NextFunction) => {
