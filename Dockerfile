@@ -37,4 +37,9 @@ CMD yarn start
 
 # docker tag cleyxds/barbosarecipes-api:v1.4.2 gcr.io/recipes-app-360601/barbosarecipes-api:v1.4.2
 
+# 🌟NEW🌟 docker tag cleyxds/barbosarecipes-api:v1.4.2 us-central1-docker.pkg.dev/recipes-app-360601/barbosarecipes-api/barbosarecipes-api:v1.4.2
+
 # DONT FORGET THE ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, AUTHORIZATION_SERVER_PORT, API_SERVER_URL and SERVICE_PORT environment variables
+
+# PUSH
+# docker push us-central1-docker.pkg.dev/recipes-app-360601/barbosarecipes-api/barbosarecipes-api:v1.4.2
