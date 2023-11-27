@@ -9,8 +9,8 @@
     "start": "node index.js",
     "clean": "gulp del-build",
     "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/styles.css",
-    "use:dev": "gulp set --env=dev",
-    "use:prod": "gulp set --env=prod"
+    "use:dev": "cp envs/.env.dev .env",
+    "use:prod": "cp envs/.env.prod .env"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

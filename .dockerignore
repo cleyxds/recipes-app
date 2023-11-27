@@ -7,5 +7,7 @@ build/
 nodemon.*
 *.md
 
+# Environment
 .env
 .env.*
+envs/

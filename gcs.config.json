@@ -1,7 +1,13 @@
 {
-  "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
-  "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
-  "quota_project_id": "recipes-app-360601",
-  "refresh_token": "1//0hCTDYKv-Lgq5CgYIARAAGBESNwF-L9IrWV_PFZf95yOmgRBB5jbOt9MKtrJ11sv2VJbVy_gHpbTmVq0xySu60B6OVB1iuA1lHgg",
-  "type": "authorized_user"
+  "type": "service_account",
+  "project_id": "recipes-app-360601",
+  "private_key_id": "0ad6ac58545123862ca1171efcfe1e9f771f87e7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCu/NzqeExtpY3k\nzlDi5WSCPRh/zm5wWvfd9xhSts79LxYIQYMDI+FnuW/a0dxypCe8Qm319bsRaBYA\n/obqog/M6dxV544ww3kl18wFeGhc64BNc+wm2u2FJg+FPwiT53jV0fwehAIriGuy\nG79JevRyByoks4oM/4+3KhxCE9fAT3a5gR5hzq4zf4Y0+Y4c6o922UgGyl1aUPNk\nI4uFf+TtAhbBW85PpB5ke9KNsBqPzv/iUp2tK3hC/pRCM84BW53jYhi5U9RThcX+\nt+WMYbNTajboNgV+x9fbSGNR+LZA58PS3jZit9USLO7V0TYyjwfIuHG3OjUfUnRA\n6KK+5gfNAgMBAAECggEAKmpNbCITuIIoFj1yOsVKqwz/Gr+hYmeSbEGgKjB4lMMs\njny+smyojtlShRJYYotqvEXH3JYfLXVy2/PWJRp6RPustj/l5ekDvQoFQJAyj89f\nrqZ6J+LqLtuOaIhiXmN9lSqMd6Mc2Yt8O1RhdgCxLtCQxQul20e5ALda2SNxKQJS\n1L243sg9tgNKJ+X1AnY0aY6ssaqgglOi8UT6fBxeb5p7KBRwvHRM7QeNPpqKDggb\nYcFPH9HVyeexkfCRQLzYFwYgjL682X0FbNd/JmT9tQp4gnnNgzxgWnmvpHlvLHQJ\nNgXjYnlLyxugJBO/BWLdvgi5C5RBNqxTAnUyuXQ2gQKBgQDpjBFaBT8xbR8Z0DV2\nVondbVkwuBpfeFSjaI6sSmq0YHUotYuSjMNivE72uWlYBH06AT1xpuXWIouV25mq\nE94D3Uvm8a2kalhUHKngrP+ESkS0u6/8w6b0mPoverbQ0vMEE619wMaaZLGKjYkx\nqcHtQNIF8aBhqLywCoRW6JmBjQKBgQC/z5Bf5gfN9bclM33W76t26//2TDVmTYEz\n//+XdbJSRVJ1kzZ65xzSKit8B3ZQT0FHw0564f0vY8ug4aPxg5hjWsscqa2XMslO\nPPZrE+auqyi5AdZL8obU83Pao9L415zgp0P483mRkKMKGxRkA/sBjcAhM48YuFGe\nrvJ6k8BvQQKBgGJFBagTPRvXBpcd/ODmWOxK7pSJYs95GmQHwsDML0nmrGWMvkXT\n5QLOqYs3SRQ4D1kw3GHOEDeiIYnU9TuTUH/fxehPGPltpez+gpx/LqTDe1VxBAQf\nb0jMdbk0sWf82zSD8yRO0UJ1zB64n1m+TFNASx8lJI7zKTIJutW22aChAoGAR/yK\nXrNiMnYJajjM/aGtZFBmG/W2BNMJro5hSmKtrhq+O8ooJDAgrO+OqlnSmYllIp22\nEoBGGUcG4TZN5RJSWtd0aylzMM+qpWZTxRQO+3bZLbX2y0IWQE2uKVxajXG+OsIL\nzJ7z/SGfTuei23Zy+b5NYSiMh+aFG1zlPAO/sQECgYAEWBbxl8KWxic8UG0xS9n1\nh3Cf9yybq4t16gAO9h59AwB6xPePwZLPZohdJbDp4ZHTATJjKcccqbdlHKz3OVCW\nPSE01BkZPfnAGL0eWkEURJoCIQN8HZFFVRCuf2v5oIXye9nMdzMMCS0UFaut3tD2\ntx4K/u50emK2pupTqAIkCg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "barbosa-recipes-api-multer@recipes-app-360601.iam.gserviceaccount.com",
+  "client_id": "117640388831414734821",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/barbosa-recipes-api-multer%40recipes-app-360601.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
 }

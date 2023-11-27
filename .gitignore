@@ -17,7 +17,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # environment variables
+envs/
 .env
+gcs.config.json
 
 # script files
 scripts
