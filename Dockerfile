@@ -30,16 +30,16 @@ EXPOSE 4444
 
 CMD yarn start
 
-# docker build -t cleyxds/barbosarecipes-api:v1.4.2 .
+# docker build -t cleyxds/barbosarecipes-api:v1.4.2.1 .
 
-# docker run -dti -p 3333:3333 -p 4444:4444 -v ${PWD}/public/uploads:/usr/share/app/public/uploads --env-file dev.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.4.2
-#🌟 docker run -dti -p 3333:3333 -p 4444:4444 --env-file prod.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.4.2
+# docker run -dti -p 3333:3333 -p 4444:4444 -v ${PWD}/public/uploads:/usr/share/app/public/uploads --env-file dev.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.4.2.1
+#🌟 docker run -dti -p 3333:3333 -p 4444:4444 --env-file prod.env --name barbosarecipes-api cleyxds/barbosarecipes-api:v1.4.2.1
 
-# docker tag cleyxds/barbosarecipes-api:v1.4.2 gcr.io/recipes-app-360601/barbosarecipes-api:v1.4.2
+# docker tag cleyxds/barbosarecipes-api:v1.4.2.1 gcr.io/recipes-app-360601/barbosarecipes-api:v1.4.2.1
 
-# 🌟NEW🌟 docker tag cleyxds/barbosarecipes-api:v1.4.2 us-central1-docker.pkg.dev/recipes-app-360601/barbosarecipes-api/barbosarecipes-api:v1.4.2
+# 🌟NEW🌟 docker tag cleyxds/barbosarecipes-api:v1.4.2.1 us-central1-docker.pkg.dev/recipes-app-360601/barbosarecipes-api/barbosarecipes-api:v1.4.2.1
 
 # DONT FORGET THE ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, AUTHORIZATION_SERVER_PORT, API_SERVER_URL and SERVICE_PORT environment variables
 
 # PUSH
-# docker push us-central1-docker.pkg.dev/recipes-app-360601/barbosarecipes-api/barbosarecipes-api:v1.4.2
+# docker push us-central1-docker.pkg.dev/recipes-app-360601/barbosarecipes-api/barbosarecipes-api:v1.4.2.1
