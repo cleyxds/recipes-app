@@ -6,7 +6,7 @@
   "scripts": {
     "build": "sucrase src -d build --transforms imports,typescript && gulp postbuild",
     "dev": "nodemon src/index.ts",
-    "start": "node index.js",
+    "start": "node build/index.js",
     "clean": "gulp del-build",
     "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/styles.css",
     "use:dev": "cp envs/.env.dev .env",

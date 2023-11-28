@@ -10,6 +10,12 @@ const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 const API_SERVER_URL = process.env.API_SERVER_URL ?? "http://192.168.1.106:3333"
 
+const USER_ERROR_CODE = {
+  MISSING_EMAIL_PASSWORD: "MISSING_EMAIL_OR_PASSWORD",
+  USER_NOT_FOUND: "USER_NOT_FOUND",
+  PASSWORD_DONT_MATCH: "PASSWORD_DONT_MATCH"
+}
+
 export default {
   login: async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body
@@ -149,7 +155,12 @@ export default {
     const { email, password } = req.body
     const { redirectUrl } = req.query
 
-    if (!email || !password) return res.redirect("/auth/login?error=true")
+    if (!email || !password)
+      return redirectWithError(
+        res,
+        redirectUrl,
+        USER_ERROR_CODE.MISSING_EMAIL_PASSWORD
+      )
 
     try {
       const repo = req.client.fetchRepository(UserSchema)
@@ -160,11 +171,21 @@ export default {
         .contain(email)
         .return.first()
 
-      if (!user) return res.redirect("/auth/login?error=true")
+      if (!user)
+        return redirectWithError(
+          res,
+          redirectUrl,
+          USER_ERROR_CODE.USER_NOT_FOUND
+        )
 
       const success = await compare(password, user?.credentials[0])
 
-      if (!success) return res.redirect("/auth/login?error=true")
+      if (!success)
+        return redirectWithError(
+          res,
+          redirectUrl,
+          USER_ERROR_CODE.PASSWORD_DONT_MATCH
+        )
 
       const refreshTokenAlreadyExists = await req.client.execute([
         "EXISTS",
@@ -213,4 +234,8 @@ export function generateAccessToken({
     }),
     expiresAt: Date.now() + 1800000
   }
+}
+
+function redirectWithError(response, redirectUrl, errorCode) {
+  response.redirect(redirectUrl + `?error=true&code=${errorCode}`)
 }
